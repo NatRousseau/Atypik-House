@@ -1,0 +1,32 @@
+{
+  "name": "atp_api",
+  "version": "0.1.0",
+  "description": "RESTful ATP_API",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js --dev",
+    "test": "echo\"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/N.Rousseau/atypikhouse.git"
+  },
+  "author": "RNL",
+  "license": "ISC",
+  "dependencies": {
+    "address": "^1.1.2",
+    "async": "^3.2.0",
+    "bcrypt": "^5.0.0",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "nodemon": "^2.0.7",
+    "pg": "^8.5.1",
+    "postgres": "^1.0.2"
+  },
+  "bugs": {
+    "url": "https://gitlab.com/N.Rousseau/atypikhouse/issues"
+  },
+  "homepage": "https://gitlab.com/N.Rousseau/atypikhouse#readme"
+}
