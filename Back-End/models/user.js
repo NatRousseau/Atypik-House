@@ -48,14 +48,6 @@ User.getUser = function () {
 };
 
 User.getUserByMail = function (mail) {
-    // return database.raw(
-    //     "SELECT usr_id " +
-    //     "FROM public.users " +
-    //     "WHERE usr_mail = '@mail'",
-    //     {
-    //         mail
-    //     }
-    // );
     return database.select('usr_id').from('public.users').where('usr_mail', mail)
 };
 // =========================    DELETE  ========================= //

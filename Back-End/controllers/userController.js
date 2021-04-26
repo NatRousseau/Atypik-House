@@ -41,7 +41,6 @@ module.exports = {
             return res.status(400).json({ 'error': 'Mot de passe non valide ( 4 caracteres min , 1 chiffre , 1 maj , 1 min).' });
         }
 
-        console.log(user.usr_mail);
         async.waterfall([
             function (next) {
                 User.getUserByMail(user.usr_mail)
@@ -65,16 +64,13 @@ module.exports = {
                 user.usr_password = hashedPassword;
                 User.createUser(user.usr_mail, user.usr_password)
                     .then(result => {
-                        console.log('coucou')
-                        console.log(result.rowCount)
                         if (result.rowCount === 1) {
-                            user.usr_id = result.recordset[0].usr_id;
-                            next(null, user);
+                            return res.status(200).json({ 'succes': 'Reussite de l\'enregistrement.' });
                         } else throw Error(result);
                     })
                     .catch(error => {
                         console.error(error);
-                        return res.status(500).json({ 'Erreur': 'Erreur lors de l\'enregistrement.' });
+                        return res.status(500).json({ 'error': 'Erreur lors de l\'enregistrement.' });
                     });
             }
         ],
