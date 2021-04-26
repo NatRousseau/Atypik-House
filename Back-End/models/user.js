@@ -12,13 +12,6 @@ var User = function (user) {
 // =========================    CREATE  ========================= //
 
 User.createUser = function (mail, password) {
-    // return database.raw(
-    //     "INSERT INTO public.users(usr_mail,usr_password) VALUES('" + mail + "', '" + password + "')",
-    //     {
-    //         mail,
-    //         password
-    //     },
-    // );
     return database.insert([{usr_mail: mail, usr_password: password}]).into('public.users')
 };
 

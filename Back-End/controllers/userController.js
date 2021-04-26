@@ -12,7 +12,6 @@ module.exports = {
     // =========================    CREATE  ========================= //
 
     register: function (req, res) {
-        console.log(req.body);
         var user = new User(req.body);
 
         if (user.usr_mail == null
