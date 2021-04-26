@@ -40,14 +40,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavbarComponent } from './navbar/navbar.component';
 import { AccueilComponent } from './accueil/accueil.component';
 import { RouterModule, Routes } from '@angular/router';
-import { ConnexionComponent } from './connexion/connexion.component';
+import { connectionComponent } from './user-connection/connection.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { InscriptionComponent } from './inscription/inscription.component';
+import { IregisterComponent } from './user-register/register.component';
 
 const routes: Routes = [
   {path: 'accueil', component:AccueilComponent },
-  {path: 'connexion', component:ConnexionComponent},
-  {path: 'inscription', component:InscriptionComponent}
+  {path: 'connexion', component:connectionComponent},
+  {path: 'inscription', component:IregisterComponent}
 ];
 
 @NgModule({
@@ -55,8 +55,8 @@ const routes: Routes = [
     AppComponent,
     NavbarComponent,
     AccueilComponent,
-    ConnexionComponent,
-    InscriptionComponent
+    connectionComponent,
+    IregisterComponent
   ],
   imports: [
     RouterModule.forRoot(routes),

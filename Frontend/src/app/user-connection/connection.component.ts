@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import {NavbarComponent} from '../navbar/navbar.component';
-import { AuthContextService } from '../_services/AuthContext/auth-context.service';
+import { userService } from '../_services/User/user.service';
 
 
 @Component({
@@ -10,12 +10,12 @@ import { AuthContextService } from '../_services/AuthContext/auth-context.servic
   templateUrl: './connexion.component.html',
   styleUrls: ['./connexion.component.scss']
 })
-export class ConnexionComponent implements OnInit {
+export class connectionComponent implements OnInit {
   hide = true;
   isAuth: Boolean;
   signInForm: FormGroup;
   errorMessage: string;
-  constructor(private fB: FormBuilder , public auth: AuthContextService ) { }
+  constructor(private fB: FormBuilder , public auth: userService ) { }
 
   ngOnInit(): void {
     this.initForm();

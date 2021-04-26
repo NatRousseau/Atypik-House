@@ -5,7 +5,7 @@ import { AppComponent } from 'src/app/app.component';
 @Injectable({
     providedIn: 'root',
 })
-export class AuthContextService {
+export class userService {
 
   isAuth: boolean = true;
 
