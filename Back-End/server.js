@@ -1,17 +1,21 @@
-var address = require('address');
-var express = require('express');
-var server = express();
+const bodyParser = require('body-parser');
+const express = require('express')
+const server = express()
+const database = require("./configs/database");
+const morgan = require("morgan");
+const { port } = require("./configs/config");
 
+server.use(morgan("common"));
 
-port = process.env.PORT || 4500;
+server.get("/healthz", function(req, res) {
+    // do app logic here to determine if app is truly healthy
+    // you should return 200 if healthy, and anything else will fail
+    // if you want, you should be able to restrict this to localhost (include ipv4 and ipv6)
+    res.send("I am happy and healthy\n");
+  });
 
-server.listen(port);
+// --------------- BODY PARSER ---------------
 
-console.log('todo list RESTful API server started on: ' + port);
-
-//==========        BODY PARSER     ==========
-
-var bodyParser = require('body-parser');
 server.use(bodyParser.json({
     limit: '9000mb'
 }));
@@ -20,20 +24,13 @@ server.use(bodyParser.urlencoded({
     limit: '9000mb'
 }));
 
-
-
 //==========        LAUNCH      ===========
 
-var port = process.env.PORT || 450;
-var hostname = '0.0.0.0' || '127.0.0.1';
-server.listen(port, hostname, function () {
-    console.log('Server launched on ' + hostname + ":" + port);
-});
+server.listen(port, function() {
+    console.log("Webserver is ready on " +port);
+  });
 
 //==========        ROUTES      ==========
 
-server.get('/', function (req, res) {
-    res.setHeader('Content-Type', 'text/html');
-    res.status(200).send('ATP Rest API - ' + address.ip());
-});
 require('./routes/userRoutes')(server);
+

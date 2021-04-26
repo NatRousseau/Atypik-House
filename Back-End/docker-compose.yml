@@ -3,7 +3,7 @@ services:
   postgres:
     image: postgres:12.1
     ports:
-      - 5432:5432
+      - 49174:5432
     environment:
       POSTGRES_USER: atplead
       POSTGRES_PASSWORD: atprnl

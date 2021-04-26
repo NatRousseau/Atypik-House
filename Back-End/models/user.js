@@ -1,4 +1,4 @@
-var modelsUtils = require('../utils/models.utils.js');
+const database = require("../configs/database");
 
 var User = function (user) {
     this.usr_id = user.id;
@@ -11,27 +11,15 @@ var User = function (user) {
 
 // =========================    CREATE  ========================= //
 
-User.createUser = function (user) {
-    return modelsUtils.promise(
-        "INSERT INTO AtypikHouse-BDD.users(usr_mail,usr_password) " +
-        "OUTPUT Inserted.usr_id " +
-        "VALUES(" +
-        "@password," +
-        "@mail" +
-        ")",
-        {
-            password: user.usr_password,
-            mail: user.usr_mail
-
-        }
-    );
+User.createUser = function (mail, password) {
+    return database.insert([{usr_mail: mail, usr_password: password}]).into('public.users')
 };
 
 // =========================    UPDATE  ========================= //
 
 User.updateUser = function (user) {
-    return modelsUtils.promise(
-        "UPDATE AtypikHouse-BDD.users SET " +
+    return (
+        "UPDATE public.users SET " +
         "usr_mail = @mail, " +
         "usr_password = @password " +
         "WHERE usr_id = @userId",
@@ -46,27 +34,20 @@ User.updateUser = function (user) {
 
 // =========================    GET  ========================= //
 User.getUser = function () {
-    return modelsUtils.promise(
+    return (
         "SELECT usr_id as id, usr_mail as mail, usr_password as password " +
-        "FROM AtypikHouse-BDD.users"
+        "FROM public.users"
     )
 };
 
 User.getUserByMail = function (mail) {
-    return modelsUtils.promise(
-        "SELECT usr_id " +
-        "FROM AtypikHouse-BDD.users " +
-        "WHERE usr_mail = @mail",
-        {
-            mail
-        }
-    );
+    return database.select('usr_id').from('public.users').where('usr_mail', mail)
 };
 // =========================    DELETE  ========================= //
 
 User.deleteUser = function (userId) {
-    return modelsUtils.promise(
-        "EXEC AtypikHouse-BDD.deleteUserById @userId",
+    return (
+        "EXEC public.deleteUserById @userId",
         {
             userId
         }
