@@ -39,16 +39,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavbarComponent } from './navbar/navbar.component';
 import { AccueilComponent } from './accueil/accueil.component';
-import { RouterModule, Routes } from '@angular/router';
 import { connectionComponent } from './user-connection/connection.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { IregisterComponent } from './user-register/register.component';
-
-const routes: Routes = [
-  {path: 'accueil', component:AccueilComponent },
-  {path: 'connexion', component:connectionComponent},
-  {path: 'inscription', component:IregisterComponent}
-];
+import { registerComponent } from './user-register/register.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -56,13 +50,13 @@ const routes: Routes = [
     NavbarComponent,
     AccueilComponent,
     connectionComponent,
-    IregisterComponent
+    registerComponent
   ],
   imports: [
-    RouterModule.forRoot(routes),
     ReactiveFormsModule,
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     MatButtonModule,
     MatButtonToggleModule,

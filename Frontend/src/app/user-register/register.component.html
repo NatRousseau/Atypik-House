@@ -1,11 +1,12 @@
 <div class="example-container">
 
-    <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
-        <mat-form-field appearance="fill">
-            <mat-label>Email</mat-label>
-            <input matInput placeholder="Entrer votre e-mail" formControlName="email" required>
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit(registerForm.value)">
 
+        <mat-form-field appearance="fill">
+            <mat-label>Mail</mat-label>
+            <input matInput placeholder="Enter your mail" formControlName="mail" required>
         </mat-form-field>
+
         <mat-form-field appearance="fill">
             <mat-label>Enter your password</mat-label>
             <input formControlName="password" matInput [type]="hide ? 'password' : 'text'">
@@ -14,6 +15,6 @@
                 <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
             </button>
         </mat-form-field>
-        <button mat-raised-button color="primary" type="submit">Se connecter</button>
+        <button mat-raised-button color="primary" type="submit" [disabled]="registerForm.invalid" >Register</button>
     </form>
 </div>
