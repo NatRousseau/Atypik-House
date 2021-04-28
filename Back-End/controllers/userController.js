@@ -44,7 +44,6 @@ module.exports = {
             function (next) {
                 User.getUserByMail(user.usr_mail)
                     .then(result => {
-                        console.log(result)
                         if (result.length>0) { // User already exist
                             return res.status(400).json({ 'error': 'Adresse mail déjà utilisée.' });
                         } else { // mail free
@@ -59,7 +58,7 @@ module.exports = {
                         return res.status(500).json({ 'error': 'Inscription impossible.' });
                     });
             },
-            function (hashedPassword, next) {
+            function (hashedPassword) {
                 user.usr_password = hashedPassword;
                 User.createUser(user.usr_mail, user.usr_password)
                     .then(result => {

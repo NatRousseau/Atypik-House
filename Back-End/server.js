@@ -1,4 +1,5 @@
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const express = require('express')
 const server = express()
 const database = require("./configs/database");
@@ -7,12 +8,19 @@ const { port } = require("./configs/config");
 
 server.use(morgan("common"));
 
-server.get("/healthz", function(req, res) {
-    // do app logic here to determine if app is truly healthy
-    // you should return 200 if healthy, and anything else will fail
-    // if you want, you should be able to restrict this to localhost (include ipv4 and ipv6)
-    res.send("I am happy and healthy\n");
-  });
+// --------------- CORS ---------------
+
+const whitelist = [
+  'http://localhost:4200'
+];
+server.options('*', cors());
+server.use(cors((req, callback) => {
+  const corsOptions =
+      (whitelist.indexOf(req.header('Origin')) !== -1)
+          ? { origin: true } : { origin: false };
+  callback(null, corsOptions);
+}));
+
 
 // --------------- BODY PARSER ---------------
 
