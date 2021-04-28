@@ -2,20 +2,20 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import {NavbarComponent} from '../navbar/navbar.component';
-import { AuthContextService } from '../_services/AuthContext/auth-context.service';
+import { UserService } from '../_services/User/user.service';
 
 
 @Component({
-  selector: 'app-connexion',
-  templateUrl: './connexion.component.html',
-  styleUrls: ['./connexion.component.scss']
+  selector: 'app-connection',
+  templateUrl: './connection.component.html',
+  styleUrls: ['./connection.component.scss']
 })
-export class ConnexionComponent implements OnInit {
+export class connectionComponent implements OnInit {
   hide = true;
   isAuth: Boolean;
-  signInForm: FormGroup;
+  registerForm: FormGroup;
   errorMessage: string;
-  constructor(private fB: FormBuilder , public auth: AuthContextService ) { }
+  constructor(private fB: FormBuilder , public auth: UserService ) { }
 
   ngOnInit(): void {
     this.initForm();
@@ -23,7 +23,7 @@ export class ConnexionComponent implements OnInit {
   }
 
   initForm() {
-    this.signInForm = this.fB.group(
+    this.registerForm = this.fB.group(
       {
         email: ['', [Validators.required, Validators.email]],
         password: ['', [Validators.required, Validators.pattern(/[0-9a-zA-Z]{6,}/)]]
@@ -33,8 +33,8 @@ export class ConnexionComponent implements OnInit {
 
   
   onSubmit() {
-    const email = this.signInForm.get('email').value;
-    const password = this.signInForm.get('password').value
+    const email = this.registerForm.get('email').value;
+    const password = this.registerForm.get('password').value
     console.log(email,password)
     this.isAuth = true;
     //this.auth.user = email + " " + password;

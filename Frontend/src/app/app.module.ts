@@ -39,30 +39,24 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavbarComponent } from './navbar/navbar.component';
 import { AccueilComponent } from './accueil/accueil.component';
-import { RouterModule, Routes } from '@angular/router';
-import { ConnexionComponent } from './connexion/connexion.component';
+import { connectionComponent } from './user-connection/connection.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { InscriptionComponent } from './inscription/inscription.component';
-
-const routes: Routes = [
-  {path: 'accueil', component:AccueilComponent },
-  {path: 'connexion', component:ConnexionComponent},
-  {path: 'inscription', component:InscriptionComponent}
-];
+import { registerComponent } from './user-register/register.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     AccueilComponent,
-    ConnexionComponent,
-    InscriptionComponent
+    connectionComponent,
+    registerComponent
   ],
   imports: [
-    RouterModule.forRoot(routes),
     ReactiveFormsModule,
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     MatButtonModule,
     MatButtonToggleModule,
