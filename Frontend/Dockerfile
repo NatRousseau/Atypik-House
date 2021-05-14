@@ -16,4 +16,4 @@ FROM development AS builder
 CMD ["ng", "build"]
 
 FROM nginx:1.13-alpine
-COPY --from=builder project/dist/atypikhouse /usr/share/nginx/html
+COPY --from=builder /project/dist/atypikhouse /usr/share/nginx/html
