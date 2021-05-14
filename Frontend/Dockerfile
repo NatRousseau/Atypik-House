@@ -1,4 +1,4 @@
-FROM node:10 AS development
+FROM node:10 AS build
 
 WORKDIR /project
 COPY package.json /project/package.json
@@ -9,11 +9,7 @@ RUN npm ci
 
 COPY . /project
 
-CMD ["ng", "serve"]
-
-FROM development AS builder
-
-CMD ["ng", "build"]
+RUN ng build
 
 FROM nginx:1.13-alpine
-COPY --from=builder /project/dist/atypikhouse /usr/share/nginx/html
+COPY --from=build project/dist/atypikhouse /usr/share/nginx/html
