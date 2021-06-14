@@ -38,14 +38,16 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavbarComponent } from './navbar/navbar.component';
-import { AccueilComponent } from './accueil/accueil.component';
+
 import { RouterModule, Routes } from '@angular/router';
 import { ConnexionComponent } from './connexion/connexion.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { InscriptionComponent } from './inscription/inscription.component';
+import { HomeComponent } from './home/home.component';
+import { NgStyle } from '@angular/common';
 
 const routes: Routes = [
-  {path: 'accueil', component:AccueilComponent },
+  {path: '',  component: HomeComponent},
   {path: 'connexion', component:ConnexionComponent},
   {path: 'inscription', component:InscriptionComponent}
 ];
@@ -53,10 +55,10 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent,
-    AccueilComponent,
+    NavbarComponent,    
     ConnexionComponent,
-    InscriptionComponent
+    InscriptionComponent,
+    HomeComponent
   ],
   imports: [
     RouterModule.forRoot(routes),

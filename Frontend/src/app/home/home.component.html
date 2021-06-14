@@ -1,0 +1,14 @@
+<div style=" width:50%;margin: 0 auto">
+
+    <mat-grid-list style="width: 350px; margin :auto" cols=" 2" rowHeight="100px">
+        <mat-grid-tile *ngFor="let tile of tiles; let index = index" [colspan]="tile.cols" [rowspan]="tile.rows"
+            [style.background]="tile.color">
+
+            <b *ngIf="index == 0" style="color: white;">{{tile.text}}</b>
+            <button *ngIf="index == 1" mat-raised-button>{{tile.text}}</button>
+            <button *ngIf=" index==2" style="color: white;border: 3px solid white;"
+                mat-stroked-button>{{tile.text}}</button>
+        </mat-grid-tile>
+    </mat-grid-list>
+
+</div>
