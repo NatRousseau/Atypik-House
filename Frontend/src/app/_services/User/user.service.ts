@@ -1,16 +1,18 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { AppComponent } from 'src/app/app.component';
+import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
-@Injectable({
-    providedIn: 'root',
-})
-export class AuthContextService {
+@Injectable({ providedIn: 'root'})
+export class UserService {
 
   isAuth: boolean = true;
 
-  user: string = "";
-    constructor(public rt: Router) {}
+    constructor(
+      public rt: Router,
+      private http: HttpClient
+      ) {}
 
   emitUser() {
     //this.app.user = this.user
@@ -19,6 +21,12 @@ export class AuthContextService {
   getLocalUser() {
    // let user = this.app.user;
    // return user;
+  }
+
+  register(user): Observable<any> {
+    console.log(user.mail);
+    
+    return this.http.post(environment.API_URL + `/register`, user);
   }
 
   connectUser(email:string,password:string) {

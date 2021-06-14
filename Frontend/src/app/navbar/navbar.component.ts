@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AuthContextService } from '../_services/AuthContext/auth-context.service';
+import { UserService } from '../_services/User/user.service';
 
 @Component({
   selector: 'app-navbar',
@@ -8,7 +8,7 @@ import { AuthContextService } from '../_services/AuthContext/auth-context.servic
 })
 export class NavbarComponent implements OnInit {
   user = localStorage.getItem('User');
-  constructor(public auth: AuthContextService) { }
+  constructor(public auth: UserService) { }
 
   
 

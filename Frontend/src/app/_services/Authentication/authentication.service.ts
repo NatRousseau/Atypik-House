@@ -3,7 +3,7 @@ export async function connecte(mail: string, password: string) {
         method: "GET"
      
     };
-    const response = await fetch("http://localhost:450/connexion/"+ mail + "/" + password, requestOptions);
+    const response = await fetch("http://localhost:450/connection/"+ mail + "/" + password, requestOptions);
     const user = await response.json();
     return user;
 }

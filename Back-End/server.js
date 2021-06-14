@@ -1,17 +1,29 @@
-var address = require('address');
-var express = require('express');
-var server = express();
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const express = require('express')
+const server = express()
+const database = require("./configs/database");
+const morgan = require("morgan");
+const { port } = require("./configs/config");
+
+server.use(morgan("common"));
+
+// --------------- CORS ---------------
+
+const whitelist = [
+  'http://localhost:4200'
+];
+server.options('*', cors());
+server.use(cors((req, callback) => {
+  const corsOptions =
+      (whitelist.indexOf(req.header('Origin')) !== -1)
+          ? { origin: true } : { origin: false };
+  callback(null, corsOptions);
+}));
 
 
-port = process.env.PORT || 4500;
+// --------------- BODY PARSER ---------------
 
-server.listen(port);
-
-console.log('todo list RESTful API server started on: ' + port);
-
-//==========        BODY PARSER     ==========
-
-var bodyParser = require('body-parser');
 server.use(bodyParser.json({
     limit: '9000mb'
 }));
@@ -20,20 +32,13 @@ server.use(bodyParser.urlencoded({
     limit: '9000mb'
 }));
 
-
-
 //==========        LAUNCH      ===========
 
-var port = process.env.PORT || 450;
-var hostname = '0.0.0.0' || '127.0.0.1';
-server.listen(port, hostname, function () {
-    console.log('Server launched on ' + hostname + ":" + port);
-});
+server.listen(port, function() {
+    console.log("Webserver is ready on " +port);
+  });
 
 //==========        ROUTES      ==========
 
-server.get('/', function (req, res) {
-    res.setHeader('Content-Type', 'text/html');
-    res.status(200).send('ATP Rest API - ' + address.ip());
-});
 require('./routes/userRoutes')(server);
+
