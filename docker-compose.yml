@@ -1,0 +1,48 @@
+version: "3.7"
+services:
+  backend:
+    build: Back-End
+    command: npm run start
+    ports:
+      - 4500:4500
+    volumes:
+      - ./Back-End/src:/code/src:ro
+      - ./Back-End/package.json:/code/package.json
+      - ./Back-End/package-lock.json:/code/package-lock.json
+    networks:
+      - ATP-Front
+      - ATP-Back
+    depends_on:
+      - db
+  db:
+    image: postgres:12.1
+    ports:
+      - 49174:5432
+    environment:
+      POSTGRES_USER: atplead
+      POSTGRES_PASSWORD: atprnl
+      POSTGRES_DB: AtypikHouse
+    restart: always
+    volumes:
+      - db-data:/var/lib/postgres
+    networks:
+      - ATP-Back
+  frontend:
+    build:
+      context: Frontend
+      target: builder
+    ports:
+      - 4200:4200
+    volumes:
+      - ./Frontend:/project
+      - ./Frontend/package.json:/project/package.json
+      - ./Frontend/package-lock.json:/project/package-lock.json
+    networks:
+      - ATP-Front
+    depends_on:
+      - backend
+networks:
+  ATP-Front:
+  ATP-Back:
+volumes:
+  db-data:
