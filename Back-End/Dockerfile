@@ -18,4 +18,4 @@ HEALTHCHECK --interval=30s \
 
 COPY . /code
 
-CMD [ "node", "src/server.js" ]
+CMD [ "node", "server.js" ]
