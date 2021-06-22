@@ -40,31 +40,31 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavbarComponent } from './navbar/navbar.component';
 
 import { RouterModule, Routes } from '@angular/router';
-import { ConnexionComponent } from './connexion/connexion.component';
+
 import { ReactiveFormsModule } from '@angular/forms';
-import { InscriptionComponent } from './inscription/inscription.component';
+
 import { HomeComponent } from './home/home.component';
 import { NgStyle } from '@angular/common';
+import { registerComponent } from './user-register/register.component';
+import { connectionComponent } from './user-connection/connection.component';
+import { HttpClientModule } from '@angular/common/http';
 
-const routes: Routes = [
-  {path: '',  component: HomeComponent},
-  {path: 'connexion', component:ConnexionComponent},
-  {path: 'inscription', component:InscriptionComponent}
-];
+
+const routes: Routes = [];
 
 @NgModule({
   declarations: [
+
     AppComponent,
-    NavbarComponent,    
-    ConnexionComponent,
-    InscriptionComponent,
+    NavbarComponent,
+    connectionComponent,
+    registerComponent,
     HomeComponent
   ],
   imports: [
     ReactiveFormsModule,
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule,
     BrowserAnimationsModule,
     MatButtonModule,
     MatButtonToggleModule,
@@ -92,10 +92,12 @@ const routes: Routes = [
     MatToolbarModule,
     MatTabsModule,
     MatTreeModule,
-    MatTooltipModule
+    MatTooltipModule,
+    RouterModule.forRoot(routes),
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { 
+export class AppModule {
 }
