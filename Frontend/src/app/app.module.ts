@@ -38,25 +38,33 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavbarComponent } from './navbar/navbar.component';
-import { AccueilComponent } from './accueil/accueil.component';
-import { connectionComponent } from './user-connection/connection.component';
+
+import { RouterModule, Routes } from '@angular/router';
+
 import { ReactiveFormsModule } from '@angular/forms';
+
+import { HomeComponent } from './home/home.component';
+import { NgStyle } from '@angular/common';
 import { registerComponent } from './user-register/register.component';
+import { connectionComponent } from './user-connection/connection.component';
 import { HttpClientModule } from '@angular/common/http';
+
+
+const routes: Routes = [];
 
 @NgModule({
   declarations: [
+
     AppComponent,
     NavbarComponent,
-    AccueilComponent,
     connectionComponent,
-    registerComponent
+    registerComponent,
+    HomeComponent
   ],
   imports: [
     ReactiveFormsModule,
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule,
     BrowserAnimationsModule,
     MatButtonModule,
     MatButtonToggleModule,
@@ -84,10 +92,12 @@ import { HttpClientModule } from '@angular/common/http';
     MatToolbarModule,
     MatTabsModule,
     MatTreeModule,
-    MatTooltipModule
+    MatTooltipModule,
+    RouterModule.forRoot(routes),
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { 
+export class AppModule {
 }
