@@ -17,7 +17,7 @@ export class registerComponent implements OnInit {
   constructor(
     private fB: FormBuilder,
     private snackbar: SnackBarService,
-    private userService: UserService, 
+    private userService: UserService,
     ) { }
 
   private _onError(error) {
@@ -41,15 +41,14 @@ export class registerComponent implements OnInit {
   get password(){
     return this.registerForm.get('password')
   }
-  
+
   onSubmit(registerUserFormData) {
-    
+
     const user = {
 			mail: registerUserFormData.mail,
 			password: registerUserFormData.password
 		};
-    console.log(user);
-    
+
     this.snackbar.openSnackBar('Sauvegarde en cours ...', 'ok', 1500);
 
     this.userService.register(user).subscribe(
@@ -61,8 +60,8 @@ export class registerComponent implements OnInit {
 			},
 			this._onError
 		);
-  
+ 
 
-    
+
   }
 }
