@@ -1,20 +1,26 @@
-<div class="example-container">
+<div class="example-container register-container">
 
-    <form [formGroup]="registerForm" (ngSubmit)="onSubmit(registerForm.value)">
+    <form [formGroup]="registerForm" class="register-form" (ngSubmit)="onSubmit(registerForm.value)">
+        <img src=" /assets/images/Group_1.png" class="form-logo">
+        <div class="form-text">Inscription</div>
+        <div class="form-field">
+            <mat-form-field appearance="fill">
+                <mat-label>Entrez votre adresse mail</mat-label>
+                <input matInput placeholder="Enter your mail" formControlName="mail" required>
+            </mat-form-field>
 
-        <mat-form-field appearance="fill">
-            <mat-label>Mail</mat-label>
-            <input matInput placeholder="Enter your mail" formControlName="mail" required>
-        </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Entrez votre mot de passe</mat-label>
+                <input formControlName="password" matInput [type]="hide ? 'password' : 'text'">
+                <button type="button" mat-icon-button matSuffix (click)="hide = !hide"
+                    [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+            </mat-form-field>
+            <div style="margin-left: 50px;"><button mat-raised-button style="background-color: #339e33; color: white;"
+                    type="submit" [disabled]="registerForm.invalid">S'inscricre</button>
+            </div>
+        </div>
 
-        <mat-form-field appearance="fill">
-            <mat-label>Enter your password</mat-label>
-            <input formControlName="password" matInput [type]="hide ? 'password' : 'text'">
-            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-                [attr.aria-pressed]="hide">
-                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-            </button>
-        </mat-form-field>
-        <button mat-raised-button color="primary" type="submit" [disabled]="registerForm.invalid" >Register</button>
     </form>
 </div>

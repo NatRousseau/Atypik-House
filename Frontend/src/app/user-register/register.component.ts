@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { SnackBarService } from '../_services/SnackBar/snack-bar.service';
 import { UserService } from '../_services/User/user.service';
 
@@ -18,6 +19,7 @@ export class registerComponent implements OnInit {
     private fB: FormBuilder,
     private snackbar: SnackBarService,
     private userService: UserService, 
+    private rt: Router
     ) { }
 
   private _onError(error) {
@@ -63,6 +65,6 @@ export class registerComponent implements OnInit {
 		);
   
 
-    
+    this.rt.navigate(["/"])
   }
 }

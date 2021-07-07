@@ -1,0 +1,31 @@
+@font-face {
+    font-family: "gothic_sans_ms";
+    src: url("/assets/Police_Ecriture/GOTHIC.TTF");
+}
+@font-face {
+    font-family: "gothic_bold";
+    src: url("/assets/Police_Ecriture/GOTHICB.TTF");
+}
+.example-container {
+    background-color: white;
+}
+
+.title {
+    text-align: center;
+    font-family: "gothic_sans_ms";
+    font-style: normal;
+    font-weight: bold;
+    font-size: 35px;
+    line-height: 43px;
+
+    color: #000000;
+}
+
+.search-field {
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    width: 200px;
+    border-radius: 50px;
+    font-size: 50px;
+}
