@@ -11,7 +11,7 @@ server.use(morgan("common"));
 // --------------- CORS ---------------
 
 const whitelist = [
-  '127.0.0.1'
+  'http://localhost:4200'
 ];
 server.options('*', cors());
 server.use(cors((req, callback) => {
