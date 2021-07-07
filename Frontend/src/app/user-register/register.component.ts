@@ -62,9 +62,9 @@ export class registerComponent implements OnInit {
 				else this._onError
 			},
 			this._onError
-		);
+		); 
   
 
-    this.rt.navigate(["/"])
+    //this.rt.navigate(["/"])
   }
 }
