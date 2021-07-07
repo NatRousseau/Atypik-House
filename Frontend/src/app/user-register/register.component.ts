@@ -37,6 +37,14 @@ export class registerComponent implements OnInit {
       })
   }
 
+  getErrorMessage() {
+    if (this.registerForm.hasError('required')) {
+      return 'You must enter a value';
+    }
+
+    return this.registerForm.hasError('email') ? 'Not a valid email' : '';
+  }
+
   get mail(){
     return this.registerForm.get('mail')
   }
@@ -65,6 +73,6 @@ export class registerComponent implements OnInit {
 		); 
   
 
-    //this.rt.navigate(["/"])
+    this.rt.navigate(["/"])
   }
 }
