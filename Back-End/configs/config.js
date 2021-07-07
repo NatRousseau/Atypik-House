@@ -3,7 +3,7 @@ const fs = require("fs");
 // Constants
 module.exports = {
   database: {
-    host:"185.171.202.192",
+    host:"127.0.0.1",
     port: 49174,
     database: 'AtypikHouse',
     user: 'atplead',
