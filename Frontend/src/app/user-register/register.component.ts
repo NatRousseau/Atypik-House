@@ -73,6 +73,6 @@ export class registerComponent implements OnInit {
 		); 
   
 
-    //this.rt.navigate(["/"])
+    this.rt.navigate(["/"])
   }
 }
