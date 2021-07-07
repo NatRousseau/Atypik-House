@@ -5,10 +5,11 @@
         <div class="form-text">Inscription</div>
         <div class="form-field">
             <mat-form-field appearance="fill">
-                <mat-label>Entrez votre adresse mail</mat-label>
+                <mat-label>Saisissez votre adresse mail</mat-label>
                 <input matInput placeholder="Enter your mail" formControlName="mail" required>
 
             </mat-form-field>
+
             <div class="error-input" *ngIf="registerForm.get('mail').errors && 
             !registerForm.get('mail').hasError('required')">format d'adresse mail invalid</div>
             <div class="error-input"
@@ -16,13 +17,14 @@
                 saisir une adresse mail</div>
 
             <mat-form-field appearance="fill">
-                <mat-label>Entrez votre mot de passe</mat-label>
+                <mat-label>Saisissez votre mot de passe</mat-label>
                 <input formControlName="password" matInput [type]="hide ? 'password' : 'text'" required>
                 <button type="button" mat-icon-button matSuffix (click)="hide = !hide"
                     [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                     <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                 </button>
             </mat-form-field>
+            <div>* -Le mot de passe doit contenir 4 caractéres au minimum</div>
             <div class="error-input" *ngIf="registerForm.get('password').errors && 
             !registerForm.get('password').hasError('required')">format du mot de passe incorrect</div>
             <div class="error-input" *ngIf="registerForm.get('password').errors && 
