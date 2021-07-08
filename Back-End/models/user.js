@@ -6,6 +6,9 @@ var User = function (user) {
     this.usr_password = user.password;
     this.usr_firstName = user.firstName;
     this.usr_lastName = user.lastName;
+    this.usr_access_token = user.access_token;
+    this.usr_refresh_token = user.refresh_token;
+    this.usr_expires_in = user.expires_in;
 };
 
 
@@ -42,6 +45,11 @@ User.createUser = function (mail, password) {
 
 User.getUserByMail = function (mail) {
     return database.select('usr_id').from('public.users').where('usr_mail', mail)
+};  
+
+User.getUserIsLogin = function (mail){
+    console.log(mail);
+    return database.select('usr_id','usr_password','usr_mail').from('public.users').where('usr_mail', mail)
 };
 // =========================    DELETE  ========================= //
 

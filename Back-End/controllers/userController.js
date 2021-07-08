@@ -78,7 +78,79 @@ module.exports = {
 
 
     // =========================    GET  ========================= //
+    
+    login: function (req, res) {
+        const dataLogin = req.body;
 
+        console.log(dataLogin);
+
+        if (dataLogin.mail == null
+            || dataLogin.password == null
+            ) {
+                console.log(dataLogin.mail,dataLogin.password);
+            return res.status(400).json({ 'error': 'Paramètres manquants.' });
+        }
+        
+        async.waterfall([
+            function (next) {
+                User.getUserIsLogin(dataLogin.mail)
+                    .then(result => {
+                        if (result.rowsAffected[0] === 1) {
+                            user = new User(result.recordset[0]);
+                            next(null, user);
+                        } else {
+                            return res.status(404).json({ 'error': 'L\'utilisateur n\'existe pas.' });
+                        }
+                    })
+                    .catch(error => {
+                        console.error(error);
+                        return res.status(500).json({ 'error': 'Impossible de vérifier les identifiants.' });
+                    });
+            },
+            function (datas, next) {
+                bcrypt.compare(dataLogin.usr_password, datas.usr_password, (err, test) => {
+                    if (err) {
+                        console.error('Erreur lors de la verification du mot de passe.');
+                        console.error(err);
+                        return res.status(500).json({ 'error': 'Identifiants non reconnus.' });
+                    }
+                    else if (!err && test === true) {
+                        next(null, datas);                                                      //ordre ?
+                    }
+                    else {
+                        return res.status(404).json({ 'error': 'Identifiants non reconnus.' });
+                    }
+                });
+            },
+            function (datas, next) {
+                dataLogin.usr_access_token = jwtUtils.generateTokenForUser(datas);
+                dataLogin.usr_refresh_token = jwtUtils.generateupdateTokenForUser();
+                dataLogin.usr_expires_in = jwtUtils.getExpiresIn();
+                User.updateAuthToken(datas)
+                    .then(result => {
+                        if (result.rowsAffected[0] === 1) {
+                            next(datas, null);
+                        } else {
+                            return res.status(498).json({ 'error': 'Identifiants non reconnus.' });
+                        }
+                    })
+                    .catch(error => {
+                        console.error(error);
+                        return res.status(500).json({ 'error': 'Erreur lors de l\'attribution de token.' });
+                    });
+            }],
+            function (datas) {
+                return res.status(200).json({
+                    'userId': datas.usr_id,
+                    'userMail': datas.usr_email,
+                    // 'userFirstName': datas.pro_firstName,
+                    // 'userLastName': datas.pro_lastName,
+                    'access_token': datas.usr_access_token,
+                    'refresh_token': datas.usr_refresh_token
+                });
+            }
+        );
+    },
 
     // =========================    DELETE  ========================= //
 
