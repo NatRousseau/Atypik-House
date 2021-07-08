@@ -6,29 +6,35 @@
         <div class="form-field">
             <mat-form-field appearance="fill">
                 <mat-label>Saisissez votre adresse mail</mat-label>
-                <input matInput placeholder="Enter your mail" formControlName="mail" required>
+                <input (change)="handleOnChangeMail()" matInput placeholder="Enter your mail" formControlName="mail"
+                    required>
 
             </mat-form-field>
 
             <div class="error-input" *ngIf="registerForm.get('mail').errors && 
             !registerForm.get('mail').hasError('required')">format d'adresse mail invalid</div>
-            <div class="error-input"
-                *ngIf=" registerForm.get('mail').errors && registerForm.get('mail').hasError('required')">Vous devez
-                saisir une adresse mail</div>
+            <mat-error class="error-input"
+                *ngIf="registerForm.get('mail').errors && registerForm.get('mail').hasError('required') && isTouchedMail > 0">
+                Vous devez
+                saisir une adresse mail
+            </mat-error>
 
             <mat-form-field appearance="fill">
                 <mat-label>Saisissez votre mot de passe</mat-label>
-                <input formControlName="password" matInput [type]="hide ? 'password' : 'text'" required>
+                <input (change)="handleOnChangePassword()" formControlName="password" matInput
+                    [type]="hide ? 'password' : 'text'" required>
                 <button type="button" mat-icon-button matSuffix (click)="hide = !hide"
                     [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                     <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                 </button>
             </mat-form-field>
-            <div>* -Le mot de passe doit contenir 4 caractéres au minimum</div>
+            <div>* Le mot de passe doit contenir: <br> -4 caractéres au minimum <br> -Une majuscule <br> -Un chiffre
+            </div>
             <div class="error-input" *ngIf="registerForm.get('password').errors && 
             !registerForm.get('password').hasError('required')">format du mot de passe incorrect</div>
             <div class="error-input" *ngIf="registerForm.get('password').errors && 
-                registerForm.get('password').hasError('required')">Vous devez saisir un mot de passe</div>
+                registerForm.get('password').hasError('required')  && isTouchedPassword > 0">Vous devez saisir un mot
+                de passe</div>
             <div style="margin-left: 50px;"><button mat-raised-button style="background-color: #339e33; color: white;"
                     type="submit" [disabled]="registerForm.invalid">S'inscrire</button>
             </div>

@@ -12,7 +12,8 @@ import { UserService } from '../_services/User/user.service';
 export class registerComponent implements OnInit {
 
   hide = true;
-
+  isTouchedMail:number = 0;
+  isTouchedPassword:number= 0;
   registerForm: FormGroup;
   errorMessage: string;
   constructor(
@@ -37,6 +38,13 @@ export class registerComponent implements OnInit {
       })
   }
 
+  handleOnChangeMail() {
+    this.isTouchedMail++;
+    console.log(this.isTouchedMail)
+  }
+  handleOnChangePassword() {
+    this.isTouchedPassword++;
+  }
   getErrorMessage() {
     if (this.registerForm.hasError('required')) {
       return 'You must enter a value';
