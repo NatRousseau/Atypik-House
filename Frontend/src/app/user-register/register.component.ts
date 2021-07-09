@@ -16,6 +16,7 @@ export class registerComponent implements OnInit {
   isTouchedPassword:number= 0;
   registerForm: FormGroup;
   errorMessage: string;
+  signUpSuccess: boolean= false;
   constructor(
     private fB: FormBuilder,
     private snackbar: SnackBarService,
