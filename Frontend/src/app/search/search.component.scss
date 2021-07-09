@@ -8,6 +8,9 @@
 }
 .example-container {
     background-color: white;
+    min-height: 100vh;
+    height: fit-content;
+    padding-top: 30px;
 }
 
 .title {
@@ -20,11 +23,67 @@
 
     color: #000000;
 }
-
-.search-field {
+.search-field-group {
+    margin-top: 40px;
+    width: 100%;
+    justify-content: center;
     display: flex;
-    margin-left: auto;
-    margin-right: auto;
-    width: full;
-    border-radius: 50px;
+}
+.search-field {
+    width: 60%;
+
+    border-radius: 20%;
+}
+
+.annoucement {
+    display: flex;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+.annoucement-presentation {
+    line-height: 43px;
+    margin-left: 20px;
+    font-family: "gothic_sans_ms";
+    font-style: normal;
+    font-weight: normal;
+    font-size: 35px;
+}
+
+.annoucement-presentation-under {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 25px;
+    line-height: 31px;
+    /* identical to box height */
+
+    /* Gris clair */
+
+    color: #7d7d7d;
+}
+.annoucement-image {
+    width: 200px;
+    height: 200px;
+}
+
+.annoucement-hr {
+    width: 1720px;
+    height: 0px;
+    left: 100px;
+
+    /* Gris clair */
+
+    border: 2px solid #7d7d7d;
+}
+::ng-deep .mat-focused .mat-form-field-label {
+    /*change color of label*/
+    color: green !important;
+}
+
+::ng-deep.mat-form-field-underline {
+    /*change color of underline*/
+    background-color: green !important;
+}
+::ng-deep.mat-form-field-ripple {
+    /*change color of underline when focused*/
+    background-color: green !important;
 }
