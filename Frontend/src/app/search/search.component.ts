@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import {MatBadgeModule} from '@angular/material/badge';
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
