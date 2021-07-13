@@ -16,7 +16,7 @@ module.exports = {
                 expiresIn: EXPIRES_IN
             })
     },
-    getTokkenExpiresIn: function () {
+    getTokenExpiresIn: function () {
         return EXPIRES_IN;
     },
     // parseAuthorization: function (authorization) {
