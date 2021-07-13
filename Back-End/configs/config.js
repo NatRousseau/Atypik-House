@@ -4,6 +4,7 @@ const fs = require("fs");
 module.exports = {
   database: {
     host:"185.171.202.192",
+    //host:"localhost",
     port: 49174,
     database: 'AtypikHouse',
     user: 'atplead',
