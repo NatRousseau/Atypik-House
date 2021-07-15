@@ -48,6 +48,7 @@ import { NgStyle } from '@angular/common';
 import { registerComponent } from './user-register/register.component';
 import { connectionComponent } from './user-connection/connection.component';
 import { HttpClientModule } from '@angular/common/http';
+import { SearchComponent } from './search/search.component';
 
 
 const routes: Routes = [];
@@ -58,7 +59,8 @@ const routes: Routes = [];
     NavbarComponent,
     connectionComponent,
     registerComponent,
-    HomeComponent
+    HomeComponent,
+    SearchComponent
   ],
   imports: [
     ReactiveFormsModule,

@@ -14,7 +14,7 @@ export interface Tile {
 })
 export class HomeComponent implements OnInit {
   tiles: Tile[] = [
-    {text: 'Votre site de location atypique', cols: 2, rows: 1},
+    {text: 'Votre site de location de logement atypique', cols: 2, rows: 1},
     
     {text: 'Une location ?', cols: 1, rows: 1 },
     {text: 'Un bien à louer', cols: 1, rows: 1},
