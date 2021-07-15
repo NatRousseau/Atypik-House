@@ -1,14 +1,63 @@
-<div style=" width:50%;margin: 0 auto">
+<div style=" width:50%;margin: 0 auto;">
 
-    <mat-grid-list style="width: 350px; margin :auto" cols=" 2" rowHeight="100px">
+    <img class="logo" src="/assets/images/Group_1.png" />
+    <mat-grid-list class="mat-grid" cols=" 2" rowHeight="100px">
         <mat-grid-tile *ngFor="let tile of tiles; let index = index" [colspan]="tile.cols" [rowspan]="tile.rows"
             [style.background]="tile.color">
 
-            <b *ngIf="index == 0" style="color: white;">{{tile.text}}</b>
-            <button *ngIf="index == 1" mat-raised-button>{{tile.text}}</button>
-            <button *ngIf=" index==2" style="color: white;border: 3px solid white;"
+            <h1 *ngIf="index == 0" class="title-h1">{{tile.text}}
+            </h1>
+            <button *ngIf="index == 1" style="margin-right: 2px;" mat-raised-button>{{tile.text}}</button>
+            <button *ngIf=" index==2" style="color: white;border: 3px solid white; margin-left: 2px;"
                 mat-stroked-button>{{tile.text}}</button>
         </mat-grid-tile>
     </mat-grid-list>
 
+    <div class="presentation">
+        <h2> Atypik House c'est quoi ?</h2>
+        <p style="font-size: 25px;"> Atypik House est une plateforme vous permettant de louer ou mettre en location un
+            logement aypique</p>
+        <hr>
+    </div>
+
+</div>
+<div class="band">
+    <div> Découvrez nos locations à la une:</div>
+</div>
+
+<div style=" width:50%;margin: auto; margin-bottom: 10%; margin-top: 50px; justify-content: center; display: flex;">
+    <mat-grid-list cols="2" rowHeight="300px" style="width: 800px;">
+        <mat-grid-tile class="squarre" style="background-image: url('/assets/images/image 2.png');">
+        </mat-grid-tile>
+        <mat-grid-tile class="squarre" style="box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.5);">
+            <div class="squarre-presentation">
+                <div class="squarre-icon">
+                    <img src=" /assets/images/image 7.png" alt="">
+                </div>
+                <p class="squarre-texte">Retrouvez tout les logements proches de la plage</p>
+                <button mat-raised-button color="primary" class="squarre-bouton">Voir Plus</button>
+            </div>
+
+        </mat-grid-tile>
+        <mat-grid-tile class="squarre" style="box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.5);">
+            <div class="squarre-presentation">
+                <div class="squarre-icon">
+                    <img src=" /assets/images/image 6.png" alt="">
+                </div>
+                <p class="squarre-texte">Retrouvez tout les logements dans les montagnes</p>
+                <button mat-raised-button color="primary" class="squarre-bouton">Voir Plus</button>
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile class="squarre" style="background-image: url('/assets/images/image 3.png');">4</mat-grid-tile>
+        <mat-grid-tile class="squarre" style="background-image: url('/assets/images/image 4.png');">5</mat-grid-tile>
+        <mat-grid-tile class="squarre" style="box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.5);">
+            <div class="squarre-presentation">
+                <div class="squarre-icon">
+                    <img src=" /assets/images/image 5.png" alt="">
+                </div>
+                <p class="squarre-texte">Retrouvez tout les logements en campagne</p>
+                <button mat-raised-button color="primary" class="squarre-bouton">Voir Plus</button>
+            </div>
+        </mat-grid-tile>
+    </mat-grid-list>
 </div>

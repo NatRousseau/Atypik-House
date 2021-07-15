@@ -7,8 +7,8 @@ module.exports = function (app) {
     app.route('/register')
         .post(userController.register);
 
-    // app.route('/login')
-    //     .post(userController.login);
+    app.route('/login')
+        .get(userController.login);
 
     // app.route('/user')
     //     .get(userController.getUser)

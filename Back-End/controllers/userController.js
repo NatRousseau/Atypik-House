@@ -1,8 +1,11 @@
+const userServices = require ('../services/user_services.ts');
+
 const async = require('async');
 const User = require('../models/user');
 
-const bcrypt = require('bcrypt');
+const jwtUtils = require('../utils/jwt.utils');
 
+const bcrypt = require('bcrypt');
 
 const MAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const PWD_REGEX = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{4,}$/;  // TO DO : edit mail regex ; pwd : done
@@ -42,7 +45,7 @@ module.exports = {
 
         async.waterfall([
             function (next) {
-                User.getUserByMail(user.usr_mail)
+                userServices.getUserByMail(user.usr_mail)
                     .then(result => {
                         if (result.length>0) { // User already exist
                             return res.status(400).json({ 'error': 'Adresse mail déjà utilisée.' });
@@ -60,7 +63,7 @@ module.exports = {
             },
             function (hashedPassword) {
                 user.usr_password = hashedPassword;
-                User.createUser(user.usr_mail, user.usr_password)
+                userServices.createUser(user.usr_mail, user.usr_password)
                     .then(result => {
                         if (result.rowCount === 1) {
                             return res.status(200).json({ 'succes': 'Reussite de l\'enregistrement.' });
@@ -78,7 +81,82 @@ module.exports = {
 
 
     // =========================    GET  ========================= //
+   
+    login: function (req, res) {
+        const dataLogin = req.body;
 
+        console.log(dataLogin);
+
+        if (dataLogin.usr_mail == null
+            || dataLogin.usr_password == null
+            ) {
+                console.log(dataLogin.usr_mail,dataLogin.usr_password);
+            return res.status(400).json({ 'error': 'Paramètres manquants.' });
+        }
+        
+        async.waterfall([
+            function (next) {
+                userServices.getUserIsLogin(dataLogin.usr_mail)
+                    .then(result => {
+                        if (result.length != null) {        
+                            user = new User(result[0]);
+                            next(null,user);
+                        } else {
+                            return res.status(404).json({ 'error': 'L\'utilisateur n\'existe pas.' });
+                        }
+                    })
+                    .catch(error => {
+                        console.error(error);
+                        return res.status(500).json({ 'error': 'Impossible de vérifier les identifiants.' });
+                    });
+            },
+            function (user,next) {
+                bcrypt.compare(dataLogin.usr_password, user.usr_password, (err, test) => {
+                    if (err) {
+                        console.error('Erreur lors de la verification du mot de passe.');
+                        console.error(err);
+                        return res.status(500).json({ 'error': 'Identifiants non reconnus.' });
+                    }
+                    else if (!err && test === true) {
+                        next(null, user);
+                    }
+                    else {
+                        return res.status(404).json({ 'error': 'Identifiants non reconnus.' });
+                    }
+                });
+            },
+            function (user, next) {
+                user.usr_access_token = jwtUtils.generateUserToken(user);
+                user.usr_refresh_token = jwtUtils.generateupdateTokenForUser();
+                user.usr_expires_in = jwtUtils.getTokenExpiresIn();
+                userServices.updateAuthToken(user)
+                    .then(result => {
+                        console.log(result);
+                        if (result === 1) {
+                            console.log(user);
+                            next(user);
+                            
+                        } else {
+                            return res.status(498).json({ 'error': 'Identifiants non reconnus.' });
+                        }
+                    })
+                    .catch(error => {
+                        console.error(error);
+                        return res.status(500).json({ 'error': 'Erreur lors de l\'attribution du token.' });
+                    });
+            }],
+            function (user) {
+                return res.status(200).json({
+                    'userId': user.usr_id,
+                    'userMail': user.usr_mail,
+                    'userFirstName': user.usr_firstName,
+                    'userLastName': user.usr_lastName,
+                    'access_token': user.usr_access_token,
+                    'refresh_token': user.usr_refresh_token
+                });
+            }
+        );
+    },
 
     // =========================    DELETE  ========================= //
 

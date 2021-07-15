@@ -1,3 +1,25 @@
+@font-face {
+    font-family: "gothic_sans_ms";
+    src: url("/assets/Police_Ecriture/GOTHIC.TTF");
+}
+@font-face {
+    font-family: "gothic_bold";
+    src: url("/assets/Police_Ecriture/GOTHICB.TTF");
+}
+
+.register-form {
+    justify-content: center;
+
+    vertical-align: middle;
+    margin: auto;
+    margin-top: 15%;
+    width: 400px;
+    height: auto;
+    background-color: white;
+    border-radius: 20px;
+
+    padding: 20px;
+}
 .example-container {
     margin-left: 8px;
     display: flex;
@@ -11,4 +33,24 @@
 body {
     //background-image: "assets/image1.png";
     background-color: red;
+}
+
+.form-text {
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 25px;
+    font-family: "gothic_sans_ms";
+}
+
+.form-logo {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.form-field {
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 200px;
 }
