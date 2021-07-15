@@ -90,3 +90,16 @@
     /*change color of underline when focused*/
     background-color: green !important;
 }
+
+.mat-badge-content {
+    width: auto;
+    background: #339e33;
+}
+.top-annoucement {
+    color: white;
+    background-color: #339e33;
+    margin-left: 10px;
+    font-size: 20px;
+    border-radius: 100%;
+    padding: 10px;
+}
