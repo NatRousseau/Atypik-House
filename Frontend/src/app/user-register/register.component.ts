@@ -20,12 +20,8 @@ export class registerComponent implements OnInit {
   constructor(
     private fB: FormBuilder,
     private snackbar: SnackBarService,
-<<<<<<< HEAD
     private userService: UserService,
-=======
-    private userService: UserService, 
     private rt: Router
->>>>>>> f43070ae8ffc5e53b25deeba6110712ed8c8168d
     ) { }
 
   private _onError(error) {
@@ -82,16 +78,9 @@ export class registerComponent implements OnInit {
 				else this._onError
 			},
 			this._onError
-<<<<<<< HEAD
 		);
- 
 
-
-=======
-		); 
-  
 
     this.rt.navigate(["/"])
->>>>>>> f43070ae8ffc5e53b25deeba6110712ed8c8168d
   }
 }
