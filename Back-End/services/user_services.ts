@@ -1,16 +1,17 @@
-const database = require("../configs/database");
+// const database = require("../configs/database");
+const knex = require('../configs/knex/knex.js');
 const User = require('../models/user');
 
 // =========================    CREATE  ========================= //
 
 const createUser = function (mail,password) {
-    return database.insert([{usr_mail: mail, usr_password: password}]).into('public.users')
+    return knex.insert([{usr_mail: mail, usr_password: password}]).into('public.users')
 };
 
 // =========================    UPDATE  ========================= //
 
 const updateUser = function (user) { 
-    return database.update({
+    return knex.update({
         usr_mail: user.usr_mail,
         usr_password: user.usr_password
     })
@@ -19,7 +20,7 @@ const updateUser = function (user) {
 };
 
 const updateAuthToken = function (user) { 
-    return database.update({
+    return knex.update({
         usr_access_token: user.usr_access_token,
         usr_refresh_token: user.usr_refresh_token,
         usr_expires_in: user.usr_expires_in
@@ -36,11 +37,11 @@ const updateAuthToken = function (user) {
 // };
 
 const getUserByMail =  function (mail) {
-    return database.select('usr_id').from('public.users').where('usr_mail', mail)
+    return knex.select('usr_id').from('public.users').where('usr_mail', mail)
 };  
 
 const getUserIsLogin = function (mail){
-    return database.select('usr_id','usr_password','usr_mail').from('public.users').where('usr_mail', mail)
+    return knex.select('usr_id','usr_password','usr_mail').from('public.users').where('usr_mail', mail)
 };
 
 // =========================    DELETE  ========================= //
