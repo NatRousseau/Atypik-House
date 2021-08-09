@@ -1,4 +1,3 @@
-// const database = require("../configs/database");
 const knex = require('../configs/knex/knex.js');
 const User = require('../models/user');
 
