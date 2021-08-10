@@ -9,7 +9,6 @@ exports.up = function(knex, Promise) {
         table.integer('adv_usr_id').notNullable();
         table.foreign('adv_usr_id').references('usr_id').inTable('users');
         table.bool('adv_status').notNullable();
-        table.bigint('adv_estate_type').notNullable();
         table.bigint('adv_cri_limit').notNullable();
         
 
