@@ -2,9 +2,10 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const express = require('express')
 const server = express()
-const database = require("./configs/database");
+// const database = require("./configs/database");
+const knex = require('./configs/knex/knex.js')
 const morgan = require("morgan");
-const { port } = require("./configs/config");
+const port =  process.env.PORT || 4500 ;
 
 server.use(morgan("common"));
 
@@ -20,6 +21,18 @@ server.use(cors((req, callback) => {
           ? { origin: true } : { origin: false };
   callback(null, corsOptions);
 }));
+
+// --------------- KNEX ---------------
+
+server.get('/tasks',(req, res) =>{
+  knex.schema.createTable('beta', function (table) {
+    table.increments();
+    table.string('name');
+    table.timestamps();
+  })
+  console.log("a run");
+  return "done";
+});
 
 
 // --------------- BODY PARSER ---------------
