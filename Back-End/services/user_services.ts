@@ -1,4 +1,4 @@
-const knex = require('../configs/knex/knex.js');
+var knex = require('../configs/knex/knex.js');
 const User = require('../models/user');
 
 // =========================    CREATE  ========================= //
