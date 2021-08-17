@@ -24,6 +24,7 @@
     "@angular/router": "~12.1.2",
     "angular-material": "^1.2.2",
     "bootstrap": "^5.0.2",
+    "glob-parent": "^6.0.1",
     "npm": "^7.19.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
