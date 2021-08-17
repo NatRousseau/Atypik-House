@@ -4,13 +4,6 @@ module.exports = function (app) {
     const advertController = require('../controllers/advertController');
 
 
-//======================== USER  ==========================//
-    app.route('/register')
-        .post(userController.register);
-
-    app.route('/login')
-        .get(userController.login);
-
 //======================== Advert ==========================//
 
     app.route('/createAdvert')
@@ -24,17 +17,3 @@ module.exports = function (app) {
 
     app.route('/deleteAdvert')
         .get(userController.deleteAdvert);
-
-    
-
-//======================== JWT TOKKENS ==========================//
-
-
-    // app.route('/refresh')
-    //     .post(userController.updateToken);
-    // app.route('/logout')
-    //     .post(userController.deleteToken);
-
-
-
-}

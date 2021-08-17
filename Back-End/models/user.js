@@ -11,3 +11,4 @@ var User = function (user) {
 };
 
 module.exports = User;
+    
