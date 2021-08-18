@@ -11,45 +11,50 @@ module.exports = {
     createAdvert: function (req, res) {
         var advert = new Advert(req.body);
 
-        if (advert.adv_name == null || advert.adv_type == null || advert.adv_tenants || advert.adv_status
+        console.log(advert.adv_name,advert.adv_type,advert.adv_tenants,advert.adv_status );
+
+        if (advert.adv_name == null 
+            || advert.adv_type == null 
+            || advert.adv_tenants == null
+            || advert.adv_status == null
             ) {
             return res.status(400).json({ 'error': 'Paramètres manquants.' });
         }
 
         if (advert.adv_usr_id == null) {
-            return res.status(400).json({ 'error': '' });
+            return res.status(400).json({ 'error': 'Veuillez vous connecter.' });
         }
        
 
         async.waterfall([
             function (next) {
-                advertServices.createAdvert(advert.adv_name, advert.adv_type, advert.adv_tenants, advert.adv_usr_id, advert.adv_status)
+                advertServices.getAdvertByName(advert)
                     .then(result => {
-                        if (result.length>0) { // User already exist
-                            return res.status(400).json({ 'error': 'Adresse mail déjà utilisée.' });
-                        } else { // mail free
-                            user.usr_id = null;
-                            hashPassword(user.usr_password, (bcryptedPassword) => {
-                                next(null, bcryptedPassword);
-                            });
+                        if (result.length>0) { // Nom d'annonce déjà existant
+                            return res.status(400).json({ 'error': 'Une annonce du même nom existe déjà.' });
+                        } else { // adv_name free
+                            advert.adv_id = null;
+                            advert.adv_cri_limit = 2;
+                            next(null)
                         }
                     })
                     .catch(error => {
                         console.error(error);
-                        return res.status(500).json({ 'error': 'Inscription impossible.' });
+                        return res.status(500).json({ 'error': 'Création de l\'annonce impossible.' });
                     });
             },
-            function (hashedPassword) {
-                user.usr_password = hashedPassword;
-                userServices.createUser(user.usr_mail, user.usr_password)
+            function () {
+                advertServices.createAdvert(advert)
                     .then(result => {
-                        if (result.rowCount === 1) {
-                            return res.status(200).json({ 'succes': 'Reussite de l\'enregistrement.' });
-                        } else throw Error(result);
+                        if (result.rowCount === 1) { 
+                            return res.status(200).json({'succes': 'Annonce créée'});
+                        } else {
+                            return res.status(400).json({ 'error': 'L\'annonce n\'as pus être enregistré. ' });
+                        }
                     })
                     .catch(error => {
                         console.error(error);
-                        return res.status(500).json({ 'error': 'Erreur lors de l\'enregistrement.' });
+                        return res.status(500).json({ 'error': 'Création de l\'annonce impossible.' });
                     });
             }
         ],
@@ -60,79 +65,33 @@ module.exports = {
 
     // =========================    GET  ========================= //
    
-    login: function (req, res) {
-        const dataLogin = req.body;
+    getUserAdvert: function (req, res) {
+        const dataAdvert = req.body;
+        userAdvert=[];
 
-        console.log(dataLogin);
-
-        if (dataLogin.usr_mail == null
-            || dataLogin.usr_password == null
+       if (dataAdvert.adv_usr_id == null
             ) {
-                console.log(dataLogin.usr_mail,dataLogin.usr_password);
-            return res.status(400).json({ 'error': 'Paramètres manquants.' });
+            return res.status(400).json({ 'error': 'Veuillez vous connécter.' });
         }
         
         async.waterfall([
-            function (next) {
-                userServices.getUserIsLogin(dataLogin.usr_mail)
+            function () {
+                advertServices.getUserAdvert(dataAdvert)
                     .then(result => {
-                        if (result.length != null) {        
-                            user = new User(result[0]);
-                            next(null,user);
+                        if (result.length != null) {
+                            for(i=0 ; i<result.length ; i++){     
+                            userAdvert[i] = new Advert(result[i]);
+                        }
+                            return res.status(200).json({'succes':'Annonces récupérés',userAdvert});
                         } else {
-                            return res.status(404).json({ 'error': 'L\'utilisateur n\'existe pas.' });
+                            return res.status(200).json({ 'error': 'Vous ne possédez pas d\'annonces.' });
                         }
                     })
                     .catch(error => {
                         console.error(error);
                         return res.status(500).json({ 'error': 'Impossible de vérifier les identifiants.' });
                     });
-            },
-            function (user,next) {
-                bcrypt.compare(dataLogin.usr_password, user.usr_password, (err, test) => {
-                    if (err) {
-                        console.error('Erreur lors de la verification du mot de passe.');
-                        console.error(err);
-                        return res.status(500).json({ 'error': 'Identifiants non reconnus.' });
-                    }
-                    else if (!err && test === true) {
-                        next(null, user);
-                    }
-                    else {
-                        return res.status(404).json({ 'error': 'Identifiants non reconnus.' });
-                    }
-                });
-            },
-            function (user, next) {
-                user.usr_access_token = jwtUtils.generateUserToken(user);
-                user.usr_refresh_token = jwtUtils.generateupdateTokenForUser();
-                user.usr_expires_in = jwtUtils.getTokenExpiresIn();
-                userServices.updateAuthToken(user)
-                    .then(result => {
-                        console.log(result);
-                        if (result === 1) {
-                            console.log(user);
-                            next(user);
-                            
-                        } else {
-                            return res.status(498).json({ 'error': 'Identifiants non reconnus.' });
-                        }
-                    })
-                    .catch(error => {
-                        console.error(error);
-                        return res.status(500).json({ 'error': 'Erreur lors de l\'attribution du token.' });
-                    });
-            }],
-            function (user) {
-                return res.status(200).json({
-                    'userId': user.usr_id,
-                    'userMail': user.usr_mail,
-                    'userFirstName': user.usr_firstName,
-                    'userLastName': user.usr_lastName,
-                    'access_token': user.usr_access_token,
-                    'refresh_token': user.usr_refresh_token
-                });
-            }
+            }]
         );
     },
 
