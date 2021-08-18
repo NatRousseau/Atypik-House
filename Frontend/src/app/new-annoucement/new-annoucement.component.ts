@@ -26,4 +26,17 @@ export class NewAnnoucementComponent implements OnInit {
         
       })
   }
+
+  onSubmit(registerUserFormData) {
+
+    const advert = {
+			titre: registerUserFormData.titre,
+			type: registerUserFormData.type,
+      max: registerUserFormData.max,
+      dispo: registerUserFormData.dispo
+		};
+
+    console.log(advert);
+   
+  }
 }
