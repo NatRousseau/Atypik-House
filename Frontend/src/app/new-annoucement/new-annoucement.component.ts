@@ -19,8 +19,24 @@ export class NewAnnoucementComponent implements OnInit {
   initForm() {
     this.registerForm = this.fB.group(
       {
-        //mail: ['', [Validators.required, Validators.email]],
+        titre: ['', [Validators.required]],
+        type: ['', [Validators.required]],
+        max: ['', [Validators.required]],
+        dispo: ['', [Validators.required]],
         
       })
+  }
+
+  onSubmit(registerUserFormData) {
+
+    const advert = {
+			titre: registerUserFormData.titre,
+			type: registerUserFormData.type,
+      max: registerUserFormData.max,
+      dispo: registerUserFormData.dispo
+		};
+
+    console.log(advert);
+   
   }
 }
