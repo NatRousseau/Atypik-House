@@ -10,6 +10,9 @@ module.exports = function (app) {
     app.route('/getUserAdvert')
         .get(advertController.getUserAdvert);
 
+    app.route('/getAdvertByTimestamp')
+        .get(advertController.getAdvertByTimestamp);
+
     app.route('/updateAdvert')
         .put(advertController.updateAdvert);
 

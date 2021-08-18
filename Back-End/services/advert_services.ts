@@ -33,15 +33,14 @@ const getUserAdvert =  function (dataAdvert) {
 };  
 
 
-// const getAdvertByTimestamp =  function (pagenumber) {
-//     return knex.select('adv_id','adv_name','adv_type','adv_tenants','adv_status','adv_cri_limit','adv_usr_id','adv_created_at')
-//     .from('public.adverts')
-//     .orderBy('adv_created_at')
-//     .where(function(){
-//         this.where('adv_created_at','>=',pagenumber.x)
-//         .andWhere('adv_created_at','=<',pagenumber.y)
-//     }) // where adv_created_at est compris entre x et y   1 et 10 pr exemple
-// }; 
+const getAdvertByTimestamp =  function (min,max) {
+    return knex.select('adv_id','adv_name','adv_type','adv_tenants','adv_status','adv_cri_limit','adv_usr_id','adv_created_at')
+    .from('public.adverts')
+    .orderBy('adv_created_at','asc')
+    .offset(min)
+    .limit(max)
+    // where adv_created_at est compris entre x et y   1 et 10 pr exemple
+}; 
 
 
 const getAdvertByName =  function (advert) {
@@ -64,4 +63,5 @@ exports.createAdvert = createAdvert;
 exports.updateAdvert = updateAdvert;
 exports.getUserAdvert = getUserAdvert;
 exports.getAdvertByName = getAdvertByName;
+exports.getAdvertByTimestamp = getAdvertByTimestamp;
 exports.deleteAdvert = deleteAdvert;

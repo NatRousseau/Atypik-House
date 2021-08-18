@@ -166,8 +166,45 @@ module.exports = {
                     });
             }]
         );
-    }
+    },
 
+    getAdvertByTimestamp: function (req, res) {
+        const pagenumber = req.body;
+        advertByTimestamp=[];
+
+       if (pagenumber.page == null
+            ) {
+            return res.status(400).json({ 'error': 'erreur durant la procédure de chargement.' });
+        }
+        else
+        {
+            min = pagenumber.page-10;
+            max = pagenumber.page;
+
+        }
+        console.log(min,max);
+
+        async.waterfall([
+            function () {
+                advertServices.getAdvertByTimestamp(min,max)
+                    .then(result => {
+                        if (result.length != null) {
+                            console.log(result);
+                            for(i=0 ; i<result.length ; i++){     
+                                advertByTimestamp[i] = new Advert(result[i]);
+                        }
+                            return res.status(200).json({'succes':'Annonces récupérés',advertByTimestamp});
+                        } else {
+                            return res.status(200).json({ 'error': 'Impossible de charger les annonces.' });
+                        }
+                    })
+                    .catch(error => {
+                        console.error(error);
+                        return res.status(500).json({ 'error': 'Impossible d\'accéder aux annonces.' });
+                    });
+            }]
+        );
+    }
     
 
 }
