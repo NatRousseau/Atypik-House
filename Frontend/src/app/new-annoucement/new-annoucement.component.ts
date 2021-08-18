@@ -19,7 +19,10 @@ export class NewAnnoucementComponent implements OnInit {
   initForm() {
     this.registerForm = this.fB.group(
       {
-        //mail: ['', [Validators.required, Validators.email]],
+        titre: ['', [Validators.required]],
+        type: ['', [Validators.required]],
+        max: ['', [Validators.required]],
+        dispo: ['', [Validators.required]],
         
       })
   }
