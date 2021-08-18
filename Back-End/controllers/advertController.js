@@ -11,7 +11,6 @@ module.exports = {
     createAdvert: function (req, res) {
         var advert = new Advert(req.body);
 
-        console.log(advert.adv_name,advert.adv_type,advert.adv_tenants,advert.adv_status );
 
         if (advert.adv_name == null 
             || advert.adv_type == null 
@@ -62,6 +61,80 @@ module.exports = {
 
     // =========================    UPDATE  ========================= //
 
+    updateAdvert: function (req, res) {
+        var advert = new Advert(req.body);
+
+        if (advert.adv_name == null 
+            || advert.adv_type == null 
+            || advert.adv_tenants == null
+            || advert.adv_status == null
+            ) {
+            return res.status(400).json({ 'error': 'Paramètres manquants.' });
+        }
+
+       if (advert.adv_usr_id == null
+            ) {
+            return res.status(400).json({ 'error': 'Veuillez vous connecté.' });
+        }
+
+        if (advert.adv_id == null
+            ) {
+            return res.status(400).json({ 'error': 'Aucune annonce sélectionnée.' });
+        }
+        
+        async.waterfall([
+            function () {
+                advertServices.updateAdvert(advert)
+                    .then(result => {
+                        if (result.length != null) {
+                            return res.status(200).json({ 'error': 'Erreur lors de la mise à jour.' });
+                            
+                        } else {
+                            return res.status(200).json({'succes':'Annonce mise à jour'});
+                        }
+                    })
+                    .catch(error => {
+                        console.error(error);
+                        return res.status(500).json({ 'error': 'Impossible de vérifier les identifiants.' });
+                    });
+            }]
+        );
+    },
+
+    // =========================    DELETE  ========================= //
+
+
+
+    deleteAdvert: function (req, res) {
+        var advert = new Advert(req.body);
+
+       if (advert.adv_usr_id == null
+            ) {
+            return res.status(400).json({ 'error': 'Veuillez vous connecté.' });
+        }
+
+        if (advert.adv_id == null
+            ) {
+            return res.status(400).json({ 'error': 'Aucune annonce sélectionnée.' });
+        }
+        
+        async.waterfall([
+            function () {
+                advertServices.deleteAdvert(advert)
+                    .then(result => {
+                        if (result.length != null) {
+                            return res.status(200).json({'succes':'Annonce supprimé'});
+                        } else {         
+                            return res.status(200).json({ 'error': 'Erreur lors de la suppression.' });
+                        }
+                    })
+                    .catch(error => {
+                        console.error(error);
+                        return res.status(500).json({ 'error': 'Impossible de vérifier les identifiants.' });
+                    });
+            }]
+        );
+    },
 
     // =========================    GET  ========================= //
    
@@ -71,7 +144,7 @@ module.exports = {
 
        if (dataAdvert.adv_usr_id == null
             ) {
-            return res.status(400).json({ 'error': 'Veuillez vous connécter.' });
+            return res.status(400).json({ 'error': 'Veuillez vous connecté.' });
         }
         
         async.waterfall([
@@ -93,7 +166,7 @@ module.exports = {
                     });
             }]
         );
-    },
+    }
 
     
 

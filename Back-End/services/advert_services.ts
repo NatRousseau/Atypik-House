@@ -53,7 +53,7 @@ const getAdvertByName =  function (advert) {
 // =========================    DELETE  ========================= //
 
 const deleteAdvert = function (advert){
-    return knex.del('adv_id','adv_name','adv_type','adv_tenants','adv_status','adv_cri_limit')
+    return knex.del('adv_id','adv_name','adv_type','adv_tenants','adv_status','adv_cri_limit','adv_usr_id','adv_created_at')
     .from('public.adverts')
     .where('adv_usr_id',advert.adv_usr_id)
     .andWhere('adv_id',advert.adv_id)

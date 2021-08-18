@@ -10,9 +10,9 @@ module.exports = function (app) {
     app.route('/getUserAdvert')
         .get(advertController.getUserAdvert);
 
-    // app.route('/updateAdvert')
-    //     .put(advertController.updateAdvert);
+    app.route('/updateAdvert')
+        .put(advertController.updateAdvert);
 
-    // app.route('/deleteAdvert')
-    //     .delete(advertController.deleteAdvert);
+    app.route('/deleteAdvert')
+        .delete(advertController.deleteAdvert);
 }
