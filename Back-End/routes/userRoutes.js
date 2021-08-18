@@ -1,20 +1,12 @@
 module.exports = function (app) {
     //const auth = require('../middleware/auth');
     const userController = require('../controllers/userController');
-
-
-
+//======================== USER  ==========================//
     app.route('/register')
         .post(userController.register);
 
     app.route('/login')
         .get(userController.login);
-
-    // app.route('/user')
-    //     .get(userController.getUser)
-    //     //.get(auth, userController.getUser)
-    //     .delete(userController.deleteUser);
-        //.delete(auth, userController.deleteUser);
 
 //======================== JWT TOKKENS ==========================//
 

@@ -2,9 +2,9 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const express = require('express')
 const server = express()
-const database = require("./configs/database");
+// const knex = require('./configs/knex/knex.js')
 const morgan = require("morgan");
-const { port } = require("./configs/config");
+const port =  process.env.PORT || 4500 ;
 
 server.use(morgan("common"));
 
@@ -20,7 +20,6 @@ server.use(cors((req, callback) => {
           ? { origin: true } : { origin: false };
   callback(null, corsOptions);
 }));
-
 
 // --------------- BODY PARSER ---------------
 
@@ -41,4 +40,4 @@ server.listen(port, function() {
 //==========        ROUTES      ==========
 
 require('./routes/userRoutes')(server);
-
+require('./routes/advertRoutes')(server);
