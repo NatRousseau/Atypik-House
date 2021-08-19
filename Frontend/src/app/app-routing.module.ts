@@ -3,7 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { DetailsAnnouncementComponent } from './details-annoucement/details-announcement.component';
 import { HomeComponent } from './home/home.component';
-import { NewAnnoucementComponent } from './new-annoucement/new-annoucement.component';
+import { NewAdvertComponent } from './new-Advert/new-advert.component.spec';
+
 import { SearchComponent } from './search/search.component';
 import { connectionComponent } from './user-connection/connection.component';
 import { registerComponent } from './user-register/register.component';
@@ -17,7 +18,7 @@ const routes: Routes = [
   { path: 'register', component: registerComponent },
   { path: 'search', component: SearchComponent},
   { path: 'detail/:id', component: DetailsAnnouncementComponent },
-  { path:'NewAdvert', component: NewAnnoucementComponent},
+  { path:'NewAdvert', component: NewAdvertComponent},
 
 ];
 
