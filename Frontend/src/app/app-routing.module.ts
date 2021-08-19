@@ -16,8 +16,8 @@ const routes: Routes = [
   { path: 'connection', component: connectionComponent },
   { path: 'register', component: registerComponent },
   { path: 'search', component: SearchComponent},
-  { path: '', component: DetailsAnnouncementComponent},
-  { path:'NewAdvert', component: NewAnnoucementComponent} 
+  { path: 'detail/:id', component: DetailsAnnouncementComponent },
+  { path:'NewAdvert', component: NewAnnoucementComponent},
 
 ];
 
