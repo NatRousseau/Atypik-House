@@ -1,0 +1,48 @@
+<div class="example-container register-container">
+
+    <form [formGroup]="NewAdvertForm" class="register-form" (ngSubmit)="onSubmit(NewAdvertForm.value)">
+        <div class="form-text">Nouvelle annonce</div>
+        <div class="form-field">
+            <mat-form-field appearance="outline">
+                <mat-label>Titre de l'annonce</mat-label>
+                <input matInput placeholder="EX: Tipi au bord de la rivière" formControlName="titre" required>
+
+            </mat-form-field>
+            <div class="error-input" *ngIf="NewAdvertForm.get('titre').errors && 
+            NewAdvertForm.get('titre').hasError('required') && NewAdvertForm.get('titre').touched">Aucun titre Saisi
+            </div>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Type de bien</mat-label>
+                <input matInput placeholder="EX: Tipi" formControlName="type" required>
+
+            </mat-form-field>
+            <div class="error-input" *ngIf="NewAdvertForm.get('type').errors && 
+            NewAdvertForm.get('type').hasError('required') && NewAdvertForm.get('type').touched">Aucun type Saisi
+            </div>
+            <mat-form-field appearance="outline">
+                <mat-label>Nombre maximum de locataire</mat-label>
+                <input matInput maxlength="3" placeholder="Ex: 5" formControlName="max" required>
+
+            </mat-form-field>
+
+            <div class="error-input" *ngIf="NewAdvertForm.get('max').errors && 
+            NewAdvertForm.get('max').hasError('required')  && NewAdvertForm.get('max').touched">Aucun nombre Saisi
+            </div>
+            <div class="error-input" *ngIf="NewAdvertForm.get('max').errors && 
+            !NewAdvertForm.get('max').hasError('required')  && NewAdvertForm.get('max').touched"> Veuillez saisir
+                uniquement des chiffres
+            </div>
+
+            <mat-label>Disponibilité de l'annonce</mat-label>
+            <mat-slide-toggle formControlName="dispo">non disponible/disponible</mat-slide-toggle>
+
+
+            <div style="margin-left: 50px;">
+                <button mat-raised-button style="background-color: #339e33; color: white;" type="submit"
+                    [disabled]="NewAdvertForm.invalid">Créer l'annonce</button>
+            </div>
+
+        </div>
+    </form>
+</div>

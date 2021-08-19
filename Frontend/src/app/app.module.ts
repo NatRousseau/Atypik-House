@@ -50,7 +50,9 @@ import { connectionComponent } from './user-connection/connection.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SearchComponent } from './search/search.component';
 import { DetailsAnnouncementComponent } from './details-annoucement/details-announcement.component';
-import { NewAnnoucementComponent } from './new-annoucement/new-annoucement.component';
+import { NewAdvertComponent } from './new-Advert/new-advert.component.spec';
+
+
 
 
 const routes: Routes = [];
@@ -64,7 +66,7 @@ const routes: Routes = [];
     HomeComponent,
     SearchComponent,
     DetailsAnnouncementComponent,
-    NewAnnoucementComponent,
+    NewAdvertComponent,
   ],
   imports: [
     ReactiveFormsModule,

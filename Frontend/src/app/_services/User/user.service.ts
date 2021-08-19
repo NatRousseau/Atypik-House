@@ -25,20 +25,20 @@ export class UserService {
 
   register(user): Observable<any> {
     console.log(user.mail);
-   
+
     return this.http.post(environment.API_URL + `/register`, user);
   }
 
-  /* register(user) { 
+  /* register(user) {
      const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json", Accept: "application/json" },
       body: JSON.stringify({
         mail: user.mail,
-        password: user.password       
+        password: user.password
       }),
     };
-   
+
    fetch(environment.API_URL + `/register`,requestOptions)
   } */
 
