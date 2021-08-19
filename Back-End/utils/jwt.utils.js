@@ -19,9 +19,23 @@ module.exports = {
     getTokenExpiresIn: function () {
         return EXPIRES_IN;
     },
-    // parseAuthorization: function (authorization) {
-    //     return (authorization != null) ? authorization.replace('Bearer ', '') : null;
-    // },
+    parseAuthorization: function (authorization) {
+        return (authorization != null) ? authorization.replace('Bearer ', '') : null;
+    },
+    getUserId: function (authorization) {
+        var usr_id = -1;
+        var usr_token = module.exports.parseAuthorization(authorization);
+        if (usr_token != null) {
+            try {
+                jwt.verify(usr_token, JWT_SIGN_SECRET_ACCESS, function (err, decoded) {
+                    usr_id = decoded.userId;
+                });
+            } catch (err) {
+                return err;
+            }
+        }
+        return usr_id;
+    },
     generateupdateTokenForUser: function () {
         return randtoken.uid(256);
     },

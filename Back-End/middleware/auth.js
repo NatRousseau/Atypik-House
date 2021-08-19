@@ -4,11 +4,12 @@ module.exports = (req, res, next) => {
 	try {
 		let token = req['headers'].authorization;
 		if (jwtUtils.isExpired(token)) {
-			throw 'Token expired';
+			res.status(401).json({ 'error': 'Token expirée' });
 		} else {
 			next();
 		}
-	} catch {
-		res.status(401).json({ 'error': 'Echec de l authentification' });
+	} catch (err) {
+		console.error(err);
+		res.status(500).json({ 'error': 'Authentification échouée !' });
 	}
 };

@@ -80,17 +80,59 @@ module.exports = {
     // =========================    UPDATE  ========================= //
 
 
+    updateToken: function (req, res) {
+        var updateToken = req.body.usr_refresh_token;
+
+        if (!updateToken) {
+            return res.status(498).json({ 'error': 'Pas de update token.' });
+        }
+
+        async.waterfall([
+            function (next) {
+                userServices.getUserByUpdateToken(updateToken)
+                    .then(result => {
+                        if (result.length > 0) {
+                            next(null, result[0])
+                        } else {
+                            return res.status(498).json({ 'error': 'Clé non trouvée' });
+                        }
+                    })
+                    .catch(error => {
+                        console.error(error);
+                        return res.status(500).json({ 'error': 'Erreur avec la clé provisoire' });
+                    });
+            },
+            function (params, next) {
+                var user = new User(params);
+                user.usr_access_token = jwtUtils.generateUserToken(user);
+                userServices.updateToken(user)
+                    .then(result => {
+                        if (result === 1) {
+                            next(user);
+                        }
+                    })
+                    .catch(error => {
+                        console.error(error);
+                        return res.status(500).json({ 'error': 'Impossible d\'enregistrer la nouvelle clé provisoire.' });
+                    });
+            }],
+            function (result) {
+                var body = {
+                    'access_token': result.usr_access_token,
+                    'refresh_token': updateToken
+                };
+                return res.status(201).json(body);
+            });
+    },
+
     // =========================    GET  ========================= //
    
     login: function (req, res) {
         const dataLogin = req.body;
 
-        console.log(dataLogin);
-
         if (dataLogin.usr_mail == null
             || dataLogin.usr_password == null
             ) {
-                console.log(dataLogin.usr_mail,dataLogin.usr_password);
             return res.status(400).json({ 'error': 'Paramètres manquants.' });
         }
         
@@ -131,9 +173,7 @@ module.exports = {
                 user.usr_expires_in = jwtUtils.getTokenExpiresIn();
                 userServices.updateAuthToken(user)
                     .then(result => {
-                        console.log(result);
                         if (result === 1) {
-                            console.log(user);
                             next(user);
                             
                         } else {
@@ -160,7 +200,32 @@ module.exports = {
 
     // =========================    DELETE  ========================= //
 
-}
+    deleteToken: function (req, res) {
+        var updateToken = req.body.usr_refresh_token;
+
+        if (updateToken == null) {
+            return res.status(400).json({ 'error': 'Paramètres manquants.' });
+        }
+
+        async.waterfall([
+            function (next) {
+                userServices.resetupdateToken(updateToken)
+                    .then(result => {
+                        if (result === 1) {
+                            next(null, result);
+                        }
+                    })
+                    .catch(error => {
+                        console.error(error);
+                        return res.status(500).json({ 'error': 'Impossible de revoquer la clé provisoire' });
+                    });
+            }],
+            function (result) {
+                return res.status(201).json({ "success": "La déconnexion à réussie !" });
+            });
+    }
+
+};
 
     // ----------------------- INTERN ----------------------- //
     let hashPassword = function (password, callback) {
