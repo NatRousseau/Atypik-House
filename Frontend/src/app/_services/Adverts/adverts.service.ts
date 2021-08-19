@@ -30,4 +30,18 @@ export class AdvertsService {
    console.log(data);
    this.rt.navigate(["/"]);
   }
+
+  async getAdvertsByTimestamp(){
+    const requestOptions = {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body : JSON.stringify({
+       page : 10
+      })
+    }
+
+    const response = await fetch(environment.API_URL + "/getAdvertByTimestamp", requestOptions);
+    const data = await response.json();
+    return data;
+  }
 }
