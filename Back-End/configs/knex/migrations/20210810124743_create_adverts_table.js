@@ -10,6 +10,7 @@ exports.up = function(knex, Promise) {
         table.foreign('adv_usr_id').references('usr_id').inTable('users');
         table.bool('adv_status').notNullable();
         table.bigint('adv_cri_limit').notNullable();
+        table.timestamp('adv_created_at', { precision: 6 }).defaultTo(knex.fn.now(6)).notNullable();
         
 
         

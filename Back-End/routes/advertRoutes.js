@@ -7,12 +7,15 @@ module.exports = function (app) {
     app.route('/createAdvert')
         .post(advertController.createAdvert);
 
-    // app.route('/getAdvert')
-    //     .get(userController.getAdvert);
+    app.route('/getUserAdvert')
+        .get(advertController.getUserAdvert);
 
-    // app.route('/updateAdvert')
-    //     .get(userController.updateAdvert);
+    app.route('/getAdvertByTimestamp')
+        .get(advertController.getAdvertByTimestamp);
 
-    // app.route('/deleteAdvert')
-    //     .get(userController.deleteAdvert);
+    app.route('/updateAdvert')
+        .put(advertController.updateAdvert);
+
+    app.route('/deleteAdvert')
+        .delete(advertController.deleteAdvert);
 }
