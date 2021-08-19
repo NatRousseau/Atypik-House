@@ -1,21 +1,22 @@
 module.exports = function (app) {
+    const auth = require('../middleware/auth');
     const advertController = require('../controllers/advertController');
 
 
 //======================== Advert ==========================//
-
-    app.route('/createAdvert')
-        .post(advertController.createAdvert);
-
-    app.route('/getUserAdvert')
-        .get(advertController.getUserAdvert);
-
     app.route('/getAdvertByTimestamp')
         .get(advertController.getAdvertByTimestamp);
 
+
+    app.route('/createAdvert')
+        .post(auth,advertController.createAdvert);
+
+    app.route('/getUserAdvert')
+        .get(auth,advertController.getUserAdvert);
+
     app.route('/updateAdvert')
-        .put(advertController.updateAdvert);
+        .put(auth,advertController.updateAdvert);
 
     app.route('/deleteAdvert')
-        .delete(advertController.deleteAdvert);
+        .delete(auth,advertController.deleteAdvert);
 }

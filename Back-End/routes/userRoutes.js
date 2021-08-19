@@ -1,6 +1,10 @@
 module.exports = function (app) {
-    //const auth = require('../middleware/auth');
+
+    
+    const auth = require('../middleware/auth');
     const userController = require('../controllers/userController');
+
+
 //======================== USER  ==========================//
     app.route('/register')
         .post(userController.register);
@@ -8,14 +12,23 @@ module.exports = function (app) {
     app.route('/login')
         .get(userController.login);
 
-//======================== JWT TOKKENS ==========================//
+    app.route('/refresh')
+        .post(userController.updateToken);
 
+    app.route('/logout')
+        .post(userController.deleteToken);
 
-    // app.route('/refresh')
-    //     .post(userController.updateToken);
-    // app.route('/logout')
-    //     .post(userController.deleteToken);
+    // app.route('/user')
+    //     .get(auth, userController.getUserProfile)
+    //     .delete(auth, userController.deleteUser);
 
+    // app.route('/user/email')
+    //     .put(auth, userController.updateUserMail);
 
+    // app.route('/user/password/reset')
+    //     .put(auth, userController.resetPassword);
+
+    // app.route('/user/password')
+    //     .put(userController.updateUserPassword);
 
 }

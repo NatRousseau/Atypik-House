@@ -27,16 +27,34 @@ const updateAuthToken = function (user) {
     .into('public.users')
     .where('usr_id',user.usr_id)
 };
+
+const updateToken = function (user) { 
+    return knex.update({
+        usr_access_token: user.usr_access_token
+    })
+    .into('public.users')
+    .where('usr_id',user.usr_id)
+};
+
+const resetupdateToken = function (updateToken) { 
+    return knex.update({
+        usr_refresh_token: null
+    })
+    .into('public.users')
+    .where('usr_refresh_token',updateToken)
+};
+
 // =========================    GET  ========================= //
-// User.getUser = function () {
-//     return (
-//         "SELECT usr_id as id, usr_mail as mail, usr_password as password " +
-//         "FROM public.users"
-//     )
-// };
+const getRole =  function (token) {
+    return knex.select('usr_rol_id').from('public.users').where('usr_access_token', token)
+};  
 
 const getUserByMail =  function (mail) {
     return knex.select('usr_id').from('public.users').where('usr_mail', mail)
+};  
+
+const getUserByUpdateToken =  function (updateToken) {
+    return knex.select('usr_id','usr_mail').from('public.users').where('usr_refresh_token', updateToken)
 };  
 
 const getUserIsLogin = function (mail){
@@ -45,18 +63,22 @@ const getUserIsLogin = function (mail){
 
 // =========================    DELETE  ========================= //
 
-// User.deleteUser = function (userId) {
-//     return (
-//         "EXEC public.deleteUserById @userId",
-//         {
-//             userId
-//         }
-//     );
-// };
-
+const deleteUser = function (user){
+    return knex.del('usr_id','usr_mail','usr_password','usr_rol_id','usr_firstName','usr_lastName','usr_access_token','usr_refresh_token','usr_expires_in')
+    .from('public.users')
+    .where('usr_id',user.usr_id)
+};
 // ============================ EXPORTS ================================//
 exports.createUser = createUser;
+
 exports.updateUser = updateUser;
 exports.updateAuthToken = updateAuthToken;
+exports.resetupdateToken = resetupdateToken;
+exports.updateToken = updateToken;
+
+exports.getRole = getRole;
 exports.getUserIsLogin = getUserIsLogin;
+exports.getUserByUpdateToken = getUserByUpdateToken;
 exports.getUserByMail = getUserByMail;
+
+exports.deleteUser = deleteUser;
