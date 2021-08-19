@@ -5,7 +5,7 @@ module.exports = function (app) {
 
 //======================== Advert ==========================//
     app.route('/getAdvertByTimestamp')
-        .get(advertController.getAdvertByTimestamp);
+        .post(advertController.getAdvertByTimestamp);
 
 
     app.route('/createAdvert')
