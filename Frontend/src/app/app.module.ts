@@ -50,7 +50,8 @@ import { connectionComponent } from './user-connection/connection.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SearchComponent } from './search/search.component';
 import { DetailsAnnouncementComponent } from './details-annoucement/details-announcement.component';
-import { NewAdvertComponent } from './new-Advert/new-advert.component.spec';
+import { NewAdvertComponent } from './new-Advert/new-advert.component';
+
 
 
 
