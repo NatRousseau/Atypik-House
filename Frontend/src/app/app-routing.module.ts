@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { DetailsAnnouncementComponent } from './details-annoucement/details-announcement.component';
 import { HomeComponent } from './home/home.component';
-import { NewAdvertComponent } from './new-Advert/new-advert.component.spec';
+import { NewAdvertComponent } from './new-Advert/new-advert.component';
 
 import { SearchComponent } from './search/search.component';
 import { connectionComponent } from './user-connection/connection.component';
