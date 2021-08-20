@@ -28,6 +28,10 @@ const updateAdvert = function (advert) {
         adv_type: advert.adv_type,
         adv_tenants: advert.adv_tenants,
         adv_status: advert.adv_status,
+        adv_adress: advert.adv_adress,
+        adv_city: advert.adv_city,
+        adv_postal: advert.adv_postal,
+        adv_price: advert.adv_price,
         adv_cri_limit: advert.adv_cri_limit
 
     })
