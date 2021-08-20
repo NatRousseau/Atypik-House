@@ -3,8 +3,13 @@ const User = require('../models/user');
 
 // =========================    CREATE  ========================= //
 
-const createUser = function (mail,password) {
-    return knex.insert([{usr_mail: mail, usr_password: password}]).into('public.users')
+const createUser = function (user) {
+    return knex.insert([{usr_mail: user.usr_mail,
+        usr_password: user.usr_password,
+        usr_phone: user.usr_phone,
+        usr_firstName: user.usr_firstName,
+        usr_lastName: user.usr_lastName
+    }]).into('public.users')
 };
 
 // =========================    UPDATE  ========================= //
@@ -50,15 +55,20 @@ const getRole =  function (token) {
 };  
 
 const getUserByMail =  function (mail) {
-    return knex.select('usr_id').from('public.users').where('usr_mail', mail)
-};  
+    return knex.select('usr_id').from('public.users')
+    .where('usr_mail', mail)
+};
+const getUserByPhone =  function (phone) {
+    return knex.select('usr_id').from('public.users')
+    .where('usr_phone', phone)
+}; 
 
 const getUserByUpdateToken =  function (updateToken) {
     return knex.select('usr_id','usr_mail').from('public.users').where('usr_refresh_token', updateToken)
 };  
 
 const getUserIsLogin = function (mail){
-    return knex.select('usr_id','usr_password','usr_mail').from('public.users').where('usr_mail', mail)
+    return knex.select('usr_id','usr_password','usr_mail','usr_phone','usr_firstName','usr_lastName').from('public.users').where('usr_mail', mail)
 };
 
 // =========================    DELETE  ========================= //
@@ -80,5 +90,6 @@ exports.getRole = getRole;
 exports.getUserIsLogin = getUserIsLogin;
 exports.getUserByUpdateToken = getUserByUpdateToken;
 exports.getUserByMail = getUserByMail;
+exports.getUserByPhone = getUserByPhone;
 
 exports.deleteUser = deleteUser;

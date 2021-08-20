@@ -19,6 +19,7 @@ module.exports = {
 
         if (user.usr_mail == null
             || user.usr_password == null
+            || user.usr_phone == null
             ) {
             return res.status(400).json({ 'error': 'Paramètres manquants.' });
         }
@@ -32,12 +33,17 @@ module.exports = {
             return res.status(400).json({ 'error': 'Adresse mail trop longue.' });
         }
 
-        // if (user.usr_firstName.length > 255) {
-        //     return res.status(400).json({ 'Erreur': 'Le prénom d\'utilisateur est trop long.' });
+        //TO DO: return undefined , trouvé alternative pour integer 
+        // if (user.usr_phone.length > 12) {  
+        //     return res.status(400).json({ 'error': 'Numéro de téléphone invalide, trop long.' });    
         // }
-        // if (user.usr_lastName.length > 255) {
-        //     return res.status(400).json({ 'Erreur': 'Le nom d\'utilisateur est trop long.' });
-        // }
+
+        if (user.usr_firstName.length > 255) {
+            return res.status(400).json({ 'Erreur': 'Le prénom d\'utilisateur est trop long.' });
+        }
+        if (user.usr_lastName.length > 255) {
+            return res.status(400).json({ 'Erreur': 'Le nom d\'utilisateur est trop long.' });
+        }
 
         if (!PWD_REGEX.test(user.usr_password)) {
             return res.status(400).json({ 'error': 'Mot de passe non valide ( 4 caracteres min , 1 chiffre , 1 maj , 1 min).' });
@@ -45,11 +51,25 @@ module.exports = {
 
         async.waterfall([
             function (next) {
+                userServices.getUserByPhone(user.usr_phone)
+                    .then(result => {
+                        if (result.length>0) { // User already exist
+                            return res.status(400).json({ 'error': 'Téléphone déjà utilisée.' });
+                        } else { // phone  free
+                            next(null);
+                        }
+                    })
+                    .catch(error => {
+                        console.error(error);
+                        return res.status(500).json({ 'error': 'Inscription impossible.' });
+                    });
+            },
+            function (next) {
                 userServices.getUserByMail(user.usr_mail)
                     .then(result => {
                         if (result.length>0) { // User already exist
                             return res.status(400).json({ 'error': 'Adresse mail déjà utilisée.' });
-                        } else { // mail free
+                        } else { // mail  free
                             user.usr_id = null;
                             hashPassword(user.usr_password, (bcryptedPassword) => {
                                 next(null, bcryptedPassword);
@@ -63,7 +83,7 @@ module.exports = {
             },
             function (hashedPassword) {
                 user.usr_password = hashedPassword;
-                userServices.createUser(user.usr_mail, user.usr_password)
+                userServices.createUser(user)
                     .then(result => {
                         if (result.rowCount === 1) {
                             return res.status(200).json({ 'succes': 'Reussite de l\'enregistrement.' });
@@ -187,10 +207,11 @@ module.exports = {
             }],
             function (user) {
                 return res.status(200).json({
-                    'userId': user.usr_id,
-                    'userMail': user.usr_mail,
-                    'userFirstName': user.usr_firstName,
-                    'userLastName': user.usr_lastName,
+                    'usr_id': user.usr_id,
+                    'usr_mail': user.usr_mail,
+                    'usr_phone': user.usr_phone,
+                    'usr_firstName': user.usr_firstName,
+                    'usr_lastName': user.usr_lastName,
                     'access_token': user.usr_access_token,
                     'refresh_token': user.usr_refresh_token
                 });

@@ -4,7 +4,20 @@ const Advert = require('../models/advert');
 // =========================    CREATE  ========================= //
 
 const createAdvert = function (advert) {
-    return knex.insert([{adv_name: advert.adv_name, adv_type: advert.adv_type, adv_tenants: advert.adv_tenants, adv_usr_id: advert.adv_usr_id, adv_status: advert.adv_status, adv_cri_limit: advert.adv_cri_limit }]).into('public.adverts')
+    return knex.insert([{
+        adv_name: advert.adv_name,
+        adv_type: advert.adv_type,
+        adv_tenants: advert.adv_tenants,
+        adv_status: advert.adv_status,
+        adv_adress: advert.adv_adress,
+        adv_city: advert.adv_city,
+        adv_postal: advert.adv_postal,
+        adv_price: advert.adv_price,
+        adv_usr_id: advert.adv_usr_id,
+        adv_usr_mail: advert.adv_usr_mail,
+        adv_usr_phone: advert.adv_usr_phone,
+        adv_cri_limit: advert.adv_cri_limit
+    }]).into('public.adverts')
 };
 
 // =========================    UPDATE  ========================= //
@@ -15,6 +28,10 @@ const updateAdvert = function (advert) {
         adv_type: advert.adv_type,
         adv_tenants: advert.adv_tenants,
         adv_status: advert.adv_status,
+        adv_adress: advert.adv_adress,
+        adv_city: advert.adv_city,
+        adv_postal: advert.adv_postal,
+        adv_price: advert.adv_price,
         adv_cri_limit: advert.adv_cri_limit
 
     })

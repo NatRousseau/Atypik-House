@@ -5,7 +5,7 @@ exports.up = function(knex, Promise) {
         table.increments('usr_id');
         table.text('usr_mail').unique().notNullable();
         table.text('usr_password').notNullable();
-        table.integer('usr_phone').unique().notNullable();
+        table.bigInteger('usr_phone').unique().notNullable();
         table.integer('usr_rol_id');                                            //TO DO notNullable 
         table.foreign('usr_rol_id').references('rol_id').inTable('roles');                     
         table.text('usr_firstName');
