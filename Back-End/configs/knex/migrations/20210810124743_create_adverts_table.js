@@ -16,7 +16,7 @@ exports.up = function(knex, Promise) {
         table.text('adv_adress').notNullable();
         table.text('adv_city').notNullable();
         table.bigint('adv_postal').notNullable();
-        table.integer('adv_usr_phone');
+        table.bigInteger('adv_usr_phone');
         table.foreign('adv_usr_phone').references('usr_phone').inTable('users');
         
     })
