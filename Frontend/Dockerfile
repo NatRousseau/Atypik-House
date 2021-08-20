@@ -13,3 +13,4 @@ RUN ng build
 
 FROM nginx:1.13-alpine
 COPY --from=build project/dist/atypikhouse /usr/share/nginx/html
+COPY default.conf /etc/nginx/conf.d/default.conf
