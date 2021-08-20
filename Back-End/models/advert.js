@@ -7,7 +7,13 @@ var Advert = function (advert) {
     this.adv_status = advert.adv_status;
     this.adv_cri_limit = advert.adv_cri_limit;
     this.adv_created_at = advert.adv_created_at;
+    this.adv_price = advert.adv_price;
+    this.adv_adress =  advert.adv_adress;
+    this.adv_city = advert.adv_city;
+    this.adv_postal = advert.adv_postal;
+    this.adv_usr_phone = advert.adv_usr_phone;
+    this.adv_up = advert.adv_up;
+
 
 };
-
 module.exports = Advert;

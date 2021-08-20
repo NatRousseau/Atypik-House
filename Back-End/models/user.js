@@ -2,6 +2,7 @@ var User = function (user) {
     this.usr_id = user.usr_id;
     this.usr_mail = user.usr_mail;
     this.usr_password = user.usr_password;
+    this.usr_phone =user.usr_phone;
     this.usr_rol_id = user.usr_rol_id;
     this.usr_firstName = user.usr_firstName;
     this.usr_lastName = user.usr_lastName;
