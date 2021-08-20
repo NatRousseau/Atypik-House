@@ -4,7 +4,12 @@ const User = require('../models/user');
 // =========================    CREATE  ========================= //
 
 const createUser = function (user) {
-    return knex.insert([{usr_mail: user.usr_mail, usr_password: user.usr_password, usr_phone: user.usr_phone, usr_firstName: user.usr_firstName, usr_lastName: user.usr_lastName}]).into('public.users')
+    return knex.insert([{usr_mail: user.usr_mail,
+        usr_password: user.usr_password,
+        usr_phone: user.usr_phone,
+        usr_firstName: user.usr_firstName,
+        usr_lastName: user.usr_lastName
+    }]).into('public.users')
 };
 
 // =========================    UPDATE  ========================= //
@@ -63,7 +68,7 @@ const getUserByUpdateToken =  function (updateToken) {
 };  
 
 const getUserIsLogin = function (mail){
-    return knex.select('usr_id','usr_password','usr_mail','usr_phone').from('public.users').where('usr_mail', mail)
+    return knex.select('usr_id','usr_password','usr_mail','usr_phone','usr_firstName','usr_lastName').from('public.users').where('usr_mail', mail)
 };
 
 // =========================    DELETE  ========================= //
