@@ -12,7 +12,7 @@ module.exports = function (app) {
         .post(auth,advertController.createAdvert);
 
     app.route('/getUserAdvert')
-        .get(auth,advertController.getUserAdvert);
+        .post(auth,advertController.getUserAdvert);
 
     app.route('/updateAdvert')
         .put(auth,advertController.updateAdvert);

@@ -10,7 +10,7 @@ module.exports = function (app) {
         .post(userController.register);
 
     app.route('/login')
-        .get(userController.login);
+        .post(userController.login);
 
     app.route('/refresh')
         .post(userController.updateToken);

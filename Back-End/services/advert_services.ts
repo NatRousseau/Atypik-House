@@ -44,14 +44,14 @@ const updateAdvert = function (advert) {
 
 
 const getUserAdvert =  function (dataAdvert) {
-    return knex.select('adv_id','adv_name','adv_type','adv_tenants','adv_status','adv_cri_limit','adv_usr_id','adv_created_at')
+    return knex.select('adv_id','adv_name','adv_type','adv_tenants','adv_status','adv_adress','adv_city','adv_postal','adv_price','adv_usr_id','adv_usr_mail','adv_usr_phone','adv_created_at','adv_cri_limit')
     .from('public.adverts')
     .where('adv_usr_id',dataAdvert.adv_usr_id)
 };  
 
 
 const getAdvertByTimestamp =  function (min,max) {
-    return knex.select('adv_id','adv_name','adv_type','adv_tenants','adv_status','adv_cri_limit','adv_usr_id','adv_created_at')
+    return knex.select('adv_id','adv_name','adv_type','adv_tenants','adv_status','adv_adress','adv_city','adv_postal','adv_price','adv_usr_id','adv_usr_mail','adv_usr_phone','adv_created_at','adv_cri_limit')
     .from('public.adverts')
     .orderBy('adv_created_at','asc')
     .offset(min)
@@ -69,7 +69,7 @@ const getAdvertByName =  function (advert) {
 // =========================    DELETE  ========================= //
 
 const deleteAdvert = function (advert){
-    return knex.del('adv_id','adv_name','adv_type','adv_tenants','adv_status','adv_cri_limit','adv_usr_id','adv_created_at')
+    return knex.del('adv_id')
     .from('public.adverts')
     .where('adv_usr_id',advert.adv_usr_id)
     .andWhere('adv_id',advert.adv_id)

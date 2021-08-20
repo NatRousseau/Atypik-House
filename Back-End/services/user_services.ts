@@ -74,7 +74,7 @@ const getUserIsLogin = function (mail){
 // =========================    DELETE  ========================= //
 
 const deleteUser = function (user){
-    return knex.del('usr_id','usr_mail','usr_password','usr_rol_id','usr_firstName','usr_lastName','usr_access_token','usr_refresh_token','usr_expires_in')
+    return knex.del('usr_id')
     .from('public.users')
     .where('usr_id',user.usr_id)
 };

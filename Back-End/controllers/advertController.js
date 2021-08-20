@@ -226,14 +226,12 @@ module.exports = {
             max = pagenumber.page;
 
         }
-        console.log(min,max);
 
         async.waterfall([
             function () {
                 advertServices.getAdvertByTimestamp(min,max)
                     .then(result => {
                         if (result.length != null) {
-                            console.log(result);
                             for(i=0 ; i<result.length ; i++){     
                                 advertByTimestamp[i] = new Advert(result[i]);
                         }
