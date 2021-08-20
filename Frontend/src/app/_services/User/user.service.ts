@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { LogUSer } from 'src/app/models/Users/LogUser';
+import { User } from 'src/app/models/Users/User';
 import { environment } from 'src/environments/environment';
 
 @Injectable({ providedIn: 'root'})
@@ -42,10 +44,20 @@ export class UserService {
    fetch(environment.API_URL + `/register`,requestOptions)
   } */
 
-  connectUser(email:string,password:string) {
-    let user = email + password;
-    localStorage.setItem("User",user);
-    this.rt.navigate(["/"]);
+  async connectUser(user:LogUSer) {
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+
+      body : JSON.stringify({
+        usr_mail : user.usr_mail,
+        user_password: user.usr_password
+      })
+    };
+
+   const response =  await fetch(environment.API_URL + "/login", requestOptions);
+   const data =  await response.json();
+   return data;
   }
 
   disconnectUser() {
