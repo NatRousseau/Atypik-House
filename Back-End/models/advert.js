@@ -13,6 +13,7 @@ var Advert = function (advert) {
     this.adv_postal = advert.adv_postal;
     this.adv_usr_phone = advert.adv_usr_phone;
     this.adv_up = advert.adv_up;
+    this.adv_usr_mail = advert.adv_usr_mail;
 
 
 };
