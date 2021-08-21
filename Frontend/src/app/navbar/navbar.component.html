@@ -26,4 +26,7 @@
         S'inscrire
     </button>
 
+    <button *ngIf="this.statusUser.isAuth" mat-raised-button class="example-icon favorite-icon"
+        (click)="disconnect()">Déconnection</button>
+
 </mat-toolbar>

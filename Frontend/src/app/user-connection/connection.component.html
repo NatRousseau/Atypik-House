@@ -1,6 +1,6 @@
 <div class="example-container">
 
-    <form [formGroup]="registerForm" class="register-form" (ngSubmit)="onSubmit()">
+    <form [formGroup]="registerForm" class="register-form" (ngSubmit)="onSubmit(registerForm.value)">
         <img src=" /assets/images/Group_1.png" class="form-logo">
         <div class="form-text">Connexion</div>
         <div class="form-field">
@@ -9,6 +9,15 @@
                 <input matInput placeholder="Entrer votre e-mail" formControlName="email" required>
 
             </mat-form-field>
+            <div class="error-input" *ngIf="registerForm.get('email').errors && 
+            registerForm.get('email').hasError('required') && registerForm.get('email').touched">Aucune adresse
+                mail Saisi
+            </div>
+            <div class="error-input"
+                *ngIf="registerForm.get('email').errors && !registerForm.get('email').hasError('required') && registerForm.get('email').touched">
+                Format de
+                l'adresse mail incorrect
+            </div>
             <mat-form-field appearance="fill">
                 <mat-label>Entrez votre mot de passe</mat-label>
                 <input formControlName="password" matInput [type]="hide ? 'password' : 'text'">
@@ -17,6 +26,18 @@
                     <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                 </button>
             </mat-form-field>
+            <div class="error-input" *ngIf="registerForm.get('password').errors && 
+            registerForm.get('password').hasError('required') && registerForm.get('password').touched">Aucun mot de
+                passe Saisi
+            </div>
+            <div class="error-input" *ngIf="registerForm.get('password').errors && 
+            !registerForm.get('password').hasError('required') && registerForm.get('password').touched">Format du mot
+                de passe incorrect
+            </div>
+            <div class="error-input" *ngIf="errorWhenLogin === true">les Identifiants saisis sont incorects
+            </div>
+            <div>* Le mot de passe doit contenir: <br> -4 caractéres au minimum <br> -Une majuscule <br> -Un chiffre
+            </div>
             <div style="margin-left: 50px;">
                 <button mat-raised-button style="background-color: #339e33; color: white;" type="submit"
                     [disabled]="registerForm.invalid">Se connecter</button>

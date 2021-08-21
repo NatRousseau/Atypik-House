@@ -3,65 +3,104 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { LogUSer } from 'src/app/models/Users/LogUser';
+import { NewUser } from 'src/app/models/Users/NewUser';
 import { User } from 'src/app/models/Users/User';
 import { environment } from 'src/environments/environment';
+import { StatusUser } from './statusUser';
 
-@Injectable({ providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class UserService {
-
-  isAuth: boolean = true;
+    isAuth: boolean = true;
 
     constructor(
-      public rt: Router,
-      private http: HttpClient
-      ) {}
+        public rt: Router,
+        private http: HttpClient,
+        private statusUser: StatusUser
+    ) {}
 
-  emitUser() {
-    //this.app.user = this.user
-  }
+    emitUser() {
+        //this.app.user = this.user
+    }
 
-  getLocalUser() {
-   // let user = this.app.user;
-   // return user;
-  }
+    getLocalUser() {
+        // let user = this.app.user;
+        // return user;
+    }
 
-  register(user): Observable<any> {
-    console.log(user.mail);
+    async register(user: NewUser) {
+        const requestOptions = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+            },
+            body: JSON.stringify({
+                usr_mail: user.usr_mail,
+                usr_password: user.usr_password,
+                usr_phone: '' + user.usr_phone,
+                usr_firstName: user.usr_firstName,
+                usr_lastName: user.usr_lastName,
+            }),
+        };
 
-    return this.http.post(environment.API_URL + `/register`, user);
-  }
+        const response = await fetch(
+            environment.API_URL + `/register`,
+            requestOptions
+        );
 
-  /* register(user) {
-     const requestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json", Accept: "application/json" },
-      body: JSON.stringify({
-        mail: user.mail,
-        password: user.password
-      }),
-    };
+        const data = await response.json();
+        return data;
+    }
 
-   fetch(environment.API_URL + `/register`,requestOptions)
-  } */
+    async connectUser(user: LogUSer) {
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
 
-  async connectUser(user:LogUSer) {
-    const requestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                usr_mail: user.usr_mail,
+                usr_password: user.usr_password,
+            }),
+        };
 
-      body : JSON.stringify({
-        usr_mail : user.usr_mail,
-        user_password: user.usr_password
-      })
-    };
+        const response = await fetch(
+            environment.API_URL + '/login',
+            requestOptions
+        );
+        const data = await response.json();
+        return data;
+    }
 
-   const response =  await fetch(environment.API_URL + "/login", requestOptions);
-   const data =  await response.json();
-   return data;
-  }
+    async disconnectUser() {
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
 
-  disconnectUser() {
-    localStorage.setItem("User", "");
-    this.rt.navigate(["/"]);
-  }
+            body: JSON.stringify({
+                usr_refresh_token: localStorage.getItem('refresh_token'),
+            }),
+        };
+
+        await fetch(environment.API_URL + '/logout', requestOptions);
+        localStorage.clear();
+        this.statusUser.isAuth = false;
+        this.rt.navigate(['/']);
+    }
+
+    async refresh() {
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+
+            body: JSON.stringify({
+                usr_refresh_token: localStorage.getItem('refresh_token'),
+            }),
+        };
+        const response = await fetch(
+            environment.API_URL + '/refresh',
+            requestOptions
+        );
+        const data = await response.json();
+        return data;
+    }
 }
