@@ -2,7 +2,6 @@ const advertServices = require ('../services/advert_services.ts');
 
 const async = require('async');
 const Advert = require('../models/advert');
-const { isString } = require('util');
 
 
 module.exports = {
