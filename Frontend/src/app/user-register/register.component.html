@@ -5,8 +5,8 @@
         <div class="form-text">Inscription</div>
         <div class="form-field">
             <mat-form-field appearance="fill">
-                <mat-label>Saisissez votre adresse mail</mat-label>
-                <input (change)="handleOnChangeMail()" matInput placeholder="Enter your mail" formControlName="mail"
+                <mat-label>Saisissez une adresse mail</mat-label>
+                <input (change)="handleOnChangeMail()" matInput placeholder="Adresse mail" formControlName="mail"
                     required>
 
             </mat-form-field>
@@ -20,7 +20,7 @@
             </mat-error>
 
             <mat-form-field appearance="fill">
-                <mat-label>Saisissez votre mot de passe</mat-label>
+                <mat-label>Saisissez une mot de passe</mat-label>
                 <input (change)="handleOnChangePassword()" formControlName="password" matInput
                     [type]="hide ? 'password' : 'text'" required>
                 <button type="button" mat-icon-button matSuffix (click)="hide = !hide"
@@ -28,13 +28,58 @@
                     <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                 </button>
             </mat-form-field>
-            <div>* Le mot de passe doit contenir: <br> -4 caractéres au minimum <br> -Une majuscule <br> -Un chiffre
-            </div>
+
             <div class="error-input" *ngIf="registerForm.get('password').errors && 
             !registerForm.get('password').hasError('required')">format du mot de passe incorrect</div>
             <div class="error-input" *ngIf="registerForm.get('password').errors && 
-                registerForm.get('password').hasError('required')  && isTouchedPassword > 0">Vous devez saisir un mot
+                registerForm.get('password').hasError('required')  && registerForm.get('password').touched">Vous devez
+                saisir un mot
                 de passe</div>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Saisissez un numéro de téléphone</mat-label>
+                <input maxlength="12" matInput placeholder="Numéro de téléphone" formControlName="phone" required>
+
+            </mat-form-field>
+
+            <div class="error-input" *ngIf="registerForm.get('phone').errors && 
+            !registerForm.get('phone').hasError('required')">format de numéro de téléphone invalid</div>
+            <mat-error class="error-input"
+                *ngIf="registerForm.get('phone').errors && registerForm.get('phone').hasError('required') && registerForm.get('phone').touched">
+                Vous devez
+                saisir un numéro de téléphone
+            </mat-error>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Saisissez votre prénom</mat-label>
+                <input matInput placeholder="Prénom" formControlName="firstName" required>
+
+            </mat-form-field>
+
+
+            <mat-error class="error-input"
+                *ngIf="registerForm.get('firstName').errors && registerForm.get('firstName').hasError('required') && registerForm.get('firstName').touched">
+                Vous devez
+                saisir un prénom
+            </mat-error>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Saisissez votre nom</mat-label>
+                <input matInput placeholder="Nom" formControlName="lastName" required>
+
+            </mat-form-field>
+
+
+            <mat-error class="error-input"
+                *ngIf="registerForm.get('lastName').errors && registerForm.get('lastName').hasError('required') && registerForm.get('lastName').touched">
+                Vous devez
+                saisir un nom
+            </mat-error>
+
+
+            <div>* Le mot de passe doit contenir: <br> -4 caractéres au minimum <br> -Une majuscule <br> -Un chiffre
+            </div>
+
             <div style="margin-left: 50px;"><button mat-raised-button style="background-color: #339e33; color: white;"
                     type="submit" [disabled]="registerForm.invalid">S'inscrire</button>
             </div>
