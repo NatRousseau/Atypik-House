@@ -37,11 +37,11 @@ module.exports = {
         var currentDate= new Date();
         currentDate =formatDate(currentDate);
 
-        for(i=0 ; i<reserve.res_date.length ; i++){     
-            if (reserve.res_date[i] < currentDate) {
-                wrongDate = reserve.res_date[i];
-                return res.status(400).json({ 'Erreur': 'La date sélectionné est invalide',wrongDate});
-            }
+      
+        if (reserve.res_date < currentDate) {
+            wrongDate = reserve.res_date[i];
+            return res.status(400).json({ 'Erreur': 'La date sélectionné est invalide',wrongDate});
+            
         }
     
 
@@ -62,22 +62,20 @@ module.exports = {
                     });
             },
             function (next) {
-                for(i=0 ; i<reserve.res_date.length ; i++){     
-                    reserveServices.getReserveDate(reserve.res_date[i],reserve.res_adv_id)
-                        .then(result => {
-                            console.log(result);
-                            if (result.length>0) { // id existe pour cette date+annonce
-                                wrongDate=reserve.res_date[i];
-                                return res.status(400).json({ 'error': 'Une réservation à cette date éxiste déjà.',wrongDate });
-                            }
-                            
+                reserveServices.getReserveDate(reserve.res_date,reserve.res_adv_id)
+                    .then(result => {
+                        if (result.length>0) { // id existe pour cette date+annonce
+                            let wrongdate = reserve.res_date;
+                            return res.status(400).json({ 'error': 'Une réservation à cette date éxiste déjà.',wrongdate });
+                        }
+                        else { 
+                            next(null)
+                        } 
                         })
                         .catch(error => {
                             console.error(error);
                             return res.status(500).json({ 'error': 'Création de la réservation impossible.' });
                         });
-                }
-                next(null);
             },
             function () {
                 var Hours =  new Date().getHours(); 
@@ -85,24 +83,20 @@ module.exports = {
                 Mins = Mins+15;
                 const timer = currentDate +"-"+ Hours +":"+ Mins;
                 reserve.res_payment_timer = timer;
-  
-                for(i=0 ; i<reserve.res_date.length ; i++){
-                    reserve.res_payment = false;
+                reserve.res_payment = false;
                 
-                    reserveServices.createReserve(reserve.res_date[i],reserve)
-                        .then(result => {
-                            if (result.rowCount === 1) { 
-                                return res.status(200).json({'succes': 'Réservation créée et en attente de payment'});
-                            } else {
-                                return res.status(400).json({ 'error': 'La réservation n\'as pus être enregistré. ' });
-                            }
+                reserveServices.createReserve(reserve.res_date,reserve)
+                    .then(result => {
+                        if (result.rowCount === 1) { 
+                            return res.status(200).json({'succes': 'Réservation créée et en attente de payment'});
+                        } else {
+                            return res.status(400).json({ 'error': 'La réservation n\'as pus être enregistré. ' });
+                        }
                         })
                         .catch(error => {
                             console.error(error);
                             return res.status(500).json({ 'error': 'Création de l\'annonce impossible.' });
                         });
-                }
-
             }]
         );
     },
