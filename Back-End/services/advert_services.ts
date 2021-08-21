@@ -66,6 +66,12 @@ const getAdvertByName =  function (advert) {
     .where('adv_name',advert.adv_name)
 };
 
+const getAdvertByidTenantPrice =  function (adv_id) {
+    return knex.select('adv_price','adv_tenants',)
+    .from('public.adverts')
+    .where('adv_id',adv_id)
+};
+
 // =========================    DELETE  ========================= //
 
 const deleteAdvert = function (advert){
@@ -80,5 +86,6 @@ exports.createAdvert = createAdvert;
 exports.updateAdvert = updateAdvert;
 exports.getUserAdvert = getUserAdvert;
 exports.getAdvertByName = getAdvertByName;
+exports.getAdvertByidTenantPrice = getAdvertByidTenantPrice;
 exports.getAdvertByTimestamp = getAdvertByTimestamp;
 exports.deleteAdvert = deleteAdvert;
