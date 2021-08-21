@@ -3,7 +3,7 @@ const advertServices = require ('../services/advert_services.ts');
 
 const async = require('async');
 const Reserve = require('../models/reserve');
-
+const Advert = require('../models/advert');
 
 module.exports = {
 
@@ -103,9 +103,9 @@ module.exports = {
                         });
                 }
 
-            }
-        ],
-    )},
+            }]
+        );
+    },
 
 
     // =========================    UPDATE  ========================= //
@@ -117,9 +117,60 @@ module.exports = {
 
 
 
+
     // =========================    GET  ========================= //
    
+    getReservebyAdvert: function (req, res) {
+        const dataAdvert = req.body;
+        userAdvert=[];
+        userReserve=[];
 
+       if (dataAdvert.adv_usr_id == null
+            ) {
+            return res.status(400).json({ 'error': 'Veuillez vous connecté.' });
+        }
+        
+        async.waterfall([
+            function (next) {
+                advertServices.getUserAdvert(dataAdvert)
+                    .then(result => {
+                        if (result.length != null) {
+                            for(i=0 ; i<result.length ; i++){     
+                            userAdvert[i] = new Advert(result[i]);
+                            }
+                            next(null,userAdvert)
+                        } else {
+                            return res.status(200).json({ 'error': 'Vous ne possédez pas d\'annonces.' });
+                        }
+                    })
+                    .catch(error => {
+                        console.error(error);
+                        return res.status(500).json({ 'error': 'Impossible de vérifier les identifiants.' });
+                    });
+            },
+            function (userAdvert) {
+                for(i=0 ; i<userAdvert.length ; i++){
+                    reserveServices.getReserveInfos(userAdvert[i].adv_id)
+                        .then(result => {
+                            console.log(result);
+                            if (result.length != null) {
+                                for(i=0 ; i<result.length ; i++){     
+                                userReserve[i] = new Reserve(result[i]);
+                            }
+                                return res.status(200).json({'succes':'Réservations récupérés',userReserve});
+                            } else {
+                                return res.status(400).json({ 'error': 'Aucune réservation n\'est enregistré.' });
+                            }
+                        })
+                        .catch(error => {
+                            console.error(error);
+                            return res.status(500).json({ 'error': 'Création de l\'annonce impossible.' });
+                        });
+                }
+
+            }]
+        );
+    }
 
 }
 

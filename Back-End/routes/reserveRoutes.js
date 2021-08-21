@@ -8,4 +8,6 @@ module.exports = function (app) {
     app.route('/createReserve')
         .post(reserveController.createReserve);
 
+    app.route('/getReservebyAdvert')
+        .post(reserveController.getReservebyAdvert);
 }
