@@ -9,7 +9,7 @@
 
             </mat-form-field>
             <div class="error-input" *ngIf="NewAdvertForm.get('titre').errors && 
-            NewAdvertForm.get('titre').hasError('required') && NewAdvertForm.get('titre').touched">Aucun titre Saisi
+            NewAdvertForm.get('titre').hasError('required') && NewAdvertForm.get('titre').touched">Aucun titre saisi
             </div>
 
             <mat-form-field appearance="outline">
@@ -18,7 +18,7 @@
 
             </mat-form-field>
             <div class="error-input" *ngIf="NewAdvertForm.get('type').errors && 
-            NewAdvertForm.get('type').hasError('required') && NewAdvertForm.get('type').touched">Aucun type Saisi
+            NewAdvertForm.get('type').hasError('required') && NewAdvertForm.get('type').touched">Aucun type saisi
             </div>
             <mat-form-field appearance="outline">
                 <mat-label>Nombre maximum de locataire</mat-label>
@@ -27,12 +27,61 @@
             </mat-form-field>
 
             <div class="error-input" *ngIf="NewAdvertForm.get('max').errors && 
-            NewAdvertForm.get('max').hasError('required')  && NewAdvertForm.get('max').touched">Aucun nombre Saisi
+            NewAdvertForm.get('max').hasError('required')  && NewAdvertForm.get('max').touched">Aucun nombre saisi
             </div>
             <div class="error-input" *ngIf="NewAdvertForm.get('max').errors && 
             !NewAdvertForm.get('max').hasError('required')  && NewAdvertForm.get('max').touched"> Veuillez saisir
                 uniquement des chiffres
             </div>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Numéro et nom de rue du logement</mat-label>
+                <input matInput placeholder="EX: 10 rue de la republique" formControlName="adress" required>
+
+            </mat-form-field>
+            <div class="error-input" *ngIf="NewAdvertForm.get('adress').errors && 
+            NewAdvertForm.get('adress').hasError('required') && NewAdvertForm.get('adress').touched">Aucune adresse
+                saisi
+            </div>
+            <mat-form-field appearance="outline">
+                <mat-label>Ville du logement</mat-label>
+                <input matInput placeholder="EX: Lyon" formControlName="city" required>
+
+            </mat-form-field>
+            <div class="error-input" *ngIf="NewAdvertForm.get('city').errors && 
+            NewAdvertForm.get('city').hasError('required') && NewAdvertForm.get('city').touched">Aucune ville saisi
+            </div>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Code postal</mat-label>
+                <input matInput maxlength="5" placeholder="EX: 69000" formControlName="adv_postal" required>
+
+            </mat-form-field>
+            <div class="error-input" *ngIf="NewAdvertForm.get('adv_postal').errors && 
+            NewAdvertForm.get('adv_postal').hasError('required') && NewAdvertForm.get('adv_postal').touched">Aucun code
+                postal saisi
+            </div>
+            <div class="error-input" *ngIf="NewAdvertForm.get('adv_postal').errors && 
+            !NewAdvertForm.get('adv_postal').hasError('required')  && NewAdvertForm.get('adv_postal').touched">
+                Veuillez saisir
+                uniquement des chiffres
+            </div>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Prix de la journée</mat-label>
+                <input matInput placeholder="EX: 35" formControlName="adv_price" required>
+
+            </mat-form-field>
+            <div class="error-input" *ngIf="NewAdvertForm.get('adv_price').errors && 
+            NewAdvertForm.get('adv_price').hasError('required') && NewAdvertForm.get('adv_price').touched">Aucun prix
+                saisi
+            </div>
+            <div class="error-input" *ngIf="NewAdvertForm.get('adv_price').errors && 
+            !NewAdvertForm.get('adv_price').hasError('required')  && NewAdvertForm.get('adv_price').touched">
+                Veuillez saisir
+                uniquement des chiffres
+            </div>
+
 
             <mat-label>Disponibilité de l'annonce</mat-label>
             <mat-slide-toggle formControlName="dispo">non disponible/disponible</mat-slide-toggle>

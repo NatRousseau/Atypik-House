@@ -41,3 +41,4 @@ server.listen(port, function() {
 
 require('./routes/userRoutes')(server);
 require('./routes/advertRoutes')(server);
+require('./routes/reserveRoutes')(server);
