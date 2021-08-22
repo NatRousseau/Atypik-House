@@ -17,11 +17,11 @@
         aria-label="Example icon-button with heart icon">
         Carte
     </button>
-    <button mat-button routerLink="/connection" class="example-icon favorite-icon"
+    <button *ngIf="!this.statusUser.isAuth" mat-button routerLink="/connection" class="example-icon favorite-icon"
         aria-label="Example icon-button with heart icon">
         se connecter
     </button>
-    <button mat-raised-button routerLink="/register" class="example-icon favorite-icon"
+    <button *ngIf="!this.statusUser.isAuth" mat-raised-button routerLink="/register" class="example-icon favorite-icon"
         aria-label="Example icon-button with heart icon">
         S'inscrire
     </button>
