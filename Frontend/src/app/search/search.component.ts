@@ -9,5 +9,21 @@ import { StatusUser } from '../_services/User/statusUser';
 export class SearchComponent implements OnInit {
     constructor(public statusUser: StatusUser) {}
 
-    ngOnInit(): void {}
+  listAdverts: Advert[];
+
+  constructor(private advService : AdvertsService) { }
+
+  ngOnInit(): void {
+    this.advService.getAdvertsByTimestamp().then((adverts) => {
+
+      this.listAdverts = adverts.advertByTimestamp;
+    })
+
+    
+  }
+
+  onclick(){
+    console.log(this.listAdverts);
+  }
+  
 }
