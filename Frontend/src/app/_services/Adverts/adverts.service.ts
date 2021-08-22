@@ -10,6 +10,23 @@ import { environment } from 'src/environments/environment';
 export class AdvertsService {
     constructor(public rt: Router) {}
 
+    async getAdvertsByTimestamp() {
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                page: 10,
+            }),
+        };
+
+        const response = await fetch(
+            environment.API_URL + '/getAdvertByTimestamp',
+            requestOptions
+        );
+        const data = await response.json();
+        return data;
+    }
+
     async postAdvert(advert: AdvertSet) {
         const requestOptions = {
             method: 'POST',
