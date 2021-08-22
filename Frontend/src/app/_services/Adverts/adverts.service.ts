@@ -13,7 +13,10 @@ export class AdvertsService {
     async getAdvertsByTimestamp() {
         const requestOptions = {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+            },
             body: JSON.stringify({
                 page: 10,
             }),
@@ -30,7 +33,10 @@ export class AdvertsService {
     async getAdverById(id: number) {
         const requestOptions = {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+            },
             body: JSON.stringify({
                 adv_id: id,
             }),
@@ -50,6 +56,7 @@ export class AdvertsService {
             headers: {
                 Authorization: 'Bearer ' + localStorage.getItem('access_token'),
                 'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
             },
 
             body: JSON.stringify({

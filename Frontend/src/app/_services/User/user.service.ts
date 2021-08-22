@@ -33,6 +33,7 @@ export class UserService {
             headers: {
                 'Content-Type': 'application/json',
                 Accept: 'application/json',
+                'Access-Control-Allow-Origin': '*',
             },
             body: JSON.stringify({
                 usr_mail: user.usr_mail,
@@ -55,7 +56,10 @@ export class UserService {
     async connectUser(user: LogUSer) {
         const requestOptions = {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+            },
 
             body: JSON.stringify({
                 usr_mail: user.usr_mail,
@@ -74,7 +78,10 @@ export class UserService {
     async disconnectUser() {
         const requestOptions = {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+            },
 
             body: JSON.stringify({
                 usr_refresh_token: localStorage.getItem('refresh_token'),
@@ -90,7 +97,10 @@ export class UserService {
     async refresh() {
         const requestOptions = {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+            },
 
             body: JSON.stringify({
                 usr_refresh_token: localStorage.getItem('refresh_token'),
