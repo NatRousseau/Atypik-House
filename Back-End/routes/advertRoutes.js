@@ -14,6 +14,9 @@ module.exports = function (app) {
     app.route('/getUserAdvert')
         .post(auth,advertController.getUserAdvert);
 
+    app.route('/getAdvertbyId')
+        .post(advertController.getAdvertbyId);
+
     app.route('/updateAdvert')
         .put(auth,advertController.updateAdvert);
 

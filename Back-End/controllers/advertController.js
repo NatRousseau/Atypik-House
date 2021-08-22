@@ -211,6 +211,35 @@ module.exports = {
         );
     },
 
+    getAdvertbyId: function (req, res) {
+        const dataAdvert = req.body;
+        var selectedAdvert;
+
+       if (dataAdvert.adv_id == null
+            ) {
+            return res.status(400).json({ 'error': 'Veuillez sélectionner une annonce' });
+        }
+        
+        async.waterfall([
+            function () {
+                advertServices.getAdvertByID(dataAdvert)
+                    .then(result => {
+                        if (result.length >0) {   
+                            selectedAdvert = result;
+                            return res.status(200).json({'succes':'Annonces récupérés',selectedAdvert});
+                        }
+                        else {
+                            return res.status(200).json({ 'error': 'Aucune annonce correspondante.' });
+                        }
+                    })
+                    .catch(error => {
+                        console.error(error);
+                        return res.status(500).json({ 'error': 'Aucune correspondance à l\'annonce sélectionné.' });
+                    });
+            }]
+        );
+    },
+
     getAdvertByTimestamp: function (req, res) {
         const pagenumber = req.body;
         advertByTimestamp=[];

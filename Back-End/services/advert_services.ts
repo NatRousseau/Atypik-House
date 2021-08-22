@@ -49,6 +49,11 @@ const getUserAdvert =  function (dataAdvert) {
     .where('adv_usr_id',dataAdvert.adv_usr_id)
 };  
 
+const getAdvertByID =  function (dataAdvert) {
+    return knex.select('adv_id','adv_name','adv_type','adv_tenants','adv_status','adv_adress','adv_city','adv_postal','adv_price','adv_usr_id','adv_usr_mail','adv_usr_phone','adv_created_at','adv_cri_limit')
+    .from('public.adverts')
+    .where('adv_id',dataAdvert.adv_id)
+}; 
 
 const getAdvertByTimestamp =  function (min,max) {
     return knex.select('adv_id','adv_name','adv_type','adv_tenants','adv_status','adv_adress','adv_city','adv_postal','adv_price','adv_usr_id','adv_usr_mail','adv_usr_phone','adv_created_at','adv_cri_limit')
@@ -85,6 +90,7 @@ const deleteAdvert = function (advert){
 exports.createAdvert = createAdvert;
 exports.updateAdvert = updateAdvert;
 exports.getUserAdvert = getUserAdvert;
+exports.getAdvertByID = getAdvertByID;
 exports.getAdvertByName = getAdvertByName;
 exports.getAdvertByidTenantPrice = getAdvertByidTenantPrice;
 exports.getAdvertByTimestamp = getAdvertByTimestamp;
