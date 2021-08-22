@@ -17,12 +17,10 @@ export class AppComponent implements OnInit {
             localStorage.getItem('refresh_token') !== undefined ||
             localStorage.getItem('refresh_token').length > 0
         ) {
-            console.log('tyetststststst');
             this.auth.refresh().then((response) => {
                 if (response.error !== undefined && response.error.length > 0) {
                     this.auth.disconnectUser();
                 } else {
-                    console.log('dddqzsdqsdQSFDqsed');
                     localStorage.setItem('access_token', response.access_token);
                     localStorage.setItem(
                         'refresh_token',

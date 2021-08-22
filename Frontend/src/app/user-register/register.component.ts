@@ -86,7 +86,6 @@ export class registerComponent implements OnInit {
         this.snackbar.openSnackBar('Sauvegarde en cours ...', 'ok', 1500);
 
         this.userService.register(user).then((result) => {
-            console.log(result);
             if (result.error.length > 0) {
                 this.snackbar.openSnackBar(result.error, 'ok', 1500);
             } else {
