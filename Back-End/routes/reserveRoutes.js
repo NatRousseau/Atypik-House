@@ -10,4 +10,7 @@ module.exports = function (app) {
 
     app.route('/getReservebyAdvert')
         .post(reserveController.getReservebyAdvert);
+
+    app.route('/getDatebyAdvRes')
+    .post(reserveController.getDatebyAdvRes);
 }

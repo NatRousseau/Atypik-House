@@ -158,10 +158,37 @@ module.exports = {
                         })
                         .catch(error => {
                             console.error(error);
-                            return res.status(500).json({ 'error': 'Création de l\'annonce impossible.' });
+                            return res.status(500).json({ 'error': 'Récupération de l\'annonce impossible.' });
                         });
                 }
 
+            }]
+        );
+    },
+
+
+
+    getDatebyAdvRes: function (req, res) {
+        var reserve = new Reserve(req.body);
+
+        if (reserve.res_adv_id == null 
+            ) {
+            return res.status(400).json({ 'error': 'Paramètres manquants.' });
+        }
+
+        async.waterfall([
+            function () {
+                reserveServices.getDateResAdv(reserve.res_adv_id)
+                    .then(result => {
+                        console.log(result);
+                        if (result.length != null) { // return date
+                            return res.status(200).json({'succes':'Dates liées à l\'annonce récupérés',result});
+                        }
+                        })
+                        .catch(error => {
+                            console.error(error);
+                            return res.status(500).json({ 'error': 'Création de la réservation impossible.' });
+                        });
             }]
         );
     }

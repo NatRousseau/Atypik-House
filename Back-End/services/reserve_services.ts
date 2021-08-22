@@ -29,6 +29,12 @@ const getReserveDate =  function (date,res_adv_id) {
     .andWhere('res_date',date)
 };  
 
+const getDateResAdv =  function (res_adv_id) {
+    return knex.select('res_date')
+    .from('public.reserves')
+    .where('res_adv_id',res_adv_id)
+};  
+
 
 const getReserveInfos =  function (adv_id) {
     return knex.select(
@@ -52,3 +58,4 @@ const getReserveInfos =  function (adv_id) {
 exports.getReserveDate = getReserveDate;
 exports.getReserveInfos = getReserveInfos;
 exports.createReserve = createReserve;
+exports.getDateResAdv = getDateResAdv;
