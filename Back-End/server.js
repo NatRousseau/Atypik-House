@@ -11,7 +11,8 @@ server.use(morgan("common"));
 // --------------- CORS ---------------
 
 const whitelist = [
-  'http://localhost:4200'
+  'http://localhost:4200',
+    'http://atypikhouse.art'
 ];
 server.options('*', cors());
 server.use(cors((req, callback) => {
