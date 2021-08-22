@@ -5,29 +5,39 @@ import { AdvertSet } from 'src/app/models/Adverts/AdvertSet';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root',
 })
 export class AdvertsService {
+    constructor(public rt: Router) {}
 
-  constructor(public rt: Router) { }
+    async postAdvert(advert: AdvertSet) {
+        const requestOptions = {
+            method: 'POST',
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('access_token'),
+                'Content-Type': 'application/json',
+            },
 
-  async postAdvert(advert:AdvertSet) {
-    const requestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-
-      body : JSON.stringify({
-        adv_name : advert.adv_name,
-        adv_type : advert.adv_type,
-        adv_tenants : advert.adv_tenants,
-        adv_status: advert.adv_status,
-        adv_usr_id: advert.adv_usr_id
-      })
-    };
-    console.log(advert)
-   const response =  await fetch(environment.API_URL + "/createAdvert", requestOptions);
-   const data = await response.json();
-   console.log(data);
-   this.rt.navigate(["/"]);
-  }
+            body: JSON.stringify({
+                adv_name: advert.adv_name,
+                adv_type: advert.adv_type,
+                adv_tenants: advert.adv_tenants,
+                adv_status: advert.adv_status,
+                adv_adress: advert.adv_adress,
+                adv_city: advert.adv_city,
+                adv_postal: advert.adv_postal,
+                adv_price: advert.adv_price,
+                adv_usr_id: advert.adv_usr_id,
+                adv_usr_mail: advert.adv_usr_mail,
+                adv_usr_phone: advert.adv_usr_phone,
+            }),
+        };
+        console.log(advert);
+        const response = await fetch(
+            environment.API_URL + '/createAdvert',
+            requestOptions
+        );
+        const data = await response.json();
+        return data;
+    }
 }
