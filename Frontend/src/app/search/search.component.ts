@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Advert } from '../models/Adverts/Advert';
+import { AdvertsService } from '../_services/Adverts/adverts.service';
 import { StatusUser } from '../_services/User/statusUser';
 
 @Component({
@@ -7,23 +9,20 @@ import { StatusUser } from '../_services/User/statusUser';
     styleUrls: ['./search.component.scss'],
 })
 export class SearchComponent implements OnInit {
-    constructor(public statusUser: StatusUser) {}
+    listAdverts: Advert[];
 
-  listAdverts: Advert[];
+    constructor(
+        public statusUser: StatusUser,
+        private advService: AdvertsService
+    ) {}
 
-  constructor(private advService : AdvertsService) { }
+    ngOnInit(): void {
+        this.advService.getAdvertsByTimestamp().then((adverts) => {
+            this.listAdverts = adverts.advertByTimestamp;
+        });
+    }
 
-  ngOnInit(): void {
-    this.advService.getAdvertsByTimestamp().then((adverts) => {
-
-      this.listAdverts = adverts.advertByTimestamp;
-    })
-
-    
-  }
-
-  onclick(){
-    console.log(this.listAdverts);
-  }
-  
+    onclick() {
+        console.log(this.listAdverts);
+    }
 }
