@@ -27,6 +27,23 @@ export class AdvertsService {
         return data;
     }
 
+    async getAdverById(id: number) {
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                adv_id: id,
+            }),
+        };
+
+        const response = await fetch(
+            environment.API_URL + '/getAdvertbyId',
+            requestOptions
+        );
+        const data = await response.json();
+        return data;
+    }
+
     async postAdvert(advert: AdvertSet) {
         const requestOptions = {
             method: 'POST',

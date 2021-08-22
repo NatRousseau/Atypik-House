@@ -1,5 +1,5 @@
 <div class="example-container">
-    <div class="title" (click)="onclick()">Rechercher un logement</div>
+    <div class="title">Rechercher un logement</div>
     <div class="form-group search-field-group">
         <mat-form-field class="search-field" appearance="fill">
             <mat-label>Recherche</mat-label>
@@ -15,7 +15,7 @@
 
             <p class="annoucement-presentation-under">3 rue du près, 27000 Evreux</p>
             <p class="annoucement-presentation-under">Réservation du 25 Juillet 2020 au 15 Aout 2020</p>
-            <button mat-raised-button routerLink="/detail/1">Voir l'annonce</button>
+            <button mat-raised-button routerLink="/detail/44">Voir l'annonce</button>
         </div>
 
 
@@ -41,8 +41,8 @@
             <div class="annoucement-presentation">
                 <p>{{advert.adv_name}}</p>
                 <p class="annoucement-presentation-under">{{advert.adv_adress}}, {{advert.adv_city}} </p>
-                <p class="annoucement-presentation-under">Réservation du 25 Juillet 2020 au 15 Aout 2020</p>
-                <button mat-raised-button routerLink="/detail/2">Voir l'annonce</button>
+                <p class="annoucement-presentation-under">Prix de la journée : {{advert.adv_price}} €</p>
+                <button mat-raised-button routerLink="/detail/{{advert.adv_id}}">Voir l'annonce</button>
             </div>
 
 

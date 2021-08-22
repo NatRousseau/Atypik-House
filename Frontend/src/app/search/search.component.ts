@@ -21,8 +21,4 @@ export class SearchComponent implements OnInit {
             this.listAdverts = adverts.advertByTimestamp;
         });
     }
-
-    onclick() {
-        console.log(this.listAdverts);
-    }
 }
