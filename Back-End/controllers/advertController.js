@@ -55,6 +55,7 @@ module.exports = {
                             return res.status(400).json({ 'error': 'Une annonce du même nom existe déjà.' });
                         } else { // adv_name free
                             advert.adv_id = null;
+                            advert.adv_up = false;
                             advert.adv_cri_limit = 2;
                             next(null)
                         }
