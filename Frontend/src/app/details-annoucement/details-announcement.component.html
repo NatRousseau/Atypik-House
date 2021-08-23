@@ -37,6 +37,7 @@
         </div>
     </div>
     <div>
-        <button *ngIf="this.statusUser.isAuth" mat-raised-button class="bouton-announcement">Réserver</button>
+        <button *ngIf="this.statusUser.isAuth" routerLink="/Reserve/{{id}}" mat-raised-button
+            class="bouton-announcement">Réserver</button>
     </div>
 </div>

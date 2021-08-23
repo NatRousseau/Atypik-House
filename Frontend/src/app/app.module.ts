@@ -52,61 +52,63 @@ import { SearchComponent } from './search/search.component';
 import { DetailsAnnouncementComponent } from './details-annoucement/details-announcement.component';
 import { NewAdvertComponent } from './new-Advert/new-advert.component';
 import { StatusUser } from './_services/User/statusUser';
+import { ReserveComponent } from './reserve/reserve.component';
 
-
-
-
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 const routes: Routes = [];
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    NavbarComponent,
-    connectionComponent,
-    registerComponent,
-    HomeComponent,
-    SearchComponent,
-    DetailsAnnouncementComponent,
-    NewAdvertComponent
-  ],
-  imports: [
-    ReactiveFormsModule,
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MatButtonModule,
-    MatButtonToggleModule,
-    MatCardModule,
-    MatCheckboxModule,
-    MatDialogModule,
-    MatExpansionModule,
-    MatFormFieldModule,
-    MatGridListModule,
-    MatIconModule,
-    MatInputModule,
-    MatListModule,
-    MatMenuModule,
-    MatPaginatorModule,
-    MatProgressBarModule,
-    MatProgressSpinnerModule,
-    MatSelectModule,
-    MatSidenavModule,
-    MatSliderModule,
-    MatSlideToggleModule,
-    MatSnackBarModule,
-    MatSortModule,
-    MatStepperModule,
-    MatTableModule,
-    MatToolbarModule,
-    MatTabsModule,
-    MatTreeModule,
-    MatTooltipModule,
-    RouterModule.forRoot(routes),
-    HttpClientModule,
-  ],
-  providers: [StatusUser],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        NavbarComponent,
+        connectionComponent,
+        registerComponent,
+        HomeComponent,
+        SearchComponent,
+        DetailsAnnouncementComponent,
+        NewAdvertComponent,
+        ReserveComponent,
+    ],
+    imports: [
+        MatDatepickerModule,
+        MatNativeDateModule,
+        ReactiveFormsModule,
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        MatButtonModule,
+        MatButtonToggleModule,
+        MatCardModule,
+        MatCheckboxModule,
+        MatDialogModule,
+        MatExpansionModule,
+        MatFormFieldModule,
+        MatGridListModule,
+        MatIconModule,
+        MatInputModule,
+        MatListModule,
+        MatMenuModule,
+        MatPaginatorModule,
+        MatProgressBarModule,
+        MatProgressSpinnerModule,
+        MatSelectModule,
+        MatSidenavModule,
+        MatSliderModule,
+        MatSlideToggleModule,
+        MatSnackBarModule,
+        MatSortModule,
+        MatStepperModule,
+        MatTableModule,
+        MatToolbarModule,
+        MatTabsModule,
+        MatTreeModule,
+        MatTooltipModule,
+        RouterModule.forRoot(routes),
+        HttpClientModule,
+    ],
+    providers: [StatusUser],
+    bootstrap: [AppComponent],
 })
-export class AppModule {
-}
+export class AppModule {}
