@@ -14,7 +14,8 @@ module.exports = {
 
         if (reserve.res_usr_id == null 
             || reserve.res_adv_id == null 
-            || reserve.res_date == null
+            || reserve.res_date_start == null
+            || reserve.res_date_end == null
             || reserve.res_adv_price == null
             || reserve.res_adv_tenants == null
             ) {
@@ -38,9 +39,10 @@ module.exports = {
         currentDate =formatDate(currentDate);
 
       
-        if (reserve.res_date < currentDate) {
-            wrongDate = reserve.res_date[i];
-            return res.status(400).json({ 'Erreur': 'La date sélectionné est invalide',wrongDate});
+        if (reserve.res_date_start < currentDate || reserve.res_date_end < currentDate ) {
+            wrongDateStart = reserve.res_date_start;
+            wrongDateEnd = reserve.res_date_end
+            return res.status(400).json({ 'Erreur': 'La date sélectionné est invalide',wrongDateStart,wrongDateEnd});
             
         }
     
@@ -62,11 +64,12 @@ module.exports = {
                     });
             },
             function (next) {
-                reserveServices.getReserveDate(reserve.res_date,reserve.res_adv_id)
+                reserveServices.getReserveDate(reserve.res_date_start,reserve.res_date_end,reserve.res_adv_id)
                     .then(result => {
                         if (result.length>0) { // id existe pour cette date+annonce
-                            let wrongdate = reserve.res_date;
-                            return res.status(400).json({ 'error': 'Une réservation à cette date éxiste déjà.',wrongdate });
+                            let wrongDateStart = reserve.res_date_start;
+                            let wrongDateEnd = reserve.res_date_end
+                            return res.status(400).json({ 'error': 'Une réservation éxiste déjà.',wrongDateStart,wrongDateEnd });
                         }
                         else { 
                             next(null)
@@ -85,7 +88,7 @@ module.exports = {
                 reserve.res_payment_timer = timer;
                 reserve.res_payment = false;
                 
-                reserveServices.createReserve(reserve.res_date,reserve)
+                reserveServices.createReserve(reserve.res_date_start,reserve.res_date_end,reserve)
                     .then(result => {
                         if (result.rowCount === 1) { 
                             return res.status(200).json({'succes': 'Réservation créée et en attente de payment'});
@@ -143,6 +146,7 @@ module.exports = {
                     });
             },
             function (userAdvert) {
+                console.log(userAdvert,"EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
                 for(i=0 ; i<userAdvert.length ; i++){
                     reserveServices.getReserveInfos(userAdvert[i].adv_id)
                         .then(result => {

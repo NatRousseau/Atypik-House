@@ -11,7 +11,8 @@ exports.up = function(knex, Promise) {
         table.foreign('res_usr_phone').references('usr_phone').inTable('users');
         table.integer('res_adv_id').notNullable();
         table.foreign('res_adv_id').references('adv_id').inTable('adverts');
-        table.date('res_date').notNullable();
+        table.date('res_date_start').notNullable();
+        table.date('res_date_end').notNullable();
         table.timestamp('res_created_at', { precision: 6 }).defaultTo(knex.fn.now(6)).notNullable();
         table.integer('res_adv_price').notNullable();
         table.boolean('res_payment').defaultTo('false').notNullable();
