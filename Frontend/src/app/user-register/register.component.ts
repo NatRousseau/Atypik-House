@@ -45,7 +45,7 @@ export class registerComponent implements OnInit {
             ],
             phone: [
                 '',
-                [Validators.required, Validators.pattern(/[0-9]{10,12}/)],
+                [Validators.required, Validators.pattern(/[0-9].{9,12}/)],
             ],
             firstName: ['', [Validators.required]],
             lastName: ['', [Validators.required]],
