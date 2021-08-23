@@ -8,38 +8,14 @@
     </div>
     <button *ngIf="this.statusUser.isAuth" mat-raised-button routerLink="/NewAdvert" class="addAdvertbtn">Déposer une
         annonce</button>
-    <div class="annoucement">
-        <img src="/assets/images/image 2.png" class="annoucement-image" alt="">
-        <div class="annoucement-presentation">
-            <p>Petite Maison<span class="top-annoucement"> à la une</span></p>
 
-            <p class="annoucement-presentation-under">3 rue du près, 27000 Evreux</p>
-            <p class="annoucement-presentation-under">Réservation du 25 Juillet 2020 au 15 Aout 2020</p>
-            <button mat-raised-button routerLink="/detail/44">Voir l'annonce</button>
-        </div>
-
-
-    </div>
-    <hr class="annoucement-hr">
-    <div class="annoucement">
-        <img src="/assets/images/image 3.png" class="annoucement-image" alt="">
-        <div class="annoucement-presentation">
-            <p>Petite Maison</p>
-            <p class="annoucement-presentation-under">3 rue du près, 27000 Evreux</p>
-            <p class="annoucement-presentation-under">Réservation du 25 Juillet 2020 au 15 Aout 2020</p>
-            <button mat-raised-button routerLink="/detail/2">Voir l'annonce</button>
-        </div>
-
-
-    </div>
-    <hr class="annoucement-hr">
 
     <div *ngFor="let advert of listAdverts; let i = index;">
 
-        <div class="annoucement">
+        <div *ngIf="advert.adv_up" class="annoucement">
             <img src="/assets/images/image 3.png" class="annoucement-image" alt="">
             <div class="annoucement-presentation">
-                <p>{{advert.adv_name}}</p>
+                <p>{{advert.adv_name}} <span *ngIf="advert.adv_up" class="top-annoucement"> à la une</span></p>
                 <p class="annoucement-presentation-under">{{advert.adv_adress}}, {{advert.adv_city}} </p>
                 <p class="annoucement-presentation-under">Prix de la journée : {{advert.adv_price}} €</p>
                 <button mat-raised-button routerLink="/detail/{{advert.adv_id}}">Voir l'annonce</button>
@@ -47,6 +23,22 @@
 
 
         </div>
-        <hr class="annoucement-hr">
+        <hr *ngIf="advert.adv_up" class="annoucement-hr">
     </div>
+    <div *ngFor="let advert of listAdverts; let i = index;">
+
+        <div *ngIf="!advert.adv_up" class="annoucement">
+            <img src="/assets/images/image 3.png" class="annoucement-image" alt="">
+            <div class="annoucement-presentation">
+                <p>{{advert.adv_name}} <span *ngIf="advert.adv_up" class="top-annoucement"> à la une</span></p>
+                <p class="annoucement-presentation-under">{{advert.adv_adress}}, {{advert.adv_city}} </p>
+                <p class="annoucement-presentation-under">Prix de la journée : {{advert.adv_price}} €</p>
+                <button mat-raised-button routerLink="/detail/{{advert.adv_id}}">Voir l'annonce</button>
+            </div>
+
+
+        </div>
+        <hr *ngIf="!advert.adv_up" class="annoucement-hr">
+    </div>
+
 </div>
