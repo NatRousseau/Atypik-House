@@ -12,5 +12,6 @@ export interface Advert {
     adv_city: string;
     adv_postal: string;
     adv_usr_phone: string;
+    adv_up: boolean;
     adv_usr_mail: string;
 }
