@@ -12,6 +12,7 @@ const createAdvert = function (advert) {
         adv_adress: advert.adv_adress,
         adv_city: advert.adv_city,
         adv_postal: advert.adv_postal,
+        adv_up: advert.adv_up,
         adv_price: advert.adv_price,
         adv_usr_id: advert.adv_usr_id,
         adv_usr_mail: advert.adv_usr_mail,
@@ -28,6 +29,7 @@ const updateAdvert = function (advert) {
         adv_type: advert.adv_type,
         adv_tenants: advert.adv_tenants,
         adv_status: advert.adv_status,
+        adv_up: advert.adv_up,
         adv_adress: advert.adv_adress,
         adv_city: advert.adv_city,
         adv_postal: advert.adv_postal,
@@ -44,7 +46,7 @@ const updateAdvert = function (advert) {
 
 
 const getUserAdvert =  function (dataAdvert) {
-    return knex.select('adv_id','adv_name','adv_type','adv_tenants','adv_status','adv_adress','adv_city','adv_postal','adv_price','adv_usr_id','adv_usr_mail','adv_usr_phone','adv_created_at','adv_cri_limit')
+    return knex.select('adv_id','adv_name','adv_type','adv_tenants','adv_status','adv_adress','adv_city','adv_postal','adv_price','adv_usr_id','adv_usr_mail','adv_usr_phone','adv_created_at','adv_cri_limit','adv_up')
     .from('public.adverts')
     .where('adv_usr_id',dataAdvert.adv_usr_id)
 };  
@@ -56,9 +58,10 @@ const getAdvertByID =  function (dataAdvert) {
 }; 
 
 const getAdvertByTimestamp =  function (min,max) {
-    return knex.select('adv_id','adv_name','adv_type','adv_tenants','adv_status','adv_adress','adv_city','adv_postal','adv_price','adv_usr_id','adv_usr_mail','adv_usr_phone','adv_created_at','adv_cri_limit')
+    return knex.select('adv_id','adv_name','adv_type','adv_tenants','adv_status','adv_adress','adv_city','adv_postal','adv_price','adv_usr_id','adv_usr_mail','adv_usr_phone','adv_created_at','adv_cri_limit','adv_up')
     .from('public.adverts')
     .orderBy('adv_created_at','asc')
+    .where('adv_status',true)
     .offset(min)
     .limit(max)
     // where adv_created_at est compris entre x et y   1 et 10 pr exemple
