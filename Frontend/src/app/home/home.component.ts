@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { StatusUser } from '../_services/User/statusUser';
 
 export interface Tile {
     cols: number;
@@ -21,9 +22,9 @@ export class HomeComponent implements OnInit {
         },
 
         { text: 'Une location ?', cols: 1, rows: 1 },
-        { text: 'Un bien à louer', cols: 1, rows: 1 },
+        { text: 'Un bien à louer ?', cols: 1, rows: 1 },
     ];
-    constructor(private rt: Router) {}
+    constructor(private rt: Router, public statusUser: StatusUser) {}
 
     ngOnInit(): void {}
 }

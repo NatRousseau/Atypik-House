@@ -27,8 +27,15 @@
                 distinctio.
             </p>
             <h2>Informations du propriétaire:</h2>
-            <p>Adresse mail: {{ advert[0].adv_usr_mail }} </p>
-            <p> Numéro de téléphone : {{ advert[0].adv_usr_phone}}</p>
+            <div><button *ngIf="!mailVisible" (click)="setMailVisible()" mat-raised-button> Voir l'adresse mail</button>
+                <div *ngIf="mailVisible">Adresse mail: {{ advert[0].adv_usr_mail }}</div>
+            </div>
+
+            <div><button *ngIf="!phoneVisible" (click)="setPhoneVisible()" mat-raised-button> Voir le numéro de
+                    téléphone</button>
+                <div *ngIf="phoneVisible"> Numéro de téléphone : {{ advert[0].adv_usr_phone}}</div>
+            </div>
+
 
             <h3>
                 Coût de la location à la journée: {{ advert[0].adv_price }} €

@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AdvertsService } from '../_services/Adverts/adverts.service';
 import { ReserveService } from '../_services/Reserve/reserve.service';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { Advert } from '../models/Adverts/Advert';
 
 @Component({
     selector: 'app-reserve',
@@ -12,6 +13,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 })
 export class ReserveComponent implements OnInit {
     id: string;
+    advert: Advert;
     campaignOne: FormGroup;
     campaignTwo: FormGroup;
     constructor(

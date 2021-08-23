@@ -12,7 +12,7 @@
             </mat-form-field>
 
             <div class="error-input" *ngIf="registerForm.get('mail').errors && 
-            !registerForm.get('mail').hasError('required')">format d'adresse mail invalid</div>
+            !registerForm.get('mail').hasError('required')">format d'adresse mail incorrect</div>
             <mat-error class="error-input"
                 *ngIf="registerForm.get('mail').errors && registerForm.get('mail').hasError('required') && isTouchedMail > 0">
                 Vous devez
@@ -43,7 +43,7 @@
             </mat-form-field>
 
             <div class="error-input" *ngIf="registerForm.get('phone').errors && 
-            !registerForm.get('phone').hasError('required')">format de numéro de téléphone invalid</div>
+            !registerForm.get('phone').hasError('required')">format de numéro de téléphone incorrect</div>
             <mat-error class="error-input"
                 *ngIf="registerForm.get('phone').errors && registerForm.get('phone').hasError('required') && registerForm.get('phone').touched">
                 Vous devez

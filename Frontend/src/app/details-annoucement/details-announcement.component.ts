@@ -12,6 +12,8 @@ import { StatusUser } from '../_services/User/statusUser';
 export class DetailsAnnouncementComponent implements OnInit {
     id: string;
     advert: Advert;
+    mailVisible: boolean = false;
+    phoneVisible: boolean = false;
     constructor(
         private route: ActivatedRoute,
         private rt: Router,
@@ -29,5 +31,11 @@ export class DetailsAnnouncementComponent implements OnInit {
 
     back() {
         this.rt.navigate(['/search']);
+    }
+    setMailVisible() {
+        this.mailVisible = true;
+    }
+    setPhoneVisible() {
+        this.phoneVisible = true;
     }
 }

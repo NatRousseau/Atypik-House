@@ -7,8 +7,13 @@
 
             <h1 *ngIf="index == 0" class="title-h1">{{tile.text}}
             </h1>
-            <button *ngIf="index == 1" style="margin-right: 2px;" mat-raised-button>{{tile.text}}</button>
-            <button *ngIf=" index==2" style="color: white;border: 3px solid white; margin-left: 2px;"
+            <button *ngIf="index == 1" style="margin-right: 2px;" routerLink="/search"
+                mat-raised-button>{{tile.text}}</button>
+            <button *ngIf="index==2 && !this.statusUser.isAuth" routerLink="/connection"
+                style="color: white;border: 3px solid white; margin-left: 2px;"
+                mat-stroked-button>{{tile.text}}</button>
+            <button *ngIf="index==2 && this.statusUser.isAuth" routerLink="/NewAdvert"
+                style="color: white;border: 3px solid white; margin-left: 2px;"
                 mat-stroked-button>{{tile.text}}</button>
         </mat-grid-tile>
     </mat-grid-list>
