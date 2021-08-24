@@ -1,4 +1,4 @@
-FROM node:lts
+FROM node:lts AS build
 
 ARG NODE_ENV=production
 ENV NODE_ENV $NODE_ENV

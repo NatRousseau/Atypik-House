@@ -1,12 +1,14 @@
 version: "3.7"
 services:
   backend:
-    build: Back-End
-    command: npm run start
+    build:
+      context: Back-End
+      target: build
+    restart: always
     ports:
-      - 4500:4500
+      - 49173:4500
     volumes:
-      - ./Back-End/src:/code/src:ro
+      - ./Back-End/:/code/src:ro
       - ./Back-End/package.json:/code/package.json
       - ./Back-End/package-lock.json:/code/package-lock.json
     networks:
