@@ -13,7 +13,6 @@ services:
       - ./Back-End/package.json:/code/package.json
       - ./Back-End/package-lock.json:/code/package-lock.json
     networks:
-      - ATP-Front
       - ATP-Back
     depends_on:
       - db
@@ -45,12 +44,9 @@ services:
       - traefik.http.routers.ATP_Front.rule=Host(`atypikhouse.art`)
     #      - traefik.http.routers.blog.tls=true
     #      - traefik.http.routers.blog.tls.certresolver=myresolver
-    networks:
-      - ATP-Front
     depends_on:
       - backend
 networks:
-  ATP-Front:
   ATP-Back:
 volumes:
   db-data:
