@@ -10,6 +10,7 @@ import { AdvertsService } from '../_services/Adverts/adverts.service';
 import { ReserveService } from '../_services/Reserve/reserve.service';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { Advert } from '../models/Adverts/Advert';
+import { DatesReserve } from '../models/Reserve/datesReserve';
 
 @Component({
     selector: 'app-reserve',
@@ -22,7 +23,9 @@ export class ReserveComponent implements OnInit {
     datesReserve: FormGroup;
     minDate: Date;
     maxDate: Date;
-
+    datesReserved: DatesReserve[];
+    dateRange1 = [new Date('08-26-2021'), new Date('08-28-2021')];
+    dateRange2 = [new Date('01-09-2021'), new Date('09-09-2021')];
     constructor(
         private route: ActivatedRoute,
         private fB: FormBuilder,
@@ -50,7 +53,20 @@ export class ReserveComponent implements OnInit {
             this.advert = data.selectedAdvert;
             console.log(this.advert);
         });
+        this.res.getDatebyAdvRes(Number(this.id)).then((data) => {
+            console.log(data);
+            this.datesReserved = data.result;
+        });
     }
+
+    myFilter = (d: Date | null): boolean => {
+        console.log(d);
+        console.log(this.datesReserved);
+        if (this.datesReserved.length > 0) {
+            return !(d >= this.dateRange1[0] && d <= this.dateRange1[1]);
+        }
+        return true;
+    };
     onSubmit(datesReserve) {
         console.log('Période choisi', datesReserve);
     }

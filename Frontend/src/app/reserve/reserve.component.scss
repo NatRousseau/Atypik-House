@@ -65,3 +65,15 @@
     font-family: "gothic_sans_ms";
     padding: 10px;
 }
+
+::ng-deep .mat-calendar-body-selected {
+    background-color: #339e33;
+    color: #fff;
+}
+::ng-deep .mat-datepicker-toggle {
+    color: #339e33;
+}
+
+::ng-deep datepicker-value-example .mat-form-field-label {
+    color: #339e33;
+}

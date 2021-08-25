@@ -18,13 +18,16 @@
         <div>
             <mat-form-field appearance="fill">
                 <mat-label>Selectioné la durée de votre location</mat-label>
-                <mat-date-range-input [min]="minDate" [max]="maxDate" [rangePicker]="campaignOnePicker">
+                <mat-date-range-input [dateFilter]="myFilter" [min]="minDate" [max]="maxDate"
+                    [rangePicker]="campaignOnePicker">
                     <input matStartDate placeholder="Start date" formControlName="start">
                     <input matEndDate placeholder="End date" formControlName="end">
                 </mat-date-range-input>
                 <mat-datepicker-toggle matSuffix [for]="campaignOnePicker"></mat-datepicker-toggle>
-                <mat-date-range-picker #campaignOnePicker></mat-date-range-picker>
+                <mat-date-range-picker color="#339e33" #campaignOnePicker></mat-date-range-picker>
             </mat-form-field>
+
+
         </div>
 
 
