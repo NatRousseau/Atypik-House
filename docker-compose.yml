@@ -1,6 +1,7 @@
 version: "3.7"
 services:
   backend:
+    container_name: ATP_Back
     build:
       context: Back-End
       target: build
@@ -17,6 +18,7 @@ services:
     depends_on:
       - db
   db:
+    container_name: ATP_BDD
     image: postgres:12.1
     ports:
       - 49174:5432
@@ -30,6 +32,7 @@ services:
     networks:
       - ATP-Back
   frontend:
+    container_name: ATP_Front
     build:
       context: Frontend
     ports:
@@ -38,6 +41,10 @@ services:
       - ./Frontend:/project
       - ./Frontend/package.json:/project/package.json
       - ./Frontend/package-lock.json:/project/package-lock.json
+    labels:
+      - traefik.http.routers.blog.rule=Host(`atypikhouse.art`)
+#      - traefik.http.routers.blog.tls=true
+#      - traefik.http.routers.blog.tls.certresolver=myresolver
     networks:
       - ATP-Front
     depends_on:
