@@ -55,7 +55,7 @@ import { StatusUser } from './_services/User/statusUser';
 import { ReserveComponent } from './reserve/reserve.component';
 
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 
 const routes: Routes = [];
 
@@ -108,7 +108,7 @@ const routes: Routes = [];
         RouterModule.forRoot(routes),
         HttpClientModule,
     ],
-    providers: [StatusUser],
+    providers: [StatusUser, { provide: MAT_DATE_LOCALE, useValue: 'fr-FR' }],
     bootstrap: [AppComponent],
 })
 export class AppModule {}
