@@ -36,16 +36,17 @@ services:
     build:
       context: Frontend
     ports:
-      - 4200:80
+      - 49176:80
     volumes:
       - ./Frontend:/project
       - ./Frontend/package.json:/project/package.json
       - ./Frontend/package-lock.json:/project/package-lock.json
     labels:
-      - traefik.http.routers.blog.rule=Host(`atypikhouse.art`)
-#      - traefik.http.routers.blog.tls=true
-#      - traefik.http.routers.blog.tls.certresolver=myresolver
+      - traefik.http.routers.ATP_Front.rule=Host(`atypikhouse.art`)
+    #      - traefik.http.routers.blog.tls=true
+    #      - traefik.http.routers.blog.tls.certresolver=myresolver
     networks:
+      - bridge
       - ATP-Front
     depends_on:
       - backend
