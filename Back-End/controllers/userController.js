@@ -7,8 +7,9 @@ const jwtUtils = require('../utils/jwt.utils');
 
 const bcrypt = require('bcrypt');
 
+const PHONE_REGEX= /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/;
 const MAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-const PWD_REGEX = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{4,}$/;  // TO DO : edit mail regex ; pwd : done
+const PWD_REGEX = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{4,}$/;  // TO DO : maybe edit mail regex ; pwd : done
 
 module.exports = {
 
@@ -22,6 +23,10 @@ module.exports = {
             || user.usr_phone == null
             ) {
             return res.status(400).json({ 'error': 'Paramètres manquants.' });
+        }
+
+        if (!PHONE_REGEX.test(user.usr_phone)) {
+            return res.status(400).json({ 'error': 'Téléphone non valide.' });
         }
 
         if (!MAIL_REGEX.test(user.usr_mail)) {
