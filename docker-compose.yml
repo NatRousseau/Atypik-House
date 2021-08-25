@@ -46,7 +46,6 @@ services:
     #      - traefik.http.routers.blog.tls=true
     #      - traefik.http.routers.blog.tls.certresolver=myresolver
     networks:
-      - bridge
       - ATP-Front
     depends_on:
       - backend
