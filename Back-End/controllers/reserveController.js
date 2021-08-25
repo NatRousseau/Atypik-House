@@ -3,7 +3,7 @@ const advertServices = require ('../services/advert_services.ts');
 
 const async = require('async');
 const Reserve = require('../models/reserve');
-const Advert = require('../models/advert');
+const { MAX } = require('mssql');
 
 module.exports = {
 
@@ -36,16 +36,23 @@ module.exports = {
         }
     
         var currentDate= new Date();
-        currentDate =formatDate(currentDate);
+        currentDate = formatDate(currentDate);
 
+        var currentYear= new Date().getFullYear();
+        maxyear = new Date(currentYear + 1,11,31);
+        maxyear = formatDate(maxyear);
+
+        if(reserve.res_date_end > maxyear){
+            return res.status(400).json({ 'Erreur': 'La date sélectionnée est supérieure à la période donné.',maxyear});
+        }
       
         if (reserve.res_date_start < currentDate || reserve.res_date_end < currentDate ) {
             wrongDateStart = reserve.res_date_start;
             wrongDateEnd = reserve.res_date_end
             return res.status(400).json({ 'Erreur': 'La date sélectionné est invalide',wrongDateStart,wrongDateEnd});
-            
         }
     
+
 
         async.waterfall([
             function (next) {
@@ -64,21 +71,30 @@ module.exports = {
                     });
             },
             function (next) {
-                reserveServices.getReserveDate(reserve.res_date_start,reserve.res_date_end,reserve.res_adv_id)
+                let count=0;
+                reserveServices.getDateResAdv(reserve.res_adv_id)
                     .then(result => {
-                        if (result.length>0) { // id existe pour cette date+annonce
-                            let wrongDateStart = reserve.res_date_start;
-                            let wrongDateEnd = reserve.res_date_end
-                            return res.status(400).json({ 'error': 'Une réservation éxiste déjà.',wrongDateStart,wrongDateEnd });
-                        }
-                        else { 
+                        if (result.length >0) { 
+                            for(i=0;i<result.length;i++){
+                                if((reserve.res_date_start >= formatDate(result[i].res_date_start) &&  reserve.res_date_start <= formatDate(result[i].res_date_end))
+                                    || (reserve.res_date_end >= formatDate(result[i].res_date_start) &&  reserve.res_date_end <= formatDate(result[i].res_date_end))
+                                    ){
+                                    count++;
+                                }
+                            }
+                            if(count>0){
+                                return res.status(200).json({'error': 'Ensemble de dates sélectionnés invalide',count});
+                            }
                             next(null)
-                        } 
+                        }
+                        else {
+                            next(null)
+                            } 
                         })
-                        .catch(error => {
-                            console.error(error);
-                            return res.status(500).json({ 'error': 'Création de la réservation impossible.' });
-                        });
+                    .catch(error => {
+                        console.error(error);
+                        return res.status(500).json({ 'error': 'Création de la réservation impossible.' });
+                    });
             },
             function () {
                 var Hours =  new Date().getHours(); 
@@ -119,25 +135,25 @@ module.exports = {
    
     getReservebyAdvert: function (req, res) {
         const dataAdvert = req.body;
-        userAdvert=[];
         userReserve=[];
 
-       if (dataAdvert.adv_usr_id == null
+        if (dataAdvert.usr_id == null 
             ) {
-            return res.status(400).json({ 'error': 'Veuillez vous connecté.' });
+            return res.status(400).json({ 'error': 'veuillez vous connecter.' });
+        }
+        if (dataAdvert.adv_id == null 
+            ) {
+            return res.status(400).json({ 'error': 'Paramètres manquants.' });
         }
         
         async.waterfall([
             function (next) {
-                advertServices.getUserAdvert(dataAdvert)
+                advertServices.getUserAdvertOwner(dataAdvert)
                     .then(result => {
                         if (result.length != null) {
-                            for(i=0 ; i<result.length ; i++){     
-                            userAdvert[i] = new Advert(result[i]);
-                            }
-                            next(null,userAdvert)
+                            next(null)
                         } else {
-                            return res.status(200).json({ 'error': 'Vous ne possédez pas d\'annonces.' });
+                            return res.status(200).json({ 'error': 'Vous ne possédez pas cette annonce.' });
                         }
                     })
                     .catch(error => {
@@ -145,27 +161,24 @@ module.exports = {
                         return res.status(500).json({ 'error': 'Impossible de vérifier les identifiants.' });
                     });
             },
-            function (userAdvert) {
-                console.log(userAdvert,"EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
-                for(i=0 ; i<userAdvert.length ; i++){
-                    reserveServices.getReserveInfos(userAdvert[i].adv_id)
-                        .then(result => {
-                            console.log(result);
-                            if (result.length != null) {
-                                for(i=0 ; i<result.length ; i++){     
+            function () {
+                reserveServices.getReserveInfos(dataAdvert.adv_id)
+                    .then(result => {
+                        if (result.length != null) {
+                            for(i=0 ; i<result.length ; i++){     
                                 userReserve[i] = new Reserve(result[i]);
-                            }
+                                }
                                 return res.status(200).json({'succes':'Réservations récupérés',userReserve});
-                            } else {
+                            }
+                            else{
                                 return res.status(400).json({ 'error': 'Aucune réservation n\'est enregistré.' });
                             }
                         })
+                        
                         .catch(error => {
                             console.error(error);
                             return res.status(500).json({ 'error': 'Récupération de l\'annonce impossible.' });
                         });
-                }
-
             }]
         );
     },
@@ -184,7 +197,6 @@ module.exports = {
             function () {
                 reserveServices.getDateResAdv(reserve.res_adv_id)
                     .then(result => {
-                        console.log(result);
                         if (result.length != null) { // return date
                             return res.status(200).json({'succes':'Dates liées à l\'annonce récupérés',result});
                         }

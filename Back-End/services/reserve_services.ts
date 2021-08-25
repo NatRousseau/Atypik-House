@@ -28,14 +28,17 @@ const getReserveDate =  function (dateStart,dateEnd,res_adv_id) {
     .from('public.reserves')
     .where('res_adv_id',res_adv_id)
     .andWhere('res_date_start',dateStart)
-    .andWhere('res_date_end',dateEnd)
+    .orWhere('res_date_end',dateEnd)
+
 };  
+// knex('users').whereNotBetween('votes', [1, 100])
 
 const getDateResAdv =  function (res_adv_id) {
     return knex.select('res_date_start','res_date_end')
     .from('public.reserves')
     .where('res_adv_id',res_adv_id)
 };  
+
 
 
 const getReserveInfos =  function (adv_id) {
