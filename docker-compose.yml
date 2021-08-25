@@ -1,12 +1,15 @@
 version: "3.7"
 services:
   backend:
-    build: Back-End
-    command: npm run start
+    container_name: ATP_Back
+    build:
+      context: Back-End
+      target: build
+    restart: always
     ports:
-      - 4500:4500
+      - 49173:4500
     volumes:
-      - ./Back-End/src:/code/src:ro
+      - ./Back-End/:/code/src:ro
       - ./Back-End/package.json:/code/package.json
       - ./Back-End/package-lock.json:/code/package-lock.json
     networks:
@@ -15,6 +18,7 @@ services:
     depends_on:
       - db
   db:
+    container_name: ATP_BDD
     image: postgres:12.1
     ports:
       - 49174:5432
@@ -28,15 +32,21 @@ services:
     networks:
       - ATP-Back
   frontend:
+    container_name: ATP_Front
     build:
       context: Frontend
     ports:
-      - 4200:80
+      - 49176:80
     volumes:
       - ./Frontend:/project
       - ./Frontend/package.json:/project/package.json
       - ./Frontend/package-lock.json:/project/package-lock.json
+    labels:
+      - traefik.http.routers.ATP_Front.rule=Host(`atypikhouse.art`)
+    #      - traefik.http.routers.blog.tls=true
+    #      - traefik.http.routers.blog.tls.certresolver=myresolver
     networks:
+      - bridge
       - ATP-Front
     depends_on:
       - backend

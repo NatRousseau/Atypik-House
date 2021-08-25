@@ -34,8 +34,8 @@ module.exports = {
     production: {
       client: 'pg',
       connection: {
-        host:"185.171.202.192",
-        port: 49174,
+        host:"ATP_BDD",
+        port: 5432,
         database: 'AtypikHouse',
         user: 'atplead',
         password: 'atprnl',
