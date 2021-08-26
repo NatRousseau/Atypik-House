@@ -41,11 +41,10 @@ services:
       - ./Frontend/package.json:/project/package.json
       - ./Frontend/package-lock.json:/project/package-lock.json
     labels:
+      - traefik.http.routers.ATP_Front.entrypoints=https
       - traefik.http.routers.ATP_Front.rule=Host(`atypikhouse.art`)
-    #      - traefik.http.routers.blog.tls=true
-    #      - traefik.http.routers.blog.tls.certresolver=myresolver
-    depends_on:
-      - backend
+      - traefik.http.routers.ATP_Front.tls=true
+      - traefik.http.routers.ATP_Front.tls.certresolver=https_certs
 networks:
   ATP-Back:
 volumes:
