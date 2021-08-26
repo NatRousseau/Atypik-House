@@ -12,6 +12,9 @@ COPY package.json /code/package.json
 COPY package-lock.json /code/package-lock.json
 RUN npm ci
 
+HEALTHCHECK --interval=30s \
+  CMD node healthcheck.js
+
 RUN npm i knex -g
 
 COPY . /code
