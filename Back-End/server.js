@@ -43,3 +43,6 @@ server.listen(port, function() {
 require('./routes/userRoutes')(server);
 require('./routes/advertRoutes')(server);
 require('./routes/reserveRoutes')(server);
+require('./routes/activityRoutes')(server);
+require('./routes/commentaryRoutes')(server);
+

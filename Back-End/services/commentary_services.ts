@@ -3,11 +3,14 @@ const Commentary = require('../models/commentary');
 
 // =========================    CREATE  ========================= //
 
-const createComment = function (commentary) {
+const createCommentary = function (commentary) {
     return knex.insert([{
         com_text: commentary.com_text,
-    
-    }]).into('public.adverts')
+        com_adv_id: commentary.com_adv_id,
+        com_usr_id: commentary.com_usr_id,
+        com_usr_firstName: commentary.com_usr_firstName,
+        com_usr_lastName: commentary.com_usr_lastName
+    }]).into('public.commentarys')
 };
 
 // =========================    UPDATE  ========================= //
@@ -22,4 +25,4 @@ const createComment = function (commentary) {
 
 
 // ============================ EXPORTS ================================//
-exports.createActivity = createActivity;
+exports.createCommentary = createCommentary;
