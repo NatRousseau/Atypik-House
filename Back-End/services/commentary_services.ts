@@ -13,6 +13,7 @@ const createCommentary = function (commentary) {
     }]).into('public.commentarys')
 };
 
+
 // =========================    UPDATE  ========================= //
 
 

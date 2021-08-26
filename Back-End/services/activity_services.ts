@@ -6,8 +6,13 @@ const Activity = require('../models/activity');
 const createActivity = function (activity) {
     return knex.insert([{
         act_name: activity.act_name,
-        
-    }]).into('public.adverts')
+        act_adv_id: activity.act_adv_id,
+        act_adress: activity.act_adress,
+        act_city:activity.act_city,
+        act_postal: activity.act_postal,
+        act_describe: activity.act_describe,
+        act_usr_id: activity.act_usr_id
+    }]).into('public.activitys')
 };
 
 // =========================    UPDATE  ========================= //
@@ -16,7 +21,11 @@ const createActivity = function (activity) {
 
 // =========================    GET  ========================= //
 
-
+const getActivityByID =  function (dataAdvert) {
+    return knex.select('act_id','act_name','act_adv_id','act_adress','act_city','act_postal','act_describe','act_usr_id')
+    .from('public.activitys')
+    .where('act_id',dataAdvert.adv_id)
+}; 
 
 // =========================    DELETE  ========================= //
 
@@ -24,3 +33,4 @@ const createActivity = function (activity) {
 
 // ============================ EXPORTS ================================//
 exports.createActivity = createActivity;
+exports.getActivityByID = getActivityByID;

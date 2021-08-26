@@ -6,6 +6,7 @@ var Activity = function (activity) {
     this.act_city = activity.act_city;
     this.act_postal = activity.act_postal;
     this.act_describe = activity.act_describe;
+    this.act_usr_id = activity.act_usr_id;
 
 
 };
