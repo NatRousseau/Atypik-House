@@ -11,6 +11,7 @@ import { ReserveService } from '../_services/Reserve/reserve.service';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { Advert } from '../models/Adverts/Advert';
 import { DatesReserve } from '../models/Reserve/datesReserve';
+import { SnackBarService } from '../_services/SnackBar/snack-bar.service';
 
 @Component({
     selector: 'app-reserve',
@@ -24,12 +25,14 @@ export class ReserveComponent implements OnInit {
     minDate: Date;
     maxDate: Date;
     datesReserved: DatesReserve[];
+    datesErrors: boolean = false;
     dateRange1 = [new Date('08-26-2021'), new Date('08-28-2021')];
     dateRange2 = [new Date('01-09-2021'), new Date('09-09-2021')];
     constructor(
         private route: ActivatedRoute,
         private fB: FormBuilder,
         private rt: Router,
+        private snackbar: SnackBarService,
         private adv: AdvertsService,
         private res: ReserveService
     ) {
@@ -51,23 +54,62 @@ export class ReserveComponent implements OnInit {
         this.id = this.route.snapshot.paramMap.get('id');
         this.adv.getAdverById(Number(this.id)).then((data) => {
             this.advert = data.selectedAdvert;
-            console.log(this.advert);
         });
         this.res.getDatebyAdvRes(Number(this.id)).then((data) => {
-            console.log(data);
             this.datesReserved = data.result;
         });
     }
+    getFormattedDate(dateReceive: Date) {
+        let date = new Date(dateReceive);
+        let year = date.getFullYear();
+        let month = (1 + date.getMonth()).toString().padStart(2, '0');
+        let day = date.getDate().toString().padStart(2, '0');
+
+        return new Date(month + '-' + day + '-' + year);
+    }
 
     myFilter = (d: Date | null): boolean => {
-        console.log(d);
-        console.log(this.datesReserved);
         if (this.datesReserved.length > 0) {
-            return !(d >= this.dateRange1[0] && d <= this.dateRange1[1]);
+            for (let i = 0; i < this.datesReserved.length; i++) {
+                if (
+                    d >=
+                        this.getFormattedDate(
+                            this.datesReserved[i].res_date_start
+                        ) &&
+                    d <=
+                        this.getFormattedDate(
+                            this.datesReserved[i].res_date_end
+                        )
+                ) {
+                    return false;
+                }
+            }
         }
         return true;
     };
+
     onSubmit(datesReserve) {
-        console.log('Période choisi', datesReserve);
+        let dateStartToCompare: Date;
+        let dateEndToCompare: Date;
+
+        for (let i = 0; i < this.datesReserved.length; i++) {
+            dateStartToCompare = new Date(this.datesReserved[i].res_date_start);
+            dateEndToCompare = new Date(this.datesReserved[i].res_date_end);
+            if (
+                datesReserve.start < dateStartToCompare &&
+                datesReserve.end >= dateEndToCompare
+            ) {
+                this.datesErrors = true;
+                this.snackbar.openSnackBar(
+                    'Vous ne pouvez pas sélectionner une période réservée',
+                    'ok',
+                    1500
+                );
+            }
+        }
+        if (!this.datesErrors) {
+            this.rt.navigate(['/paiement/' + this.id]);
+            console.log('good');
+        }
     }
 }

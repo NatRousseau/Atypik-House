@@ -7,31 +7,75 @@
     src: url("/assets/Police_Ecriture/GOTHICB.TTF");
 }
 
-.register-form {
-    justify-content: center;
-
+.example-form-field {
+    width: 300px;
+    margin-right: auto;
+    margin-left: auto;
+}
+.example-container {
     vertical-align: middle;
     margin: auto;
-    margin-top: 15%;
-    width: 400px;
-    height: auto;
+    margin-top: 10%;
+    width: 100vh;
+    height: 65vh;
     background-color: white;
     border-radius: 20px;
-
     padding: 20px;
 }
-.form-text {
-    margin-bottom: 20px;
-    text-align: center;
-    font-size: 25px;
-    font-family: "gothic_sans_ms";
-}
-
-.form-field {
-    justify-content: center;
+.title {
+    width: 200px;
     margin-left: auto;
     margin-right: auto;
+    font-family: "gothic_bold";
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    text-align: center;
+    padding: 10px;
+}
+
+.annoucement-image {
+    margin-top: 10px;
     width: 200px;
+    height: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 10px;
+}
+.advertTitle {
+    font-family: "gothic_bold";
+    font-size: 20px;
+    padding: 10px;
+}
+.price {
+    font-family: "gothic_sans_ms";
+    font-size: 15px;
+    padding: 10px;
+}
+
+.submit {
+    background-color: #339e33;
+    display: flex;
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+    color: white;
+}
+.description {
+    font-family: "gothic_sans_ms";
+    padding: 10px;
+}
+
+::ng-deep .mat-calendar-body-selected {
+    background-color: #339e33;
+    color: #fff;
+}
+::ng-deep .mat-datepicker-toggle {
+    color: #339e33;
+}
+
+::ng-deep datepicker-value-example .mat-form-field-label {
+    color: #339e33;
 }
 
 .error-input {

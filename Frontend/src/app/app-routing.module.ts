@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { DetailsAnnouncementComponent } from './details-annoucement/details-announcement.component';
 import { HomeComponent } from './home/home.component';
 import { NewAdvertComponent } from './new-Advert/new-advert.component';
+import { PaiementComponent } from './paiement/paiement.component';
 import { ReserveComponent } from './reserve/reserve.component';
 
 import { SearchComponent } from './search/search.component';
@@ -20,6 +21,7 @@ const routes: Routes = [
     { path: 'detail/:id', component: DetailsAnnouncementComponent },
     { path: 'NewAdvert', component: NewAdvertComponent },
     { path: 'Reserve/:id', component: ReserveComponent },
+    { path: 'paiement/:id', component: PaiementComponent },
 ];
 
 @NgModule({
