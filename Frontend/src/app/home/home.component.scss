@@ -16,7 +16,9 @@ div {
     height: 90%;
 }
 .logo {
-    margin-left: 35%;
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
     width: 200px;
 }
 
@@ -43,7 +45,7 @@ hr {
     left: 581px;
     top: 450px;
 
-    font-family: "gothic_sans_ms";
+    font-family: "gothic_bold";
     font-style: normal;
     font-weight: normal;
     font-size: 32px;
