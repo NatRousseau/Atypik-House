@@ -15,6 +15,10 @@ services:
       - ./Back-End/package.json:/code/package.json
       - ./Back-End/package-lock.json:/code/package-lock.json
       - ./Back-End/healthcheck.js:/code/healthcheck.js
+    labels:
+      - traefik.http.routers.ATP_Back.rule=Host(`api.atypikhouse.art`)
+      - traefik.http.routers.ATP_Back.tls=true
+      - traefik.http.routers.ATP_Back.tls.certresolver=https_certs
     networks:
       - ATP-Back
     depends_on:
@@ -48,6 +52,8 @@ services:
       - traefik.http.routers.ATP_Front.rule=Host(`atypikhouse.art`)
       - traefik.http.routers.ATP_Front.tls=true
       - traefik.http.routers.ATP_Front.tls.certresolver=https_certs
+    depends_on:
+      - backend
 networks:
   ATP-Back:
 volumes:
