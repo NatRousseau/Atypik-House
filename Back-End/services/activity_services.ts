@@ -21,10 +21,10 @@ const createActivity = function (activity) {
 
 // =========================    GET  ========================= //
 
-const getActivityByID =  function (dataAdvert) {
+const getActivityByID =  function (dataActivity) {
     return knex.select('act_id','act_name','act_adv_id','act_adress','act_city','act_postal','act_describe','act_usr_id')
     .from('public.activitys')
-    .where('act_id',dataAdvert.adv_id)
+    .where('act_adv_id',dataActivity.adv_id)
 }; 
 
 // =========================    DELETE  ========================= //

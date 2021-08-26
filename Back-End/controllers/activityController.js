@@ -79,9 +79,9 @@ module.exports = {
                         console.error(error);
                         return res.status(500).json({ 'error': 'Création de l\'activité impossible.' });
                     });
-            }
-        ],
-     )}
+            }]
+        );
+    },
 
     // =========================    UPDATE  ========================= //
 
@@ -92,5 +92,33 @@ module.exports = {
 
     // =========================    GET  ========================= //
    
+    getActivityByID: function (req, res) {
+        const dataActivity = req.body;
+        var selectedActivity;
+
+       if (dataActivity.adv_id == null
+            ) {
+            return res.status(400).json({ 'error': 'Veuillez sélectionner une annonce' });
+        }
+        
+        async.waterfall([
+            function () {
+                activityServices.getActivityByID(dataActivity)
+                    .then(result => {
+                        if (result.length >0) {   
+                            selectedActivity = result;
+                            return res.status(200).json({'succes':'Activités récupérés',selectedActivity});
+                        }
+                        else {
+                            return res.status(200).json({ 'error': 'Aucune activité correspondante.' });
+                        }
+                    })
+                    .catch(error => {
+                        console.error(error);
+                        return res.status(500).json({ 'error': 'Aucune correspondance à l\'annonce sélectionné.' });
+                    });
+            }]
+        );
+    }
    
 }
