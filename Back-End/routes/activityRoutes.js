@@ -8,6 +8,6 @@ module.exports = function (app) {
     app.route('/createActivity')
         .post(activityController.createActivity);
 
-    app.route('/getActivityByID')
-        .post(activityController.getActivityByID);
+    // app.route('/getActivityByID')
+    //     .post(activityController.getActivityByID);
 }
