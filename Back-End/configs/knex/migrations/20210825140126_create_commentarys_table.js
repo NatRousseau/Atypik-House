@@ -1,7 +1,7 @@
 
 exports.up = function(knex, Promise) {
   
-    return knex.schema.createTable('comments', function(table) {
+    return knex.schema.createTable('commentarys', function(table) {
         table.increments('com_id');
         table.text('com_text').notNullable();
         table.integer('com_adv_id').notNullable();
@@ -15,5 +15,5 @@ exports.up = function(knex, Promise) {
 };
 
 exports.down = function(knex, Promise) {
-    return knex.schema.dropTable('comments');
+    return knex.schema.dropTable('commentarys');
 };
