@@ -56,6 +56,7 @@ import { ReserveComponent } from './reserve/reserve.component';
 
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
+import { PaiementComponent } from './paiement/paiement.component';
 
 const routes: Routes = [];
 
@@ -70,6 +71,7 @@ const routes: Routes = [];
         DetailsAnnouncementComponent,
         NewAdvertComponent,
         ReserveComponent,
+        PaiementComponent,
     ],
     imports: [
         MatDatepickerModule,
