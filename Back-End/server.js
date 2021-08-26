@@ -43,3 +43,10 @@ server.listen(port, function() {
 require('./routes/userRoutes')(server);
 require('./routes/advertRoutes')(server);
 require('./routes/reserveRoutes')(server);
+
+server.get("/healthz", function(req, res) {
+  // do app logic here to determine if app is truly healthy
+  // you should return 200 if healthy, and anything else will fail
+  // if you want, you should be able to restrict this to localhost (include ipv4 and ipv6)
+  res.send("I am happy and healthy\n");
+});
