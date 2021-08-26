@@ -8,8 +8,6 @@ services:
     restart: always
     ports:
       - 49173:4500
-      - 49175:9229
-      - 49177:9230
     volumes:
       - ./Back-End/:/code/src:ro
       - ./Back-End/package.json:/code/package.json
@@ -19,8 +17,6 @@ services:
       - traefik.http.routers.ATP_Back.rule=Host(`api.atypikhouse.art`)
       - traefik.http.routers.ATP_Back.tls=true
       - traefik.http.routers.ATP_Back.tls.certresolver=https_certs
-    networks:
-      - ATP-Back
     depends_on:
       - db
   db:
@@ -35,8 +31,6 @@ services:
     restart: always
     volumes:
       - db-data:/var/lib/postgres
-    networks:
-      - ATP-Back
   frontend:
     container_name: ATP_Front
     build:
@@ -54,7 +48,5 @@ services:
       - traefik.http.routers.ATP_Front.tls.certresolver=https_certs
     depends_on:
       - backend
-networks:
-  ATP-Back:
 volumes:
   db-data:
