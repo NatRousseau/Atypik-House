@@ -12,6 +12,7 @@ services:
       - ./Back-End/:/code/src:ro
       - ./Back-End/package.json:/code/package.json
       - ./Back-End/package-lock.json:/code/package-lock.json
+      - ./Back-End/healthcheck.js:/code/healthcheck.js
     networks:
       - ATP-Back
     depends_on:
