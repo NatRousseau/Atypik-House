@@ -12,6 +12,9 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { Advert } from '../models/Adverts/Advert';
 import { DatesReserve } from '../models/Reserve/datesReserve';
 import { SnackBarService } from '../_services/SnackBar/snack-bar.service';
+import { ReserveCreated } from '../_services/Reserve/reserveCreated';
+import { Reserve } from '../models/Reserve/Reserve';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
     selector: 'app-reserve',
@@ -34,7 +37,8 @@ export class ReserveComponent implements OnInit {
         private rt: Router,
         private snackbar: SnackBarService,
         private adv: AdvertsService,
-        private res: ReserveService
+        private res: ReserveService,
+        private resCreate: ReserveCreated
     ) {
         const today = new Date();
         const month = today.getMonth();
@@ -108,6 +112,17 @@ export class ReserveComponent implements OnInit {
             }
         }
         if (!this.datesErrors) {
+            let newReserve: Reserve = {
+                res_adv_id: Number(this.advert[0].adv_id),
+                res_adv_price: this.advert[0].adv_price,
+                res_adv_tenants: 4,
+                res_usr_mail: localStorage.getItem('usr_mail'),
+                res_usr_phone: localStorage.getItem('usr_phone'),
+                res_usr_id: Number(localStorage.getItem('usr_id')),
+                res_date_start: datesReserve.start,
+                res_date_end: datesReserve.end,
+            };
+            this.resCreate.reserve = newReserve;
             this.rt.navigate(['/paiement/' + this.id]);
             console.log('good');
         }
