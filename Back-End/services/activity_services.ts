@@ -17,6 +17,18 @@ const createActivity = function (activity) {
 
 // =========================    UPDATE  ========================= //
 
+const updateActivity = function(activity){
+    return knex.update({
+        act_name: activity.act_name,
+        act_adress: activity.act_adress,
+        act_city:activity.act_city,
+        act_postal: activity.act_postal,
+        act_describe: activity.act_describe
+    })
+    .into('public.activitys')
+    .where('act_usr_id',activity.act_usr_id)
+    .andWhere('act_id',activity.act_id)
+};
 
 
 // =========================    GET  ========================= //
@@ -29,8 +41,14 @@ const getActivityByID =  function (dataActivity) {
 
 // =========================    DELETE  ========================= //
 
-
-
+const deleteActivity = function(activity){
+    return knex.del('act_id')
+    .from('public.activitys')
+    .where('act_id',activity.act_id)
+    .andWhere('act_usr_id',activity.act_usr_id)
+};
 // ============================ EXPORTS ================================//
 exports.createActivity = createActivity;
 exports.getActivityByID = getActivityByID;
+exports.deleteActivity = deleteActivity;
+exports.updateActivity = updateActivity;

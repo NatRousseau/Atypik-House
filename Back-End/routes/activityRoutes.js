@@ -10,4 +10,10 @@ module.exports = function (app) {
 
     app.route('/getActivityByID')
         .post(activityController.getActivityByID);
+
+    app.route('/updateActivity')
+        .put(activityController.updateActivity);
+    
+    app.route('/deleteActivity')
+        .delete(activityController.deleteActivity);
 }
