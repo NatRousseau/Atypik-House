@@ -49,9 +49,9 @@ const resetupdateToken = function (updateToken) {
     .where('usr_refresh_token',updateToken)
 };
 
-// =========================    GET  ========================= //
+// =========================    GET GENERIC ========================= //
 const getRole =  function (token) {
-    return knex.select('usr_rol_id').from('public.users').where('usr_access_token', token)
+    return knex.select('usr_rol_id').from('public.users').where('usr_access_token',token)
 };  
 
 const getUserByMail =  function (mail) {
@@ -67,9 +67,18 @@ const getUserByUpdateToken =  function (updateToken) {
     return knex.select('usr_id','usr_mail').from('public.users').where('usr_refresh_token', updateToken)
 };  
 
+const getUserIsRegister = function(id,first,last){
+    return knex.select('usr_id','usr_firstName','usr_lastName').from('public.users').where('usr_id',id).andWhere('usr_firstName',first).andWhere('usr_lastName',last)
+};
+
 const getUserIsLogin = function (mail){
     return knex.select('usr_id','usr_password','usr_mail','usr_phone','usr_firstName','usr_lastName').from('public.users').where('usr_mail', mail)
 };
+
+// =========================    GET ADMIN ========================= //
+const getIsAdmin =  function (rol) {
+    return knex.select('rol_id','rol_name').from('public.roles').where('rol_id', rol)
+};  
 
 // =========================    DELETE  ========================= //
 
@@ -87,7 +96,9 @@ exports.resetupdateToken = resetupdateToken;
 exports.updateToken = updateToken;
 
 exports.getRole = getRole;
+exports.getIsAdmin = getIsAdmin;
 exports.getUserIsLogin = getUserIsLogin;
+exports.getUserIsRegister = getUserIsRegister;
 exports.getUserByUpdateToken = getUserByUpdateToken;
 exports.getUserByMail = getUserByMail;
 exports.getUserByPhone = getUserByPhone;

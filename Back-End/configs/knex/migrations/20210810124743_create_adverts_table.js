@@ -20,6 +20,7 @@ exports.up = function(knex, Promise) {
         table.foreign('adv_usr_phone').references('usr_phone').inTable('users');
         table.text('adv_usr_mail').notNullable();
         table.foreign('adv_usr_mail').references('usr_mail').inTable('users');
+        table.text('adv_describe').notNullable();
         
     })
 

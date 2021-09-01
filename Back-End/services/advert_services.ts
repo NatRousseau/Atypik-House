@@ -17,6 +17,7 @@ const createAdvert = function (advert) {
         adv_usr_id: advert.adv_usr_id,
         adv_usr_mail: advert.adv_usr_mail,
         adv_usr_phone: advert.adv_usr_phone,
+        adv_describe: advert.adv_describe,
         adv_cri_limit: advert.adv_cri_limit
     }]).into('public.adverts')
 };
@@ -34,6 +35,7 @@ const updateAdvert = function (advert) {
         adv_city: advert.adv_city,
         adv_postal: advert.adv_postal,
         adv_price: advert.adv_price,
+        adv_describe: advert.adv_describe,
         adv_cri_limit: advert.adv_cri_limit
 
     })
@@ -46,7 +48,7 @@ const updateAdvert = function (advert) {
 
 
 const getUserAdvert =  function (dataAdvert) {
-    return knex.select('adv_id','adv_name','adv_type','adv_tenants','adv_status','adv_adress','adv_city','adv_postal','adv_price','adv_usr_id','adv_usr_mail','adv_usr_phone','adv_created_at','adv_cri_limit','adv_up')
+    return knex.select('adv_id','adv_name','adv_type','adv_tenants','adv_status','adv_adress','adv_city','adv_postal','adv_price','adv_describe','adv_usr_id','adv_usr_mail','adv_usr_phone','adv_created_at','adv_cri_limit','adv_up')
     .from('public.adverts')
     .where('adv_usr_id',dataAdvert.adv_usr_id)
 };  
@@ -59,13 +61,13 @@ const getUserAdvertOwner =  function (dataAdvert) {
 };  
 
 const getAdvertByID =  function (dataAdvert) {
-    return knex.select('adv_id','adv_name','adv_type','adv_tenants','adv_status','adv_adress','adv_city','adv_postal','adv_price','adv_usr_id','adv_usr_mail','adv_usr_phone','adv_created_at','adv_cri_limit')
+    return knex.select('adv_id','adv_name','adv_type','adv_tenants','adv_status','adv_adress','adv_city','adv_postal','adv_price','adv_describe','adv_usr_id','adv_usr_mail','adv_usr_phone','adv_created_at','adv_cri_limit')
     .from('public.adverts')
     .where('adv_id',dataAdvert.adv_id)
 }; 
 
 const getAdvertByTimestamp =  function (min,max) {
-    return knex.select('adv_id','adv_name','adv_type','adv_tenants','adv_status','adv_adress','adv_city','adv_postal','adv_price','adv_usr_id','adv_usr_mail','adv_usr_phone','adv_created_at','adv_cri_limit','adv_up')
+    return knex.select('adv_id','adv_name','adv_type','adv_tenants','adv_status','adv_adress','adv_city','adv_postal','adv_price','adv_describe','adv_usr_id','adv_usr_mail','adv_usr_phone','adv_created_at','adv_cri_limit','adv_up')
     .from('public.adverts')
     .orderBy('adv_created_at','asc')
     .where('adv_status',true)
@@ -87,6 +89,13 @@ const getAdvertByidTenantPrice =  function (adv_id) {
     .where('adv_id',adv_id)
 };
 
+const getAdvertOwner = function (adv_id,adv_usr_id){
+    return knex.select('adv_id','adv_usr_id',)
+    .from('public.adverts')
+    .where('adv_id',adv_id)
+    .andWhere('adv_usr_id',adv_usr_id)
+};
+
 // =========================    DELETE  ========================= //
 
 const deleteAdvert = function (advert){
@@ -102,7 +111,9 @@ exports.updateAdvert = updateAdvert;
 exports.getUserAdvert = getUserAdvert;
 exports.getAdvertByID = getAdvertByID;
 exports.getAdvertByName = getAdvertByName;
+exports.getAdvertOwner = getAdvertOwner;
 exports.getAdvertByidTenantPrice = getAdvertByidTenantPrice;
 exports.getAdvertByTimestamp = getAdvertByTimestamp;
 exports.deleteAdvert = deleteAdvert;
-exports.getUserAdvertOwner = getUserAdvertOwner;
+
+
