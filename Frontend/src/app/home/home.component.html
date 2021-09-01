@@ -5,10 +5,16 @@
         <mat-grid-tile *ngFor="let tile of tiles; let index = index" [colspan]="tile.cols" [rowspan]="tile.rows"
             [style.background]="tile.color">
 
-            <h1 *ngIf="index == 0" class="title-h1">{{tile.text}}
+            <h1 *ngIf="index == 0" class="title-h1">{{tile.text}} <span style="color:#339e33;">atypique
+                </span>
             </h1>
-            <button *ngIf="index == 1" style="margin-right: 2px;" mat-raised-button>{{tile.text}}</button>
-            <button *ngIf=" index==2" style="color: white;border: 3px solid white; margin-left: 2px;"
+            <button *ngIf="index == 1" style="margin-right: 2px;" routerLink="/search" mat-raised-button>{{tile.text}}
+            </button>
+            <button *ngIf="index==2 && !this.statusUser.isAuth" routerLink="/connection"
+                style="color: white;border: 3px solid white; margin-left: 2px;"
+                mat-stroked-button>{{tile.text}}</button>
+            <button *ngIf="index==2 && this.statusUser.isAuth" routerLink="/NewAdvert"
+                style="color: white;border: 3px solid white; margin-left: 2px;"
                 mat-stroked-button>{{tile.text}}</button>
         </mat-grid-tile>
     </mat-grid-list>
@@ -16,7 +22,7 @@
     <div class="presentation">
         <h2> Atypik House c'est quoi ?</h2>
         <p style="font-size: 25px;"> Atypik House est une plateforme vous permettant de louer ou mettre en location un
-            logement aypique</p>
+            logement atypique</p>
         <hr>
     </div>
 

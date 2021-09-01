@@ -13,4 +13,5 @@ module.exports = function (app) {
 
     app.route('/getDatebyAdvRes')
     .post(reserveController.getDatebyAdvRes);
+
 }

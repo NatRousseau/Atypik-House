@@ -13,6 +13,7 @@ export class AppComponent implements OnInit {
     constructor(private auth: UserService, private statusUser: StatusUser) {}
 
     ngOnInit(): void {
+        this.statusUser.isAuth = false;
         if (
             localStorage.getItem('refresh_token') !== undefined ||
             localStorage.getItem('refresh_token').length > 0

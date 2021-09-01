@@ -53,6 +53,13 @@ const getUserAdvert =  function (dataAdvert) {
     .where('adv_usr_id',dataAdvert.adv_usr_id)
 };  
 
+const getUserAdvertOwner =  function (dataAdvert) {
+    return knex.select('adv_id','adv_name','adv_usr_id')
+    .from('public.adverts')
+    .where('adv_usr_id',dataAdvert.usr_id)
+    .andWhere('adv_id',dataAdvert.adv_id)
+};  
+
 const getAdvertByID =  function (dataAdvert) {
     return knex.select('adv_id','adv_name','adv_type','adv_tenants','adv_status','adv_adress','adv_city','adv_postal','adv_price','adv_describe','adv_usr_id','adv_usr_mail','adv_usr_phone','adv_created_at','adv_cri_limit')
     .from('public.adverts')

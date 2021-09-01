@@ -89,7 +89,7 @@ export class registerComponent implements OnInit {
             if (result.error !== undefined && result.error.length > 0) {
                 this.snackbar.openSnackBar(result.error, 'ok', 1500);
             } else {
-                this.snackbar.openSnackBar('inscription réussite', 'ok', 1500);
+                this.snackbar.openSnackBar('inscription réussi', 'ok', 1500);
                 this.rt.navigate(['/connection']);
             }
         });

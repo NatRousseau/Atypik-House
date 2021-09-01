@@ -1,20 +1,26 @@
 version: "3.7"
 services:
   backend:
-    build: Back-End
-    command: npm run start
+    container_name: ATP_Back
+    build:
+      context: Back-End
+      target: build
+    restart: always
     ports:
-      - 4500:4500
+      - 49173:4500
     volumes:
-      - ./Back-End/src:/code/src:ro
+      - ./Back-End/:/code/src:ro
       - ./Back-End/package.json:/code/package.json
       - ./Back-End/package-lock.json:/code/package-lock.json
-    networks:
-      - ATP-Front
-      - ATP-Back
+      - ./Back-End/healthcheck.js:/code/healthcheck.js
+    labels:
+      - traefik.http.routers.ATP_Back.rule=Host(`api.atypikhouse.art`)
+      - traefik.http.routers.ATP_Back.tls=true
+      - traefik.http.routers.ATP_Back.tls.certresolver=https_certs
     depends_on:
       - db
   db:
+    container_name: ATP_BDD
     image: postgres:12.1
     ports:
       - 49174:5432
@@ -25,23 +31,22 @@ services:
     restart: always
     volumes:
       - db-data:/var/lib/postgres
-    networks:
-      - ATP-Back
   frontend:
+    container_name: ATP_Front
     build:
       context: Frontend
     ports:
-      - 4200:80
+      - 49176:80
     volumes:
       - ./Frontend:/project
       - ./Frontend/package.json:/project/package.json
       - ./Frontend/package-lock.json:/project/package-lock.json
-    networks:
-      - ATP-Front
+    labels:
+      - traefik.http.routers.ATP_Front.entrypoints=https
+      - traefik.http.routers.ATP_Front.rule=Host(`atypikhouse.art`)
+      - traefik.http.routers.ATP_Front.tls=true
+      - traefik.http.routers.ATP_Front.tls.certresolver=https_certs
     depends_on:
       - backend
-networks:
-  ATP-Front:
-  ATP-Back:
 volumes:
   db-data:
