@@ -20,10 +20,23 @@ const createCommentary = function (commentary) {
 
 // =========================    GET  ========================= //
 
+const getCommentaryOwner = function (commentary){
+    return knex.select('com_id','com_usr_id',)
+    .from('public.commentarys')
+    .where('com_id',commentary.com_id)
+    .andWhere('com_usr_id',commentary.com_usr_id)
+};
 
 // =========================    DELETE  ========================= //
 
-
+const deleteCommentary = function(commentary){
+    return knex.del('com_id')
+    .from('public.commentarys')
+    .where('com_id',commentary.com_id)
+    .andWhere('com_adv_id',commentary.com_adv_id)
+};
 
 // ============================ EXPORTS ================================//
 exports.createCommentary = createCommentary;
+exports.getCommentaryOwner = getCommentaryOwner;
+exports.deleteCommentary = deleteCommentary;

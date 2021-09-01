@@ -5,7 +5,10 @@ module.exports = function (app) {
 
 //======================== Commentary ==========================//
 
-    // app.route('/createCommentary')
-    //     .post(commentaryController.createCommentary);
+    app.route('/createCommentary')
+        .post(commentaryController.createCommentary);
+    
+    app.route('/deleteCommentary')
+        .delete(auth,commentaryController.deleteCommentary);
 
 }
