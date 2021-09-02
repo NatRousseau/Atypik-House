@@ -39,6 +39,13 @@ const getActivityByID =  function (dataActivity) {
     .where('act_adv_id',dataActivity.adv_id)
 }; 
 
+const getOneActivityByID =  function (activity) {
+    return knex.select('act_id','act_name','act_adv_id','act_adress','act_city','act_postal','act_describe','act_usr_id')
+    .from('public.activitys')
+    .where('act_id',activity.act_id)
+    .andWhere('act_adv_id',activity.act_adv_id)
+}; 
+
 // =========================    DELETE  ========================= //
 
 const deleteActivity = function(activity){
@@ -50,5 +57,6 @@ const deleteActivity = function(activity){
 // ============================ EXPORTS ================================//
 exports.createActivity = createActivity;
 exports.getActivityByID = getActivityByID;
+exports.getOneActivityByID = getOneActivityByID;
 exports.deleteActivity = deleteActivity;
 exports.updateActivity = updateActivity;

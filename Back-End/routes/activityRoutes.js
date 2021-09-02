@@ -10,6 +10,9 @@ module.exports = function (app) {
 
     app.route('/getActivityByID')
         .post(activityController.getActivityByID);
+    
+    app.route('/getOneActivityByID')
+        .post(activityController.getOneActivityByID);
 
     app.route('/updateActivity')
         .put(activityController.updateActivity);

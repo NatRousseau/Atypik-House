@@ -11,4 +11,7 @@ module.exports = function (app) {
     app.route('/deleteCommentary')
         .delete(auth,commentaryController.deleteCommentary);
 
+    app.route('/getCommentarybyAdvert')
+        .post(commentaryController.getCommentarybyAdvert);
+
 }

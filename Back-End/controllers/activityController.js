@@ -238,6 +238,34 @@ module.exports = {
                     });
             }]
         );
+    },
+
+    getOneActivityByID: function (req, res) {
+        const activity = new Activity(req.body);
+
+       if (activity.act_id == null
+            || activity.act_adv_id == null
+            ) {
+            return res.status(400).json({ 'error': 'Veuillez sélectionner une activité.' });
+        }
+        
+        async.waterfall([
+            function () {
+                activityServices.getOneActivityByID(activity)
+                    .then(result => {
+                        if (result.length >0) {   
+                            return res.status(200).json({'succes':'Activité récupéré:',result});
+                        }
+                        else {
+                            return res.status(200).json({ 'error': 'Aucune activité correspondante.'});
+                        }
+                    })
+                    .catch(error => {
+                        console.error(error);
+                        return res.status(500).json({ 'error': 'Aucune correspondance à l\'annonce sélectionné.' });
+                    });
+            }]
+        );
     }
    
 }
