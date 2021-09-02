@@ -52,7 +52,6 @@
 }
 
 .submit {
-    background-color: #339e33;
     display: flex;
     width: auto;
     margin-left: auto;
@@ -112,4 +111,12 @@ table {
     /* Gris clair */
 
     color: #7d7d7d;
+}
+
+.paiementBtn {
+    width: 200px;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
 }

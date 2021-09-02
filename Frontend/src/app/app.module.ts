@@ -59,6 +59,7 @@ import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { PaiementComponent } from './paiement/paiement.component';
 import { ReserveService } from './_services/Reserve/reserve.service';
 import { ReserveCreated } from './_services/Reserve/reserveCreated';
+import { NgxPayPalModule } from 'ngx-paypal';
 
 @NgModule({
     declarations: [
@@ -74,6 +75,7 @@ import { ReserveCreated } from './_services/Reserve/reserveCreated';
         PaiementComponent,
     ],
     imports: [
+        NgxPayPalModule,
         MatDatepickerModule,
         MatNativeDateModule,
         ReactiveFormsModule,

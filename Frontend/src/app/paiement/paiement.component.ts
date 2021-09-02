@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ReserveComponent } from '../reserve/reserve.component';
 import { ReserveService } from '../_services/Reserve/reserve.service';
@@ -7,6 +7,7 @@ import { ReserveCreated } from '../_services/Reserve/reserveCreated';
 import { StatusUser } from '../_services/User/statusUser';
 import { Advert } from '../models/Adverts/Advert';
 import { AdvertsService } from '../_services/Adverts/adverts.service';
+import { IPayPalConfig } from 'ngx-paypal';
 
 @Component({
     selector: 'app-paiement',
@@ -14,6 +15,8 @@ import { AdvertsService } from '../_services/Adverts/adverts.service';
     styleUrls: ['./paiement.component.scss'],
 })
 export class PaiementComponent implements OnInit {
+    public payPalConfig?: IPayPalConfig;
+    test = '100';
     advert: Advert;
     total: number;
     price: number;
@@ -26,6 +29,7 @@ export class PaiementComponent implements OnInit {
     ) {}
 
     id: string;
+    @ViewChild('paypal', { static: true }) paypalElement: any;
     ngOnInit(): void {
         if (this.reserve.reserve === undefined) {
             this.rt.navigate(['/search']);
@@ -36,7 +40,7 @@ export class PaiementComponent implements OnInit {
         this.total = this.getTotalPrice(this.reserve.reserve.res_adv_price);
 
         window.addEventListener('beforeunload', function (e) {
-            var confirmationMessage = 'o/';
+            let confirmationMessage = 'o/';
             e.returnValue = confirmationMessage;
             return confirmationMessage;
         });
@@ -44,7 +48,40 @@ export class PaiementComponent implements OnInit {
         this.adv.getAdverById(Number(this.id)).then((data) => {
             this.advert = data.selectedAdvert;
         });
+        let totalOrder = this.total;
+        window.paypal
+            .Buttons({
+                style: {
+                    size: 'small',
+                    layout: 'horizontal',
+                    color: 'blue',
+                },
+                createOrder: function (data, actions) {
+                    return actions.order.create({
+                        purchase_units: [
+                            {
+                                amount: {
+                                    value: totalOrder,
+                                    currency_code: 'EUR',
+                                },
+                            },
+                        ],
+                    });
+                },
+
+                onApprove: function (data, actions) {
+                    alert('paiement effectué' + data.subscriptionID);
+                    console.log(data);
+                },
+                onCancel: function (data) {
+                    alert('paiement annulé' + data.subscriptionID);
+                },
+                onClick: function () {},
+            })
+            .render(this.paypalElement.nativeElement);
+        console.log('paypal', window.paypal);
     }
+
     getTotalPrice(price: number) {
         let totalPrice: number;
         let start: Date = this.reserve.reserve.res_date_start;
