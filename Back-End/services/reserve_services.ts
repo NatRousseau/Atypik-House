@@ -48,6 +48,7 @@ const getUserReserve = function (reserve){
     'res_usr_phone',
     'res_date_start',
     'res_date_end',
+    'res_adv_tenants',
     'res_created_at',
     'res_adv_price',
     )
@@ -67,6 +68,7 @@ const getReserveInfos =  function (adv_id) {
     'res_usr_phone',
     'res_date_start',
     'res_date_end',
+    'res_adv_tenants',
     'res_created_at',
     'res_adv_price',
     )
