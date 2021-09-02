@@ -1,6 +1,7 @@
 const commentaryServices = require ('../services/commentary_services.ts');
 const userServices = require ('../services/user_services.ts');
 
+const adminUtils = require('../utils/admin.utils');
 const async = require('async');
 const Commentary = require('../models/commentary');
 
@@ -77,9 +78,7 @@ module.exports = {
 
     deleteCommentary: function (req, res) {
         var commentary = new Commentary(req.body);
-        let token = req['headers'].authorization.slice(7);
-        var rol = 0;
-        var id,name;
+        var token = req['headers'].authorization.slice(7);
 
         if (commentary.com_id == null 
             || commentary.com_adv_id == null
@@ -94,10 +93,14 @@ module.exports = {
     
         async.waterfall([
             function (next) {
-                userServices.getRole(token)
+            adminUtils.adminBypass(token)
                 .then(result => {
-                    rol = result[0].usr_rol_id;
-                    next(null);
+                    if (result.length <0) {
+                        return res.status(200).json({ 'error': 'Une erreur est survenue dans le processus de suppression.' });
+                    }
+                    else{
+                        next(null)
+                    }
                 })
                 .catch(error => {
                     console.error(error);
@@ -105,28 +108,10 @@ module.exports = {
                 });
             },
             function (next) {
-                userServices.getIsAdmin(rol)
-                    .then(result => {
-                        if (result.length >0) {
-                            id =  result[0].rol_id;
-                            name =  result[0].rol_name;
-                            next(null);
-                        }
-                        else{
-                            next(null)
-                        }
-                    })
-                    .catch(error => {
-                        console.error(error);
-                        return res.status(500).json({ 'error': 'Impossible de vérifier les identifiants.' });
-                    });
-            },
-            function (next) {
-                if(id != null && name=="Admin"){
+                if(isAdmin[0]!= null && isAdmin[1]=="Admin"){ //TO DO : si le client demande plusieurs roles , adapter comparatif à liste de roles
                     next(null);
                 }
                 else{
-                    console.log("entry");
                     commentaryServices.getCommentaryOwner(commentary)
                         .then(result => {
                             if (result.length <1) {
@@ -161,5 +146,35 @@ module.exports = {
 
     // =========================    GET  ========================= //
    
-   
+    getCommentarybyAdvert: function (req, res) {
+        var commentary = new Commentary(req.body);
+        var selectedCommentary;
+
+        if (commentary.com_adv_id == null 
+            ) {
+            return res.status(400).json({ 'error': 'Paramètres manquants.' });
+        }
+    
+        async.waterfall([
+            function () {
+                commentaryServices.getCommentarybyAdvert(commentary)
+                    .then(result => {
+                        if (result.length >0) {   
+                            selectedCommentary = result;
+                            return res.status(200).json({'succes':'Commentaires récupérés',selectedCommentary});
+                        }
+                        else {
+                            return res.status(200).json({ 'error': 'Aucun commentaire correspondant.' });
+                        }
+                    })
+                    .catch(error => {
+                        console.error(error);
+                        return res.status(500).json({ 'error': 'Aucun commentaire ne correspond à l\'annonce sélectionné.' });
+                    });
+            }]
+        );
+
+    },
+
+
 }

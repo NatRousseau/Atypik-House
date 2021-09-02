@@ -109,6 +109,7 @@ const deleteAdvert = function (advert){
 exports.createAdvert = createAdvert;
 exports.updateAdvert = updateAdvert;
 exports.getUserAdvert = getUserAdvert;
+exports.getUserAdvertOwner = getUserAdvertOwner;
 exports.getAdvertByID = getAdvertByID;
 exports.getAdvertByName = getAdvertByName;
 exports.getAdvertOwner = getAdvertOwner;

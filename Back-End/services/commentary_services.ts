@@ -27,6 +27,12 @@ const getCommentaryOwner = function (commentary){
     .andWhere('com_usr_id',commentary.com_usr_id)
 };
 
+const getCommentarybyAdvert = function(commentary){
+    return knex.select('com_id','com_text','com_adv_id','com_usr_id','com_usr_firstName','com_usr_lastName')
+    .from('public.commentarys')
+    .where('com_adv_id',commentary.com_adv_id)
+};
+
 // =========================    DELETE  ========================= //
 
 const deleteCommentary = function(commentary){
@@ -39,4 +45,5 @@ const deleteCommentary = function(commentary){
 // ============================ EXPORTS ================================//
 exports.createCommentary = createCommentary;
 exports.getCommentaryOwner = getCommentaryOwner;
+exports.getCommentarybyAdvert = getCommentarybyAdvert;
 exports.deleteCommentary = deleteCommentary;

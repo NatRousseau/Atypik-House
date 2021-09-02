@@ -1,9 +1,9 @@
 const reserveServices = require ('../services/reserve_services.ts');
 const advertServices = require ('../services/advert_services.ts');
+const userServices = require ('../services/user_services.ts');
 
 const async = require('async');
 const Reserve = require('../models/reserve');
-const { MAX } = require('mssql');
 
 module.exports = {
 
@@ -179,6 +179,64 @@ module.exports = {
                             console.error(error);
                             return res.status(500).json({ 'error': 'Récupération de l\'annonce impossible.' });
                         });
+            }]
+        );
+    },
+
+    getUserReserve: function (req, res) {
+        const reserve = new Reserve(req.body);
+        let token = req['headers'].authorization.slice(7);
+        var id;
+        var name;
+        
+        userReserve=[];
+
+        if (reserve.res_usr_id == null 
+            || reserve.res_usr_mail == null
+            ) {
+            return res.status(400).json({ 'error': 'veuillez vous connecter.' });
+        }
+        
+        async.waterfall([
+            function (next) {
+                userServices.getUserCheckToken(token)
+                    .then(result => {
+                        if (result.length >0) {
+                            id =  result[0].usr_id;
+                            name =  result[0].usr_mail;
+                            next(null);
+                        } else {
+                            return res.status(200).json({ 'error': 'Utilisateur introuvable.' });
+                        }
+                    })
+                    .catch(error => {
+                        console.error(error);
+                        return res.status(500).json({ 'error': 'Impossible de vérifier les identifiants.' });
+                    });
+            },
+            function () {
+                if(id != reserve.res_usr_id || name != reserve.res_usr_mail){
+                    return res.status(500).json({ 'error': 'Impossible de vérifier les identifiants.' });
+                }
+                else{
+                    reserveServices.getUserReserve(reserve)
+                        .then(result => {
+                            if (result.length != null) {
+                                for(i=0 ; i<result.length ; i++){     
+                                    userReserve[i] = new Reserve(result[i]);
+                                    }
+                                    return res.status(200).json({'succes':'Réservations récupérés',userReserve});
+                                }
+                                else{
+                                    return res.status(400).json({ 'error': 'Aucune réservation n\'est enregistré.' });
+                                }
+                            })
+                            
+                            .catch(error => {
+                                console.error(error);
+                                return res.status(500).json({ 'error': 'Récupération de l\'annonce impossible.' });
+                            });
+                }
             }]
         );
     },

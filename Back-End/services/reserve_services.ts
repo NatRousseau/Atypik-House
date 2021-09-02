@@ -39,6 +39,22 @@ const getDateResAdv =  function (res_adv_id) {
     .where('res_adv_id',res_adv_id)
 };  
 
+const getUserReserve = function (reserve){
+    return knex.select(
+    'res_id',
+    'res_usr_id',
+    'res_usr_mail',
+    'res_usr_phone',
+    'res_date_start',
+    'res_date_end',
+    'res_created_at',
+    'res_adv_price',
+    )
+    .from('public.reserves')
+    .where('res_usr_id',reserve.res_usr_id)
+    .andWhere('res_payment',true)
+    .orderBy('res_created_at','asc')
+};  
 
 
 const getReserveInfos =  function (adv_id) {
@@ -63,5 +79,6 @@ const getReserveInfos =  function (adv_id) {
 // ============================ EXPORTS ================================//
 exports.getReserveDate = getReserveDate;
 exports.getReserveInfos = getReserveInfos;
+exports.getUserReserve = getUserReserve;
 exports.createReserve = createReserve;
 exports.getDateResAdv = getDateResAdv;

@@ -52,7 +52,11 @@ const resetupdateToken = function (updateToken) {
 // =========================    GET GENERIC ========================= //
 const getRole =  function (token) {
     return knex.select('usr_rol_id').from('public.users').where('usr_access_token',token)
-};  
+}; 
+
+const getUserCheckToken =  function (token) {
+    return knex.select('usr_id','usr_mail').from('public.users').where('usr_access_token',token)
+}; 
 
 const getUserByMail =  function (mail) {
     return knex.select('usr_id').from('public.users')
@@ -96,6 +100,7 @@ exports.resetupdateToken = resetupdateToken;
 exports.updateToken = updateToken;
 
 exports.getRole = getRole;
+exports.getUserCheckToken  = getUserCheckToken ;
 exports.getIsAdmin = getIsAdmin;
 exports.getUserIsLogin = getUserIsLogin;
 exports.getUserIsRegister = getUserIsRegister;
