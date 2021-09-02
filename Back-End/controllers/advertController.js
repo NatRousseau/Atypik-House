@@ -156,7 +156,7 @@ module.exports = {
             function () {
                 advertServices.updateAdvert(advert)
                     .then(result => {
-                        if (result.length != null) {
+                        if (result != 1) {
                             return res.status(200).json({ 'error': 'Erreur lors de la mise à jour.' });
                             
                         } else {
