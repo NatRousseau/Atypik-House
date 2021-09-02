@@ -43,6 +43,7 @@ const getUserReserve = function (reserve){
     return knex.select(
     'res_id',
     'res_usr_id',
+    'res_adv_id',
     'res_usr_mail',
     'res_usr_phone',
     'res_date_start',
@@ -61,6 +62,7 @@ const getReserveInfos =  function (adv_id) {
     return knex.select(
     'res_id',
     'res_usr_id',
+    'res_adv_id',
     'res_usr_mail',
     'res_usr_phone',
     'res_date_start',
