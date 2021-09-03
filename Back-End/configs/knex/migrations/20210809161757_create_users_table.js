@@ -15,7 +15,19 @@ exports.up = function(knex, Promise) {
         table.text('usr_expires_in');
 
         
-      })
+    })
+    .then(function(){//password: "Admin1"
+        return knex('users').insert([
+            {usr_id:1,
+            usr_mail:"admindefaultmail@testmail.com",
+            usr_password:"$2b$05$hH8a3JfWwhGGgrOsMhfHW.8v5TQFtpafJ6LjKc5lWGmoomQ/8m7iS",
+            usr_phone:33123456789,
+            usr_rol_id:1,
+            usr_firstName:"Admin"
+            },
+        ]);
+    }
+);
 
 };
 
