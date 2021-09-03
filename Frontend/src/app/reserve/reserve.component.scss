@@ -17,7 +17,7 @@
     margin: auto;
     margin-top: 10%;
     width: 100vh;
-    height: 60vh;
+    height: auto;
     background-color: white;
     border-radius: 20px;
     padding: 20px;
@@ -76,4 +76,10 @@
 
 ::ng-deep datepicker-value-example .mat-form-field-label {
     color: #339e33;
+}
+
+.error-input {
+    color: red;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }

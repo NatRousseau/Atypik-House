@@ -57,8 +57,9 @@ import { ReserveComponent } from './reserve/reserve.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { PaiementComponent } from './paiement/paiement.component';
-
-const routes: Routes = [];
+import { ReserveService } from './_services/Reserve/reserve.service';
+import { ReserveCreated } from './_services/Reserve/reserveCreated';
+import { NgxPayPalModule } from 'ngx-paypal';
 
 @NgModule({
     declarations: [
@@ -74,6 +75,7 @@ const routes: Routes = [];
         PaiementComponent,
     ],
     imports: [
+        NgxPayPalModule,
         MatDatepickerModule,
         MatNativeDateModule,
         ReactiveFormsModule,
@@ -107,10 +109,13 @@ const routes: Routes = [];
         MatTabsModule,
         MatTreeModule,
         MatTooltipModule,
-        RouterModule.forRoot(routes),
         HttpClientModule,
     ],
-    providers: [StatusUser, { provide: MAT_DATE_LOCALE, useValue: 'fr-FR' }],
+    providers: [
+        StatusUser,
+        ReserveCreated,
+        { provide: MAT_DATE_LOCALE, useValue: 'fr-FR' },
+    ],
     bootstrap: [AppComponent],
 })
 export class AppModule {}

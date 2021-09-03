@@ -13,9 +13,27 @@
     </p>
     <div class="price">Prix de la réservation à la journée: {{advert[0].adv_price}} €</div>
 
-    <div class="price">Veuillez choisir une periode pour votre réservation: </div>
+    <h3 class="price">Capacité d'accueil: {{ advert[0].adv_tenants }} personne(s)</h3>
+
     <form [formGroup]="datesReserve" (ngSubmit)="onSubmit(datesReserve.value)" class="example-form-field">
         <div>
+            <div class="price">Indiquez le nombre de locataire: </div>
+            <mat-form-field appearance="fill" style="width: 256px;"
+                (change)='onChangeTenantsFields(datesReserve.value)'>
+                <mat-label>Saisissez le nombre de locataire</mat-label>
+                <input matInput placeholder="Ex: 4" formControlName="nbTenants" maxlength="3" required>
+            </mat-form-field>
+
+
+            <mat-error class="error-input"
+                *ngIf="datesReserve.get('nbTenants').errors && datesReserve.get('nbTenants').hasError('required') && datesReserve.get('nbTenants').touched">
+                Vous devez
+                le nombre de locataire
+            </mat-error>
+            <mat-error class="error-input" *ngIf="errorNbTenants">
+                nombre de locataire supérieur à la capacité
+            </mat-error>
+            <div class="price">Indiquez une periode pour votre réservation: </div>
             <mat-form-field appearance="fill">
                 <mat-label>Selectioné la durée de votre location</mat-label>
                 <mat-date-range-input [dateFilter]="myFilter" [min]="minDate" [max]="maxDate"
@@ -30,8 +48,8 @@
 
         </div>
 
-
-        <div><button mat-raised-button [disabled]="datesReserve.invalid" type="submit" class="submit">Valider</button>
+        <div><button mat-raised-button [disabled]="datesReserve.invalid || errorNbTenants " type="submit"
+                class="submit">Valider</button>
         </div>
     </form>
 

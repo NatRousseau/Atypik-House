@@ -10,64 +10,52 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('registerComponent', () => {
-  let component: registerComponent;
-  let fixture: ComponentFixture<registerComponent>;
+    let component: registerComponent;
+    let fixture: ComponentFixture<registerComponent>;
 
-  let mail: string;
-  let password: string;
-  let user = {mail,password};
+    let mail: string;
+    let password: string;
+    let user = { mail, password };
 
-
-
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-        imports: [
-            HttpClientModule,
-            RouterTestingModule,
-            ReactiveFormsModule,
-            FormsModule,
-            MatSnackBarModule,
-            BrowserAnimationsModule,
-        ],
-      declarations: [ registerComponent ],
-      providers:[],
-    })
-    .compileComponents();
-  });
-
-  beforeEach(() => {
-    fixture = TestBed.createComponent(registerComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-
-  it('Should get user datas',async()=>{
-
-    await new Promise<void>( resolve => {
-
-        setTimeout(() => {
-            expect(mail).not.toBeUndefined;
-            expect(password).not.toBeUndefined
-            resolve();
-        });
-
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            imports: [
+                HttpClientModule,
+                RouterTestingModule,
+                ReactiveFormsModule,
+                FormsModule,
+                MatSnackBarModule,
+                BrowserAnimationsModule,
+            ],
+            declarations: [registerComponent],
+            providers: [],
+        }).compileComponents();
     });
 
-    await new Promise<void> (resolve => {
+    beforeEach(() => {
+        fixture = TestBed.createComponent(registerComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-        setTimeout(() => {
-            expect(user).not.toBeUndefined;
-            resolve();
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
+
+    it('Should get user datas', async () => {
+        await new Promise<void>((resolve) => {
+            setTimeout(() => {
+                expect(mail).not.toBeUndefined;
+                expect(password).not.toBeUndefined;
+                resolve();
+            });
         });
 
-    })
-
+        await new Promise<void>((resolve) => {
+            setTimeout(() => {
+                expect(user).not.toBeUndefined;
+                resolve();
+            });
+        });
+    });
 });
-
-
-});
-

@@ -7,35 +7,101 @@
     src: url("/assets/Police_Ecriture/GOTHICB.TTF");
 }
 
-.register-form {
-    justify-content: center;
-
+.example-container {
     vertical-align: middle;
     margin: auto;
-    margin-top: 15%;
-    width: 400px;
-    height: auto;
+    margin-top: 10%;
+    width: 100vh;
+    height: 65vh;
     background-color: white;
     border-radius: 20px;
-
     padding: 20px;
 }
-.form-text {
-    margin-bottom: 20px;
-    text-align: center;
-    font-size: 25px;
-    font-family: "gothic_sans_ms";
-}
-
-.form-field {
-    justify-content: center;
+.title {
+    width: 200px;
     margin-left: auto;
     margin-right: auto;
-    width: 200px;
+    font-family: "gothic_bold";
+    font-style: normal;
+    font-weight: normal;
+    font-size: 25px;
+    text-align: center;
+    padding: 10px;
 }
 
-.error-input {
-    color: red;
+.annoucement-image {
     margin-top: 10px;
-    margin-bottom: 10px;
+    width: 100px;
+    height: 100px;
+    padding-bottom: 10px;
+}
+
+.price {
+    font-family: "gothic_sans_ms";
+    font-size: 15px;
+    padding: 10px;
+}
+
+.submit {
+    display: flex;
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+    color: white;
+}
+.description {
+    font-family: "gothic_sans_ms";
+    padding: 10px;
+}
+
+.annoucement {
+    margin-top: 50px;
+    display: flex;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+td {
+    justify-content: center;
+    margin-left: 50px;
+}
+
+table {
+    width: auto;
+    margin-top: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 20px;
+}
+
+.name {
+    margin-left: 10px;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 25px;
+    line-height: 31px;
+
+    /* identical to box height */
+
+    /* Gris clair */
+
+    color: #7d7d7d;
+}
+
+.paiementBtn {
+    width: 200px;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+}
+
+.paiementTexte {
+    display: flex;
+    width: 200px;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+
+    font-family: "gothic_bold";
 }

@@ -1,16 +1,48 @@
+<script src="https://www.paypalobjects.com/api/checkout.js"></script>
 <div class="example-container">
     <div class="title">Confirmation</div>
 
-
-    <p class="description">
-        Lorem ipsum dolor sit amt consectetur, adipisicing elit.
-        Temporibus, itaque reprehenderit! Atque quibusdam ipsa aut
-        culpa, praesentium nostrum fugiat quasi veniam possimusx²
-        accusantium odit aperiam ducimus cumque exercitationem, id
-        distinctio.
-    </p>
+    <div class="annoucement">
 
 
+        <img src="/assets/images/image 3.png" class="annoucement-image" alt="" />
+        <div>
+            <p class="name">{{advert[0].adv_name}}</p>
+            <p class="description">
+                Lorem ipsum dolor sit amt consectetur, adipisicing elit.
+                Temporibus, itaque reprehenderit! Atque quibusdam ipsa aut
+                culpa, praesentium nostrum fugiat quasi veniam possimusx²
+                accusantium odit aperiam ducimus cumque exercitationem, id
+                distinctio.
+            </p>
+        </div>
+    </div>
+    <div>
+        <table>
+            <th>
+                <h3>Détails du prix</h3>
 
-    <button mat-raised-button type="submit" class="submit">Valider</button>
+            </th>
+            <tr>
+                <td>Prix à la journée: </td>
+                <td>{{price}} €</td>
+            </tr>
+            <tr>
+                <td>Nombre de jour réservé:</td>
+                <td>{{day}}</td>
+            </tr>
+            <tr>
+                <td>Total:</td>
+                <td>{{total}} €</td>
+            </tr>
+
+        </table>
+    </div>
+
+
+    <h3 class="paiementTexte">Payer avec Paypal :</h3>
+    <div #paypal class="paiementBtn"></div>
+
+
+
 </div>

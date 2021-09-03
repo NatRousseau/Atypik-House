@@ -12,7 +12,9 @@ export class NavbarComponent implements OnInit {
     user = localStorage.getItem('User');
     constructor(public auth: UserService, public statusUser: StatusUser) {}
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        console.log('Navbar !!', this.auth.isAuth);
+    }
 
     disconnect() {
         this.auth.disconnectUser();
