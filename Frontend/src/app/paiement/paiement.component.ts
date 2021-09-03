@@ -8,6 +8,7 @@ import { StatusUser } from '../_services/User/statusUser';
 import { Advert } from '../models/Adverts/Advert';
 import { AdvertsService } from '../_services/Adverts/adverts.service';
 import { IPayPalConfig } from 'ngx-paypal';
+import { Reserve } from '../models/Reserve/Reserve';
 
 @Component({
     selector: 'app-paiement',
@@ -16,6 +17,7 @@ import { IPayPalConfig } from 'ngx-paypal';
 })
 export class PaiementComponent implements OnInit {
     public payPalConfig?: IPayPalConfig;
+
     test = '100';
     advert: Advert;
     total: number;
@@ -25,7 +27,8 @@ export class PaiementComponent implements OnInit {
         private rt: Router,
         private route: ActivatedRoute,
         private reserve: ReserveCreated,
-        private adv: AdvertsService
+        private adv: AdvertsService,
+        public rs: ReserveService
     ) {}
 
     id: string;
@@ -44,11 +47,13 @@ export class PaiementComponent implements OnInit {
             e.returnValue = confirmationMessage;
             return confirmationMessage;
         });
-
+        let reserveCreated: Reserve = this.reserve.reserve;
         this.adv.getAdverById(Number(this.id)).then((data) => {
             this.advert = data.selectedAdvert;
         });
         let totalOrder = this.total;
+        let rsp: ReserveService;
+
         window.paypal
             .Buttons({
                 style: {
@@ -76,7 +81,9 @@ export class PaiementComponent implements OnInit {
                 onCancel: function (data) {
                     alert('paiement annulé' + data.subscriptionID);
                 },
-                onClick: function () {},
+                onClick: function () {
+                    // rsp.createReserve(reserveCreated);
+                },
             })
             .render(this.paypalElement.nativeElement);
         console.log('paypal', window.paypal);

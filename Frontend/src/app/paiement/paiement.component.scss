@@ -7,11 +7,6 @@
     src: url("/assets/Police_Ecriture/GOTHICB.TTF");
 }
 
-.example-form-field {
-    width: 300px;
-    margin-right: auto;
-    margin-left: auto;
-}
 .example-container {
     vertical-align: middle;
     margin: auto;
@@ -29,7 +24,7 @@
     font-family: "gothic_bold";
     font-style: normal;
     font-weight: normal;
-    font-size: 20px;
+    font-size: 25px;
     text-align: center;
     padding: 10px;
 }
@@ -40,11 +35,7 @@
     height: 100px;
     padding-bottom: 10px;
 }
-.advertTitle {
-    font-family: "gothic_bold";
-    font-size: 20px;
-    padding: 10px;
-}
+
 .price {
     font-family: "gothic_sans_ms";
     font-size: 15px;
@@ -63,24 +54,6 @@
     padding: 10px;
 }
 
-::ng-deep .mat-calendar-body-selected {
-    background-color: #339e33;
-    color: #fff;
-}
-::ng-deep .mat-datepicker-toggle {
-    color: #339e33;
-}
-
-::ng-deep datepicker-value-example .mat-form-field-label {
-    color: #339e33;
-}
-
-.error-input {
-    color: red;
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
 .annoucement {
     margin-top: 50px;
     display: flex;
@@ -94,9 +67,11 @@ td {
 }
 
 table {
+    width: auto;
     margin-top: 50px;
-    margin-left: 10%;
-    margin-right: 10%;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 20px;
 }
 
 .name {
@@ -119,4 +94,14 @@ table {
     margin-left: auto;
     margin-right: auto;
     display: flex;
+}
+
+.paiementTexte {
+    display: flex;
+    width: 200px;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+
+    font-family: "gothic_bold";
 }

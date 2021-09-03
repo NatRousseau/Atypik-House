@@ -27,6 +27,7 @@ export class ReserveComponent implements OnInit {
     datesReserve: FormGroup;
     minDate: Date;
     maxDate: Date;
+    errorNbTenants: Boolean = false;
     datesReserved: DatesReserve[];
     datesErrors: boolean = false;
     dateRange1 = [new Date('08-26-2021'), new Date('08-28-2021')];
@@ -49,6 +50,10 @@ export class ReserveComponent implements OnInit {
         this.maxDate = new Date(currentYear + 1, 11, 31);
 
         this.datesReserve = this.fB.group({
+            nbTenants: [
+                ,
+                [Validators.required, Validators.pattern(/^[0-9]\d*$/)],
+            ],
             start: [, [Validators.required]],
             end: [, [Validators.required]],
         });
@@ -91,7 +96,13 @@ export class ReserveComponent implements OnInit {
         }
         return true;
     };
-
+    onChangeTenantsFields(datesReserve) {
+        if (datesReserve.nbTenants > this.advert[0].adv_tenants) {
+            this.errorNbTenants = true;
+        } else {
+            this.errorNbTenants = false;
+        }
+    }
     onSubmit(datesReserve) {
         let dateStartToCompare: Date;
         let dateEndToCompare: Date;
@@ -115,7 +126,7 @@ export class ReserveComponent implements OnInit {
             let newReserve: Reserve = {
                 res_adv_id: Number(this.advert[0].adv_id),
                 res_adv_price: this.advert[0].adv_price,
-                res_adv_tenants: 4,
+                res_adv_tenants: datesReserve.nbTenants,
                 res_usr_mail: localStorage.getItem('usr_mail'),
                 res_usr_phone: localStorage.getItem('usr_phone'),
                 res_usr_id: Number(localStorage.getItem('usr_id')),
