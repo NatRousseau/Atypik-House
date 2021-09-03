@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
 export class ReserveService {
     constructor() {}
 
-    async getDatebyAdvRes(adv_id: number) {
+    async getDatebyAdvRes(advId: number) {
         const requestOptions = {
             method: 'POST',
             headers: {
@@ -17,7 +17,7 @@ export class ReserveService {
                 'Access-Control-Allow-Origin': '*',
             },
             body: JSON.stringify({
-                res_adv_id: adv_id,
+                res_adv_id: advId,
             }),
         };
 

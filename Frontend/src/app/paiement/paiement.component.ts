@@ -52,7 +52,6 @@ export class PaiementComponent implements OnInit {
             this.advert = data.selectedAdvert;
         });
         let totalOrder = this.total;
-        let rsp: ReserveService;
 
         window.paypal
             .Buttons({
@@ -76,13 +75,13 @@ export class PaiementComponent implements OnInit {
 
                 onApprove: function (data, actions) {
                     alert('paiement effectué' + data.subscriptionID);
-                    console.log(data);
                 },
                 onCancel: function (data) {
                     alert('paiement annulé' + data.subscriptionID);
                 },
                 onClick: function () {
-                    // rsp.createReserve(reserveCreated);
+                    let rsp: ReserveService = new ReserveService();
+                    rsp.createReserve(reserveCreated);
                 },
             })
             .render(this.paypalElement.nativeElement);
