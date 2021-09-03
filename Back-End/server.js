@@ -7,12 +7,20 @@ const morgan = require("morgan");
 const port =  process.env.PORT || 4500 ;
 
 server.use(morgan("common"));
+// --------------- HealthcheckDocker ---------------
+
+server.get("/healthz", function(req, res) {
+  // do app logic here to determine if app is truly healthy
+  // you should return 200 if healthy, and anything else will fail
+  // if you want, you should be able to restrict this to localhost (include ipv4 and ipv6)
+  res.send("I am happy and healthy\n");
+});
 
 // --------------- CORS ---------------
 
 const whitelist = [
   'http://localhost:4200',
-    'http://atypikhouse.art'
+    'https://atypikhouse.art'
 ];
 server.options('*', cors());
 server.use(cors((req, callback) => {
@@ -43,3 +51,5 @@ server.listen(port, function() {
 require('./routes/userRoutes')(server);
 require('./routes/advertRoutes')(server);
 require('./routes/reserveRoutes')(server);
+require('./routes/activityRoutes')(server);
+require('./routes/commentaryRoutes')(server);

@@ -1,4 +1,4 @@
-FROM node:lts AS build
+FROM node:14 AS build
 
 ARG NODE_ENV=production
 ENV NODE_ENV $NODE_ENV
@@ -11,12 +11,13 @@ EXPOSE $PORT 9229 9230
 
 COPY package.json /code/package.json
 COPY package-lock.json /code/package-lock.json
+#COPY healthcheck.js /code/healthcheck.js
 RUN npm ci
-
-RUN npm i knex -g
 
 HEALTHCHECK --interval=30s \
   CMD node healthcheck.js
+
+RUN npm i knex -g
 
 COPY . /code
 

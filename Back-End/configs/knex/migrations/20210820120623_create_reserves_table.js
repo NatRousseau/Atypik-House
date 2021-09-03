@@ -11,6 +11,7 @@ exports.up = function(knex, Promise) {
         table.foreign('res_usr_phone').references('usr_phone').inTable('users');
         table.integer('res_adv_id').notNullable();
         table.foreign('res_adv_id').references('adv_id').inTable('adverts');
+        table.text('res_adv_name').notNullable();
         table.date('res_date_start').notNullable();
         table.date('res_date_end').notNullable();
         table.timestamp('res_created_at', { precision: 6 }).defaultTo(knex.fn.now(6)).notNullable();
@@ -18,6 +19,8 @@ exports.up = function(knex, Promise) {
         table.boolean('res_payment').defaultTo('false').notNullable();
         table.text('res_payment_timer').notNullable();
         table.integer('res_adv_tenants').notNullable();
+        table.boolean('res_del_tenant').defaultTo('false').notNullable();
+        table.boolean('res_del_owner').defaultTo('false').notNullable();
     })
 
 };

@@ -4,7 +4,8 @@ WORKDIR /project
 COPY package.json /project/package.json
 #COPY package-lock.json /project/package-lock.json
 
-RUN npm install -g @angular/cli@12.2.1
+RUN npm install -g @angular/cli@12.2.2
+RUN npm i -D typescript@4.3.5
 RUN npm install
 
 COPY . /project

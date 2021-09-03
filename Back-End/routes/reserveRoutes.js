@@ -11,7 +11,10 @@ module.exports = function (app) {
     app.route('/getReservebyAdvert')
         .post(reserveController.getReservebyAdvert);
 
+    app.route('/getUserReserve')
+        .post(auth,reserveController.getUserReserve);
+
     app.route('/getDatebyAdvRes')
-    .post(reserveController.getDatebyAdvRes);
+        .post(reserveController.getDatebyAdvRes);
 
 }

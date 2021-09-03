@@ -1,9 +1,9 @@
 const reserveServices = require ('../services/reserve_services.ts');
 const advertServices = require ('../services/advert_services.ts');
+const userServices = require ('../services/user_services.ts');
 
 const async = require('async');
 const Reserve = require('../models/reserve');
-const { MAX } = require('mssql');
 
 module.exports = {
 
@@ -14,6 +14,7 @@ module.exports = {
 
         if (reserve.res_usr_id == null 
             || reserve.res_adv_id == null 
+            || reserve.res_adv_name == null
             || reserve.res_date_start == null
             || reserve.res_date_end == null
             || reserve.res_adv_price == null
@@ -42,13 +43,13 @@ module.exports = {
         maxyear = new Date(currentYear + 1,11,31);
         maxyear = formatDate(maxyear);
 
-        if(reserve.res_date_end > maxyear){
+        if(reserve.res_date_end > maxyear || reserve.res_date_start > maxyear){
             return res.status(400).json({ 'Erreur': 'La date sélectionnée est supérieure à la période donné.',maxyear});
         }
       
         if (reserve.res_date_start < currentDate || reserve.res_date_end < currentDate ) {
             wrongDateStart = reserve.res_date_start;
-            wrongDateEnd = reserve.res_date_end
+            wrongDateEnd = reserve.res_date_end;
             return res.status(400).json({ 'Erreur': 'La date sélectionné est invalide',wrongDateStart,wrongDateEnd});
         }
     
@@ -78,6 +79,7 @@ module.exports = {
                             for(i=0;i<result.length;i++){
                                 if((reserve.res_date_start >= formatDate(result[i].res_date_start) &&  reserve.res_date_start <= formatDate(result[i].res_date_end))
                                     || (reserve.res_date_end >= formatDate(result[i].res_date_start) &&  reserve.res_date_end <= formatDate(result[i].res_date_end))
+                                    || (reserve.res_date_start <= formatDate(result[i].res_date_start) &&  reserve.res_date_end >= formatDate(result[i].res_date_end))
                                     ){
                                     count++;
                                 }
@@ -179,6 +181,64 @@ module.exports = {
                             console.error(error);
                             return res.status(500).json({ 'error': 'Récupération de l\'annonce impossible.' });
                         });
+            }]
+        );
+    },
+
+    getUserReserve: function (req, res) {
+        const reserve = new Reserve(req.body);
+        let token = req['headers'].authorization.slice(7);
+        var id;
+        var name;
+        
+        userReserve=[];
+
+        if (reserve.res_usr_id == null 
+            || reserve.res_usr_mail == null
+            ) {
+            return res.status(400).json({ 'error': 'veuillez vous connecter.' });
+        }
+        
+        async.waterfall([
+            function (next) {
+                userServices.getUserCheckToken(token)
+                    .then(result => {
+                        if (result.length >0) {
+                            id =  result[0].usr_id;
+                            name =  result[0].usr_mail;
+                            next(null);
+                        } else {
+                            return res.status(200).json({ 'error': 'Utilisateur introuvable.' });
+                        }
+                    })
+                    .catch(error => {
+                        console.error(error);
+                        return res.status(500).json({ 'error': 'Impossible de vérifier les identifiants.' });
+                    });
+            },
+            function () {
+                if(id != reserve.res_usr_id || name != reserve.res_usr_mail){
+                    return res.status(500).json({ 'error': 'Impossible de vérifier les identifiants.' });
+                }
+                else{
+                    reserveServices.getUserReserve(reserve)
+                        .then(result => {
+                            if (result.length != null) {
+                                for(i=0 ; i<result.length ; i++){     
+                                    userReserve[i] = new Reserve(result[i]);
+                                    }
+                                    return res.status(200).json({'succes':'Réservations récupérés',userReserve});
+                                }
+                                else{
+                                    return res.status(400).json({ 'error': 'Aucune réservation n\'est enregistré.' });
+                                }
+                            })
+                            
+                            .catch(error => {
+                                console.error(error);
+                                return res.status(500).json({ 'error': 'Récupération de l\'annonce impossible.' });
+                            });
+                }
             }]
         );
     },

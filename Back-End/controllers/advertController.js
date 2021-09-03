@@ -20,6 +20,7 @@ module.exports = {
             || advert.adv_city == null
             || advert.adv_postal == null
             || advert.adv_price == null
+            || advert.adv_describe == null
             ) {
             return res.status(400).json({ 'error': 'Paramètres manquants.' });
         }
@@ -37,6 +38,10 @@ module.exports = {
 
         if (advert.adv_name.length <1 ) {
             return res.status(400).json({ 'Erreur': 'Le nom de l\'annonce est trop court.' });
+        }
+
+        if (advert.adv_describe.length > 255) {
+            return res.status(400).json({ 'Erreur': 'La description de l\'annonce est trop longue.' });
         }
 
         if (advert.adv_adress.length > 255) {
@@ -95,6 +100,7 @@ module.exports = {
             || advert.adv_city == null
             || advert.adv_postal == null
             || advert.adv_price == null
+            || advert.adv_describe == null
             ) {
             return res.status(400).json({ 'error': 'Paramètres manquants.' });
         }
@@ -107,6 +113,11 @@ module.exports = {
         if (advert.adv_name.length > 255) {
             return res.status(400).json({ 'Erreur': 'Le nom de l\'annonce est trop long.' });
         }
+
+        if (advert.adv_describe.length > 255) {
+            return res.status(400).json({ 'Erreur': 'La description de l\'annonce est trop longue.' });
+        }
+
 
         if (advert.adv_name.length <1 ) {
             return res.status(400).json({ 'Erreur': 'Le nom de l\'annonce est trop court.' });
@@ -127,10 +138,25 @@ module.exports = {
         }
         
         async.waterfall([
+            function (next) {
+                advertServices.getAdvertOwner(advert.adv_id,advert.adv_usr_id)
+                    .then(result => {
+                        if (result.length <1) {
+                            return res.status(200).json({ 'error': 'Vous n\'êtes pas le propriétaire de l\'annonce, ou celle-ci n\'existe plus.' });
+                        }
+                        else{
+                            next(null)
+                        }
+                    })
+                    .catch(error => {
+                        console.error(error);
+                        return res.status(500).json({ 'error': 'Impossible de vérifier les identifiants.' });
+                    });
+            },
             function () {
                 advertServices.updateAdvert(advert)
                     .then(result => {
-                        if (result.length != null) {
+                        if (result != 1) {
                             return res.status(200).json({ 'error': 'Erreur lors de la mise à jour.' });
                             
                         } else {
