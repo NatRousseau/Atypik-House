@@ -8,6 +8,7 @@ const createReserve =  function (dateStart,dateEnd,reserve) {
         res_usr_mail: reserve.res_usr_mail,
         res_usr_phone: reserve.res_usr_phone,
         res_adv_id: reserve.res_adv_id,
+        res_adv_name: reserve.res_adv_name,
         res_date_start: dateStart,
         res_date_end: dateEnd,
         res_adv_price:reserve.res_adv_price,
@@ -44,6 +45,7 @@ const getUserReserve = function (reserve){
     'res_id',
     'res_usr_id',
     'res_adv_id',
+    'res_adv_name',
     'res_usr_mail',
     'res_usr_phone',
     'res_date_start',
@@ -51,6 +53,8 @@ const getUserReserve = function (reserve){
     'res_adv_tenants',
     'res_created_at',
     'res_adv_price',
+    'res_del_tenant',
+    'res_del_owner'
     )
     .from('public.reserves')
     .where('res_usr_id',reserve.res_usr_id)
@@ -64,6 +68,7 @@ const getReserveInfos =  function (adv_id) {
     'res_id',
     'res_usr_id',
     'res_adv_id',
+    'res_adv_name',
     'res_usr_mail',
     'res_usr_phone',
     'res_date_start',
@@ -71,6 +76,8 @@ const getReserveInfos =  function (adv_id) {
     'res_adv_tenants',
     'res_created_at',
     'res_adv_price',
+    'res_del_tenant',
+    'res_del_owner'
     )
     .from('public.reserves')
     .where('res_adv_id',adv_id)
