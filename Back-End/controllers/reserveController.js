@@ -2,6 +2,7 @@ const reserveServices = require ('../services/reserve_services.ts');
 const advertServices = require ('../services/advert_services.ts');
 const userServices = require ('../services/user_services.ts');
 
+const adminUtils = require('../utils/admin.utils');
 const async = require('async');
 const Reserve = require('../models/reserve');
 
@@ -129,9 +130,155 @@ module.exports = {
 
     // =========================    DELETE  ========================= //
 
+    deleteReserve: function (req, res) {
+        var reserve = new Reserve(req.body);
+        var token = req['headers'].authorization.slice(7);
 
+        if (reserve.res_id == null 
+            || reserve.res_adv_id == null
+            ) {
+            return res.status(400).json({ 'error': 'Paramètres manquants.' });
+        }
 
-
+        if (reserve.res_usr_id == null 
+            ) {
+            return res.status(400).json({ 'error': 'Veuillez vous connecter.' });
+        }
+    
+        async.waterfall([
+            function (next) {
+            adminUtils.adminBypass(token)
+                .then(result => {
+                    if (result.length <0) {
+                        return res.status(200).json({ 'error': 'Une erreur est survenue dans le processus de suppression.' });
+                    }
+                    else{
+                        next(null)
+                    }
+                })
+                .catch(error => {
+                    console.error(error);
+                    return res.status(500).json({ 'error': 'Impossible de vérifier les identifiants.' });
+                });
+            },
+            function (next) {
+                reserveServices.getReserveDelStatus(reserve)
+                    .then(result => {
+                        if (result.length > 0) { 
+                            reserve.res_del_owner= result[0].res_del_owner;
+                            reserve.res_del_tenant= result[0].res_del_tenant;
+                            next(null)
+                        } else {
+                            next(null)
+                        }
+                    })
+                    .catch(error => {
+                        console.error(error);
+                        return res.status(500).json({ 'error': 'Récupération de la réservation impossible.' });
+                    });
+                
+            },
+            function (next) {
+                if(isAdmin[0]!= null && isAdmin[1]=="Admin"){ //TO DO : si le client demande plusieurs roles , adapter comparatif à liste de roles
+                    next(null);
+                }
+                else{
+                    advertServices.getAdvertOwner(reserve.res_adv_id,reserve.res_usr_id)
+                        .then(result => {
+                            if (result.length == 1 && reserve.res_del_owner == false) {
+                                reserve.res_del_owner = true;
+                                next(null)
+                            }
+                            else{
+                                next(null)
+                            }
+                        })
+                        .catch(error => {
+                            console.error(error);
+                            return res.status(500).json({ 'error': 'Impossible de vérifier les identifiants.' });
+                        });
+                };
+            },
+            function (next) {
+                if(isAdmin[0]!= null && isAdmin[1]=="Admin"){ //TO DO : si le client demande plusieurs roles , adapter comparatif à liste de roles
+                    next(null);
+                }
+                else{
+                    reserveServices.getReserveTenant(reserve)
+                        .then(result => {
+                            if (result.length == 1 && reserve.res_del_tenant == false) {
+                                reserve.res_del_tenant = true;
+                                next(null)
+                            }
+                            else{
+                                next(null)
+                            }
+                        })
+                        .catch(error => {
+                            console.error(error);
+                            return res.status(500).json({ 'error': 'Impossible de vérifier les identifiants.' });
+                        });
+                };
+            },
+            function (next) {
+                if((isAdmin[0]!= null && isAdmin[1]=="Admin") || (reserve.res_del_owner==true && reserve.res_del_tenant==true)){ //TO DO : si le client demande plusieurs roles , adapter comparatif à liste de roles
+                    reserveServices.deleteReserve(reserve)
+                    .then(result => {
+                        if (result[0] == reserve.res_id) { 
+                            return res.status(200).json({'succes': 'Réservation supprimé'});
+                        } else {
+                            return res.status(400).json({ 'error': 'La réservation n\'as pus être supprimé ou à déjà été supprimé. ' });
+                        }
+                    })
+                    .catch(error => {
+                        console.error(error);
+                        return res.status(500).json({ 'error': 'Suppression de la réservation impossible.' });
+                    });
+                }
+                else{
+                    next(null)
+                };
+            },
+            function () { 
+                    if(reserve.res_del_owner==false && reserve.res_del_tenant==false){
+                        return res.status(500).json({ 'error': 'Impossible de vérifier les identifiants.' });
+                    }
+                    if(reserve.res_del_owner==true && reserve.res_del_tenant==false){
+                        reserveServices.updateDelOwnerStatus(reserve)
+                        .then(result => {
+                            if (result === 1) { 
+                                return res.status(200).json({ 'succes': 'Le locataire lié à cette réservation n\'as pas encore validé la suppresion de celle-ci. Suppression en attente, en cas de nécessité veuillez nous contacter.' });
+                            } else {
+                                return res.status(400).json({ 'error': 'La réservation n\'as pus être supprimé ou à déjà été supprimé. ' });
+                            }
+                        })
+                        .catch(error => {
+                            console.error(error);
+                            return res.status(500).json({ 'error': 'Suppression de la réservation impossible.' });
+                        });  
+                    }
+                    else{
+                        if(reserve.res_del_owner==false && reserve.res_del_tenant==true){
+                            reserveServices.updateDelTenantStatus(reserve)
+                            .then(result => {
+                                if (result === 1) { 
+                                    return res.status(200).json({ 'succes': 'Le propriétaire lié à cette réservation n\'as pas encore validé la suppresion de celle-ci. Suppression en attente, en cas de nécessité veuillez nous contacter.' });
+                                } else {
+                                    return res.status(400).json({ 'error': 'La réservation n\'as pus être supprimé ou à déjà été supprimé. ' });
+                                }
+                            })
+                            .catch(error => {
+                                console.error(error);
+                                return res.status(500).json({ 'error': 'Suppression de la réservation impossible.' });
+                            });
+                        }
+                        else{
+                            return res.status(500).json({ 'error': 'Une erreur est survenue, suppression de la réservation impossible.' });
+                        }
+                    }
+            }]
+        );
+    },
 
     // =========================    GET  ========================= //
    
