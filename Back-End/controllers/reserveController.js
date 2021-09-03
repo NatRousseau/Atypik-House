@@ -14,6 +14,7 @@ module.exports = {
 
         if (reserve.res_usr_id == null 
             || reserve.res_adv_id == null 
+            || reserve.res_adv_name == null
             || reserve.res_date_start == null
             || reserve.res_date_end == null
             || reserve.res_adv_price == null
@@ -42,13 +43,13 @@ module.exports = {
         maxyear = new Date(currentYear + 1,11,31);
         maxyear = formatDate(maxyear);
 
-        if(reserve.res_date_end > maxyear){
+        if(reserve.res_date_end > maxyear || reserve.res_date_start > maxyear){
             return res.status(400).json({ 'Erreur': 'La date sélectionnée est supérieure à la période donné.',maxyear});
         }
       
         if (reserve.res_date_start < currentDate || reserve.res_date_end < currentDate ) {
             wrongDateStart = reserve.res_date_start;
-            wrongDateEnd = reserve.res_date_end
+            wrongDateEnd = reserve.res_date_end;
             return res.status(400).json({ 'Erreur': 'La date sélectionné est invalide',wrongDateStart,wrongDateEnd});
         }
     
@@ -78,6 +79,7 @@ module.exports = {
                             for(i=0;i<result.length;i++){
                                 if((reserve.res_date_start >= formatDate(result[i].res_date_start) &&  reserve.res_date_start <= formatDate(result[i].res_date_end))
                                     || (reserve.res_date_end >= formatDate(result[i].res_date_start) &&  reserve.res_date_end <= formatDate(result[i].res_date_end))
+                                    || (reserve.res_date_start <= formatDate(result[i].res_date_start) &&  reserve.res_date_end >= formatDate(result[i].res_date_end))
                                     ){
                                     count++;
                                 }
