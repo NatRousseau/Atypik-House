@@ -34,6 +34,7 @@ export class PaiementComponent implements OnInit {
     id: string;
     @ViewChild('paypal', { static: true }) paypalElement: any;
     ngOnInit(): void {
+        console.log('reserve:', this.reserve.reserve);
         if (this.reserve.reserve === undefined) {
             this.rt.navigate(['/search']);
         }

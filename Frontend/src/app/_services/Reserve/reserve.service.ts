@@ -40,6 +40,7 @@ export class ReserveService {
             body: JSON.stringify({
                 res_usr_id: reserve.res_usr_id,
                 res_adv_id: reserve.res_adv_id,
+                res_adv_name: reserve.res_adv_name,
                 res_date_start: reserve.res_date_start,
                 res_date_end: reserve.res_date_end,
                 res_adv_price: reserve.res_adv_price,

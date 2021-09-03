@@ -1,4 +1,4 @@
-<div class="example-container register-container">
+<div class="example-container newAdvert-container">
 
     <form [formGroup]="NewAdvertForm" class="register-form" (ngSubmit)="onSubmit(NewAdvertForm.value)">
         <div class="form-text">Nouvelle annonce</div>
@@ -81,8 +81,15 @@
                 Veuillez saisir
                 uniquement des chiffres
             </div>
-
-
+            <mat-form-field appearance="fill">
+                <mat-label>Description</mat-label>
+                <textarea style="resize: none;" matInput formControlName="describe"></textarea>
+            </mat-form-field>
+            <div class="error-input" *ngIf="NewAdvertForm.get('describe').errors && 
+            NewAdvertForm.get('describe').hasError('required')  && NewAdvertForm.get('describe').touched">
+                Veuillez saisir
+                une description
+            </div>
             <mat-label>Disponibilité de l'annonce</mat-label>
             <mat-slide-toggle formControlName="dispo">non disponible/disponible</mat-slide-toggle>
 

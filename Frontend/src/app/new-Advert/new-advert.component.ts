@@ -37,6 +37,7 @@ export class NewAdvertComponent implements OnInit {
             ],
             adv_price: ['', [Validators.required]],
             dispo: [false],
+            describe: ['', [Validators.required]],
         });
     }
 
@@ -53,6 +54,7 @@ export class NewAdvertComponent implements OnInit {
             adv_usr_id: Number(localStorage.getItem('usr_id')),
             adv_usr_mail: localStorage.getItem('usr_mail'),
             adv_usr_phone: localStorage.getItem('usr_phone'),
+            adv_describe: NewAdvertUserFormData.describe,
         };
         this.snackbar.openSnackBar('Sauvegarde en cours ...', 'ok', 1500);
 
@@ -64,6 +66,5 @@ export class NewAdvertComponent implements OnInit {
                 this.rt.navigate(['/search']);
             }
         });
-        console.log(advert);
     }
 }
