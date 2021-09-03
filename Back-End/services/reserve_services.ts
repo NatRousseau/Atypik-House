@@ -20,8 +20,23 @@ const createReserve =  function (dateStart,dateEnd,reserve) {
 }; 
 
 // =========================    UPDATE  ========================= //
+const updateDelOwnerStatus = function(reserve){
+    return knex.update({
+        res_del_owner: reserve.res_del_owner
+    })
+    .into('public.reserves')
+    .where('res_id',reserve.res_id)
+    .andWhere('res_adv_id',reserve.res_adv_id)
+};
 
-
+const updateDelTenantStatus = function(reserve){
+    return knex.update({
+        res_del_tenant: reserve.res_del_tenant
+    })
+    .into('public.reserves')
+    .where('res_id',reserve.res_id)
+    .andWhere('res_adv_id',reserve.res_adv_id)
+};
 
 // =========================    GET  ========================= //
 const getReserveDate =  function (dateStart,dateEnd,res_adv_id) {
@@ -84,12 +99,43 @@ const getReserveInfos =  function (adv_id) {
     .andWhere('res_payment',true)
     .orderBy('res_created_at','asc')
 };  
-// =========================    DELETE  ========================= //
 
+const getReserveTenant = function(reserve){
+    return knex.select(
+    'res_usr_id',
+    'res_adv_id'
+    )
+    .from('public.reserves')
+    .where('res_id',reserve.res_id)
+    .andWhere('res_usr_id',reserve.res_usr_id)
+
+};
+
+const getReserveDelStatus = function(reserve){
+    return knex.select(
+    'res_del_tenant',
+    'res_del_owner'
+    )
+    .from('public.reserves')
+    .where('res_adv_id',reserve.res_adv_id)
+    .andWhere('res_id',reserve.res_id)
+};
+// =========================    DELETE  ========================= //
+const deleteReserve = function(reserve){
+    return knex.del('res_id')
+    .from('public.reserves')
+    .where('res_id',reserve.res_id)
+    .andWhere('res_adv_id',reserve.res_adv_id)
+};
 
 // ============================ EXPORTS ================================//
 exports.getReserveDate = getReserveDate;
 exports.getReserveInfos = getReserveInfos;
 exports.getUserReserve = getUserReserve;
+exports.getReserveTenant = getReserveTenant;
+exports.getReserveDelStatus = getReserveDelStatus;
 exports.createReserve = createReserve;
 exports.getDateResAdv = getDateResAdv;
+exports.deleteReserve = deleteReserve;
+exports.updateDelOwnerStatus = updateDelOwnerStatus;
+exports.updateDelTenantStatus = updateDelTenantStatus;
