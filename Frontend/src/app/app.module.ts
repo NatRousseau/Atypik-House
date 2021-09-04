@@ -38,6 +38,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavbarComponent } from './navbar/navbar.component';
+import { SidenavListComponent } from './navbar/sidenav-list/sidenav-list.component';
 
 import { RouterModule, Routes } from '@angular/router';
 
@@ -65,6 +66,7 @@ import { NgxPayPalModule } from 'ngx-paypal';
     declarations: [
         AppComponent,
         NavbarComponent,
+        SidenavListComponent,
         connectionComponent,
         registerComponent,
         HomeComponent,

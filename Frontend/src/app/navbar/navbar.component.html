@@ -1,28 +1,35 @@
 <mat-toolbar class="toolbar">
+    <div fxHide.gt-xs class="sidebar-button">
+        <button mat-icon-button (click)="onToggleSidenav()">
+            <mat-icon>menu</mat-icon>
+        </button>
+    </div>
 
-    <span style="cursor: pointer;" routerLink="/"> AtypikHouse</span>
+    <span class="menu-title" style="cursor: pointer;" routerLink="/"> AtypikHouse</span>
 
     <span class="example-spacer"></span>
-    <button mat-button routerLink="/" class="example-icon favorite-icon"
+    <a mat-button routerLink="/" class="example-icon favorite-icon desktop-menu"
         aria-label="Example icon-button with heart icon">
         Accueil
-    </button>
-    <button mat-button routerLink="/search" class="example-icon favorite-icon"
+    </a>
+    <a mat-button routerLink="/search" class="example-icon favorite-icon desktop-menu"
         aria-label="Example icon-button with heart icon">
         Logements
-    </button>
+    </a>
 
 
-    <button *ngIf="!this.statusUser.isAuth" mat-button routerLink="/connection" class="example-icon favorite-icon"
+    <a *ngIf="!this.statusUser.isAuth" mat-button routerLink="/connection" class="example-icon favorite-icon desktop-menu"
         aria-label="Example icon-button with heart icon">
         se connecter
-    </button>
-    <button *ngIf="!this.statusUser.isAuth" mat-raised-button routerLink="/register" class="example-icon favorite-icon"
+    </a>
+    <a *ngIf="!this.statusUser.isAuth" mat-raised-button routerLink="/register" class="example-icon favorite-icon desktop-menu"
         aria-label="Example icon-button with heart icon">
         S'inscrire
-    </button>
+    </a>
 
-    <button *ngIf="this.statusUser.isAuth" mat-raised-button class="example-icon favorite-icon"
-        (click)="disconnect()">Déconnexion</button>
+    <a *ngIf="this.statusUser.isAuth" mat-raised-button class="example-icon favorite-icon desktop-menu"
+        (click)="disconnect()">Déconnexion</a>
 
 </mat-toolbar>
+
+

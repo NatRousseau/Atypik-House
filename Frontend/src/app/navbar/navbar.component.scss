@@ -1,9 +1,57 @@
-.example-spacer {
-    flex: 1 1 auto;
-}
-
 .toolbar {
     background-color: rgba(255, 255, 255, 0);
     color: white;
     size: 25px;
+}
+
+mat-sidenav-container, mat-sidenav-content, mat-sidenav {
+    height: 100%;
+}
+
+mat-sidenav {
+    width: 100%;
+}
+
+.menu-title {
+    margin-left: 23%;
+}
+
+.desktop-menu {
+    display: none;
+}
+
+@media (min-width: 400px) {
+    .menu-title {
+        margin-left: 29%;
+    }
+}
+
+@media (min-width: 500px) {
+    .menu-title {
+        margin-left: 31%;
+    }
+}
+
+@media (min-width: 576px) {
+    .sidebar-button {
+        display: none;
+    }
+
+    .menu-title {
+        margin-left: 0%;
+    }
+
+    .desktop-menu {
+        display: inline-block;
+    }
+
+    .example-spacer {
+        flex: 1 1 auto;
+    }
+
+    .toolbar {
+        background-color: rgba(255, 255, 255, 0);
+        color: white;
+        size: 25px;
+    }
 }

@@ -1,5 +1,10 @@
 <div class="app">
-    <navbar></navbar>
+    <mat-sidenav-container>
+        <mat-sidenav #sidenav role="navigation" class="sidebar">
+            <sidenav-list (sidenavClose)="sidenav.close()"></sidenav-list>
+        </mat-sidenav>
+        <mat-sidenav-content>
+            <navbar (sidenavToggle)="sidenav.toggle()"></navbar>
     <router-outlet>
     </router-outlet>
 
@@ -48,4 +53,6 @@
             </mat-grid-tile>
         </mat-grid-list>
     </div>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
 </div>
