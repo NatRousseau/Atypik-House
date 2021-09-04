@@ -25,7 +25,6 @@ export class DetailsAnnouncementComponent implements OnInit {
         this.id = this.route.snapshot.paramMap.get('id');
         this.adv.getAdverById(Number(this.id)).then((data) => {
             this.advert = data.selectedAdvert;
-            console.log(this.advert);
         });
     }
 
