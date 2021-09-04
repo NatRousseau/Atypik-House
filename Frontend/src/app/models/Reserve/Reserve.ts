@@ -1,6 +1,7 @@
 export interface Reserve {
     res_usr_id: number;
     res_adv_id: number;
+    res_adv_name: string;
     res_date_start: Date;
     res_date_end: Date;
     res_adv_price: number;

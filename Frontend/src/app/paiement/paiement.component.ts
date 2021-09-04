@@ -85,7 +85,6 @@ export class PaiementComponent implements OnInit {
                 },
             })
             .render(this.paypalElement.nativeElement);
-        console.log('paypal', window.paypal);
     }
 
     getTotalPrice(price: number) {

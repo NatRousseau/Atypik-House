@@ -71,6 +71,7 @@ export class AdvertsService {
                 adv_usr_id: advert.adv_usr_id,
                 adv_usr_mail: advert.adv_usr_mail,
                 adv_usr_phone: advert.adv_usr_phone,
+                adv_describe: advert.adv_describe,
             }),
         };
         console.log(advert);

@@ -10,4 +10,5 @@ export interface AdvertSet {
     adv_usr_id: number;
     adv_usr_mail: string;
     adv_usr_phone: string;
+    adv_describe: string;
 }
