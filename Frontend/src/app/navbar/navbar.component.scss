@@ -54,4 +54,32 @@ mat-sidenav {
         color: white;
         size: 25px;
     }
+
+    .account-menu {
+        color: #339e33;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+    .account-menu-img {
+        width: 12%;
+        //margin-top: -5px;
+        margin-left: 5px;
+    }
+}
+
+@media (min-width: 768px) {
+
+}
+
+@media (min-width: 992px) {
+
+}
+
+@media (min-width: 1200px) {
+
+}
+
+@media (min-width: 1600px) {
+
 }

@@ -11,3 +11,10 @@ a:hover, a:active {
     display: inline-block;
     padding-left: 6px;
 }
+
+.cdk-overlay-connected-position-bounding-box {
+    display: flex;
+    flex-direction: column;
+    background-color: #c4c4c4;
+    margin-left: 4vw;
+}

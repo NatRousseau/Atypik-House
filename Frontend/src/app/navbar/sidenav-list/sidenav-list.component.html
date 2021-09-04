@@ -1,24 +1,32 @@
 <mat-nav-list>
-    <a mat-list-item routerLink="/" (click)="onSidenavClose()" class="example-icon favorite-icon nav-caption sidebar-item"
-            aria-label="Example icon-button with heart icon">
+    <a mat-list-item routerLink="/" (click)="onSidenavClose()"
+       class="example-icon favorite-icon nav-caption sidebar-item"
+       aria-label="Example icon-button with heart icon">
         Accueil
     </a>
-    <a mat-list-item routerLink="/search" (click)="onSidenavClose()" class="example-icon favorite-icon nav-caption sidebar-item"
-            aria-label="Example icon-button with heart icon">
+    <a mat-list-item routerLink="/search" (click)="onSidenavClose()"
+       class="example-icon favorite-icon nav-caption sidebar-item"
+       aria-label="Example icon-button with heart icon">
         Logements
     </a>
 
 
-    <a mat-list-item *ngIf="!this.statusUser.isAuth" (click)="onSidenavClose()" routerLink="/connection" class="example-icon favorite-icon nav-caption sidebar-item"
-            aria-label="Example icon-button with heart icon">
+    <a mat-list-item *ngIf="!this.statusUser.isAuth" (click)="onSidenavClose()" routerLink="/connection"
+       class="example-icon favorite-icon nav-caption sidebar-item"
+       aria-label="Example icon-button with heart icon">
         se connecter
     </a>
-    <a *ngIf="!this.statusUser.isAuth" (click)="onSidenavClose()" mat-list-item routerLink="/register" class="example-icon favorite-icon nav-caption sidebar-item"
-            aria-label="Example icon-button with heart icon">
+    <a *ngIf="!this.statusUser.isAuth" (click)="onSidenavClose()" mat-list-item routerLink="/register"
+       class="example-icon favorite-icon nav-caption sidebar-item"
+       aria-label="Example icon-button with heart icon">
         S'inscrire
     </a>
 
-    <a *ngIf="this.statusUser.isAuth" (click)="onSidenavClose()" mat-list-item class="example-icon favorite-icon nav-caption sidebar-item"
-            (click)="disconnect()">Déconnexion
-    </a>
+    <mat-list-item [matMenuTriggerFor]="menu" *ngIf="this.statusUser.isAuth" class="sidebar-item">
+        <a matline>{{ firstName }} {{lastName}}</a>
+    </mat-list-item>
+    <mat-menu #menu="matMenu" class="sidebar-item-menu" style="margin-left: 4vw">
+        <button mat-menu-item (click)="onSidenavClose()" routerLink="/profil">Mon Compte</button>
+        <button mat-menu-item (click)="onSidenavClose()" (click)="disconnect()">Déconnexion</button>
+    </mat-menu>
 </mat-nav-list>

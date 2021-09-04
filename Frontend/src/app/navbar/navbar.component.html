@@ -27,8 +27,22 @@
         S'inscrire
     </a>
 
-    <a *ngIf="this.statusUser.isAuth" mat-raised-button class="example-icon favorite-icon desktop-menu"
-        (click)="disconnect()">Déconnexion</a>
+<!--    <a *ngIf="this.statusUser.isAuth" mat-button routerLink="/profil" class="example-icon favorite-icon desktop-menu account-menu"-->
+<!--        aria-label="Example icon-button with heart icon">-->
+<!--        {{ firstName }} {{lastName}}-->
+<!--        <img class="account-menu-img" src=" /assets/images/User.png" alt="">-->
+<!--    </a>-->
+
+    <mat-list-item [matMenuTriggerFor]="menu" *ngIf="this.statusUser.isAuth" class="sidebar-item">
+        <a class="example-icon favorite-icon desktop-menu account-menu" matline>{{ firstName }} {{lastName}}</a>
+        <img class="account-menu-img desktop-menu" src=" /assets/images/User.png" alt="">
+    </mat-list-item>
+    <mat-menu #menu="matMenu" class="sidebar-item-menu desktop-menu" style="margin-left: 4vw">
+        <button mat-menu-item routerLink="/profil">Mon Compte</button>
+        <button mat-menu-item (click)="disconnect()">Déconnexion</button>
+    </mat-menu>
+<!--    <a *ngIf="this.statusUser.isAuth" mat-raised-button class="example-icon favorite-icon desktop-menu"-->
+<!--        (click)="disconnect()">Déconnexion</a>-->
 
 </mat-toolbar>
 
