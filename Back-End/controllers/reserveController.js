@@ -126,7 +126,40 @@ module.exports = {
 
     // =========================    UPDATE  ========================= //
 
-    
+    validReserve: function (req,res){
+        var reserve = new Reserve(req.body);
+
+        if (reserve.res_usr_id == null 
+            ) {
+            return res.status(400).json({ 'error': 'veuillez vous connecter.' });
+        }
+        if (reserve.res_adv_id == null 
+            || reserve.res_date_start == null
+            || reserve.res_date_end == null
+            || reserve.res_payment == null
+            || reserve.res_payment == false
+            ) {
+            return res.status(400).json({ 'error': 'Paramètres manquants.' });
+        }
+
+        async.waterfall([
+            function () {
+                reserveServices.validReserve(reserve)
+                    .then(result => {
+                        if (result === 1 ) {
+                                return res.status(200).json({'succes':'Réservations validé et payé.'});
+                            }
+                            else{
+                                return res.status(400).json({ 'error': 'Aucune réservation n\'a pus être validé,veuillez nous contacter en cas de nécessité.' });
+                            }
+                        })
+                        .catch(error => {
+                            console.error(error);
+                            return res.status(500).json({ 'error': 'Suppression de la réservation impossible.' });
+                        });
+            }]
+        );
+    },
 
     // =========================    DELETE  ========================= //
 
@@ -276,6 +309,40 @@ module.exports = {
                             return res.status(500).json({ 'error': 'Une erreur est survenue, suppression de la réservation impossible.' });
                         }
                     }
+            }]
+        );
+    },
+
+    cancelReserve: function (req, res) {
+        var reserve = new Reserve(req.body);
+
+        if (reserve.res_usr_id == null 
+            ) {
+            return res.status(400).json({ 'error': 'veuillez vous connecter.' });
+        }
+        if (reserve.res_adv_id == null 
+            || reserve.res_date_start == null
+            || reserve.res_date_end == null
+            ) {
+            return res.status(400).json({ 'error': 'Paramètres manquants.' });
+        }
+        
+        async.waterfall([
+            function () {
+                reserveServices.cancelReserve(reserve)
+                    .then(result => {
+                        console.log(result);
+                        if (result[0]>1 ) {
+                                return res.status(200).json({'succes':'Réservations annulée.'});
+                            }
+                            else{
+                                return res.status(400).json({ 'error': 'Aucune réservation n\'est enregistré avec ses données ou un paiement à déjà été enregirstré.' });
+                            }
+                        })
+                        .catch(error => {
+                            console.error(error);
+                            return res.status(500).json({ 'error': 'Suppression de la réservation impossible.' });
+                        });
             }]
         );
     },

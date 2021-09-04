@@ -40,7 +40,7 @@ module.exports = {
                 userServices.getUserIsRegister(commentary.com_usr_id,commentary.com_usr_firstName,commentary.com_usr_lastName)
                     .then(result => {
                         if (result.length <1) {
-                            return res.status(200).json({ 'error': 'Vous n\'êtes pas enregistré ou botre compte n\'existe plus.' });
+                            return res.status(200).json({ 'error': 'Vous n\'êtes pas enregistré ou votre compte n\'existe plus.' });
                         }
                         else{
                             commentary.com_id = null;
