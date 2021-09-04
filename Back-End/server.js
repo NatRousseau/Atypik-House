@@ -1,8 +1,9 @@
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const express = require('express')
+const express = require('express');
+const { get } = require('http');
 const server = express()
-// const knex = require('./configs/knex/knex.js')
+const reserveServices = require ('./services/reserve_services.ts');
 const morgan = require("morgan");
 const port =  process.env.PORT || 4500 ;
 
@@ -14,6 +15,48 @@ server.get("/healthz", function(req, res) {
   // you should return 200 if healthy, and anything else will fail
   // if you want, you should be able to restrict this to localhost (include ipv4 and ipv6)
   res.send("I am happy and healthy\n");
+});
+
+// --------------- CRON SCHELDULE ---------------
+
+var cron = require('node-cron');
+
+cron.schedule('* * */4 * * *', () => {
+  var Hours =  new Date().getHours(); 
+  var Mins  =  new Date().getMinutes();
+  var currentDate= new Date();
+  currentDate = formatDate(currentDate);
+
+  function formatDate(currentDate) {
+    var date = new Date(currentDate),
+        month = '' + (date.getMonth() + 1),
+        day = '' + date.getDate(),
+        year = date.getFullYear();
+
+    if (month.length < 2) 
+        month = '0' + month;
+    if (day.length < 2) 
+        day = '0' + day;
+
+    return [year, month, day].join('-');
+  }
+  const currentTimer = currentDate +"-"+ Hours +":"+ Mins;
+
+  reserveServices.cancelGlobalUnpaidReserve(currentTimer)
+  .then(result => {
+    if (result.length != 0) { 
+      console.log({'succes': 'Suppresion de :',result});
+      //L'affichage des "result" est temporaire, cela sert à titre de benchmark à détecter 
+      //s\'il y aune faille récurrente qui permettrait des réservations non payés.
+      //Cela permete aussi déviter de surcharger la BDD de datas inutiles.
+    } else {
+      console.log({ 'succes': 'Pas de suppresion nécessaire' });
+    }
+    })
+    .catch(error => {
+        console.log({ 'error': 'Une réservation anormale a stopper la suppression.' });
+    });
+  console.log('running a task every 4 hours to clear unresolved reserves');
 });
 
 // --------------- CORS ---------------
