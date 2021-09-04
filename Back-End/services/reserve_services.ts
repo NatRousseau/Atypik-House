@@ -152,6 +152,13 @@ const cancelReserve = function(reserve){
     .andWhere('res_payment',false)
 } 
 
+const cancelGlobalUnpaidReserve = function(currentTimer){
+    return knex.del('res_id')
+    .from('public.reserves')
+    .where('res_payment',false)
+    .andWhere('res_payment_timer','<',currentTimer);
+} 
+
 // ============================ EXPORTS ================================//
 exports.getReserveDate = getReserveDate;
 exports.getReserveInfos = getReserveInfos;
@@ -162,6 +169,7 @@ exports.createReserve = createReserve;
 exports.getDateResAdv = getDateResAdv;
 exports.cancelReserve = cancelReserve;
 exports.deleteReserve = deleteReserve;
+exports.cancelGlobalUnpaidReserve = cancelGlobalUnpaidReserve;
 exports.validReserve = validReserve;
 exports.updateDelOwnerStatus = updateDelOwnerStatus;
 exports.updateDelTenantStatus = updateDelTenantStatus;
