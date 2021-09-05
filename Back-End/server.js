@@ -19,49 +19,49 @@ server.get("/healthz", function(req, res) {
 
 // --------------- CRON SCHELDULE ---------------
 
-var cron = require('node-cron');
+// var cron = require('node-cron');
 
-cron.schedule('* */10 * * * *', () => {
-  var Hours =  new Date().getHours(); 
-  var Mins  =  new Date().getMinutes();
-  var currentDate= new Date();
-  currentDate = formatDate(currentDate);
+// cron.schedule('* */10 * * * *', () => {
+//   var Hours =  new Date().getHours(); 
+//   var Mins  =  new Date().getMinutes();
+//   var currentDate= new Date();
+//   currentDate = formatDate(currentDate);
 
-  function formatDate(currentDate) {
-    var date = new Date(currentDate),
-        month = '' + (date.getMonth() + 1),
-        day = '' + date.getDate(),
-        year = date.getFullYear();
+//   function formatDate(currentDate) {
+//     var date = new Date(currentDate),
+//         month = '' + (date.getMonth() + 1),
+//         day = '' + date.getDate(),
+//         year = date.getFullYear();
 
-    if (month.length < 2) 
-        month = '0' + month;
-    if (day.length < 2) 
-        day = '0' + day;
+//     if (month.length < 2) 
+//         month = '0' + month;
+//     if (day.length < 2) 
+//         day = '0' + day;
 
-    return [year, month, day].join('-');
-  }
-  const currentTimer = currentDate +"-"+ Hours +":"+ Mins;
-  cancelglobal(currentTimer);
+//     return [year, month, day].join('-');
+//   }
+//   const currentTimer = currentDate +"-"+ Hours +":"+ Mins;
+//   cancelglobal(currentTimer);
 
-  async function cancelglobal (currentTimer){
-  reserveServices.cancelGlobalUnpaidReserve(currentTimer)
-  .then(result => {
-    if (result.length != 0) { 
-      console.log({'succes': 'Suppresion de :',result});
-      //L'affichage des "result" est temporaire, cela sert à titre de benchmark à détecter 
-      //s\'il y aune faille récurrente qui permettrait des réservations non payés.
-      //Cela permete aussi déviter de surcharger la BDD de datas inutiles.
-    } else {
-      console.log({ 'succes': 'Pas de suppresion nécessaire' });
-    }
-    })
-    .catch(error => {
-      console.error(error);
-      console.log({ 'error': 'Erreur dans l\'execution de la methode' });
-    });
-  }
-  console.log('running a task every 4 hours to clear unresolved reserves');
-});
+//   async function cancelglobal (currentTimer){
+//   reserveServices.cancelGlobalUnpaidReserve(currentTimer)
+//   .then(result => {
+//     if (result.length != 0) { 
+//       console.log({'succes': 'Suppresion de :',result});
+//       //L'affichage des "result" est temporaire, cela sert à titre de benchmark à détecter 
+//       //s\'il y aune faille récurrente qui permettrait des réservations non payés.
+//       //Cela permete aussi déviter de surcharger la BDD de datas inutiles.
+//     } else {
+//       console.log({ 'succes': 'Pas de suppresion nécessaire' });
+//     }
+//     })
+//     .catch(error => {
+//       console.error(error);
+//       console.log({ 'error': 'Erreur dans l\'execution de la methode' });
+//     });
+//   }
+//   console.log('running a task every 4 hours to clear unresolved reserves');
+// });
 
 // --------------- CORS ---------------
 
