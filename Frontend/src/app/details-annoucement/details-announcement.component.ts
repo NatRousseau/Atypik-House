@@ -14,6 +14,7 @@ export class DetailsAnnouncementComponent implements OnInit {
     advert: Advert;
     mailVisible: boolean = false;
     phoneVisible: boolean = false;
+    notOwner: boolean = true;
     constructor(
         private route: ActivatedRoute,
         private rt: Router,
@@ -25,6 +26,13 @@ export class DetailsAnnouncementComponent implements OnInit {
         this.id = this.route.snapshot.paramMap.get('id');
         this.adv.getAdverById(Number(this.id)).then((data) => {
             this.advert = data.selectedAdvert;
+
+            let advUsrId: number = Number(this.advert[0].adv_usr_id);
+            let usrId: number = Number(localStorage.getItem('usr_id'));
+
+            if (advUsrId === usrId) {
+                this.notOwner = false;
+            }
         });
     }
 

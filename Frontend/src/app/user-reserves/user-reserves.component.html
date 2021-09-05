@@ -13,12 +13,15 @@
                 <p class="annoucement-presentation-under">Pour : {{reserve.res_adv_tenants}} personnes</p>
                 <p class="annoucement-presentation-under">Prix de la journée : {{reserve.res_adv_price}} €
                 </p>
-                <div><button mat-raised-button routerLink="/detail/{{reserve.res_adv_id}}">Voir
-                        l'annonce</button><button mat-raised-button routerLink="/detail/{{advert.adv_id}}"><span
-                            style="color: red;">Annuler ma réservation</span> </button></div>
+                <div style="display: flex;"><button mat-raised-button routerLink="/detail/{{reserve.res_adv_id}}">Voir
+                        l'annonce</button><button mat-raised-button *ngIf="!reserve.res_del_tenant"
+                        (click)="deleteReserve(i)"><span style="color: red;">Annuler ma réservation</span> </button>
+                    <div *ngIf="reserve.res_del_owner" class="alertDelete">Le propriétaire souhaite annuler la
+                        réservation</div>
+                    <div *ngIf="reserve.res_del_tenant" class="alertDelete">Vous souhaitez annuler la
+                        réservation</div>
+                </div>
             </div>
-
-
         </div>
         <hr class="annoucement-hr">
     </div>

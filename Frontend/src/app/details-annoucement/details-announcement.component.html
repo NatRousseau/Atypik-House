@@ -29,7 +29,7 @@
 
             <div><button *ngIf="!phoneVisible" (click)="setPhoneVisible()" mat-raised-button> Voir le numéro de
                     téléphone</button>
-                <div *ngIf="phoneVisible"> Numéro de téléphone : {{ advert[0].adv_usr_phone}}</div>
+                <div *ngIf="phoneVisible"> Numéro de téléphone : +33{{ advert[0].adv_usr_phone}}</div>
             </div>
 
 
@@ -40,7 +40,7 @@
         </div>
     </div>
     <div>
-        <button *ngIf="this.statusUser.isAuth" routerLink="/Reserve/{{id}}" mat-raised-button
+        <button *ngIf="this.statusUser.isAuth && notOwner" routerLink="/Reserve/{{id}}" mat-raised-button
             class="bouton-announcement">Réserver</button>
     </div>
 </div>

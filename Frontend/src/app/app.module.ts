@@ -80,9 +80,9 @@ import { ReserveByAdvertComponent } from './reserve-by-advert/reserve-by-advert.
         PaiementComponent,
 
         UserProfilComponent,
-          UserAdvertsComponent,
-          UserReservesComponent,
-          ReserveByAdvertComponent,
+        UserAdvertsComponent,
+        UserReservesComponent,
+        ReserveByAdvertComponent,
     ],
     imports: [
         FontAwesomeModule,

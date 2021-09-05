@@ -15,9 +15,15 @@
                 </p>
                 <p class="annoucement-presentation-under">Mail demandeur : {{reserve.res_usr_mail}}
                 </p>
-                <div><button mat-raised-button routerLink="/detail/{{reserve.res_adv_id}}">Voir
-                        l'annonce</button><button mat-raised-button routerLink="/detail/{{advert.adv_id}}"><span
-                            style="color: red;">Annuler la réservation</span> </button></div>
+                <div style="display: flex;"><button mat-raised-button routerLink="/detail/{{reserve.res_adv_id}}">Voir
+                        l'annonce</button><button mat-raised-button *ngIf="!reserve.res_del_owner"
+                        (click)="deleteReserve(i)"><span style="color: red;">Annuler la
+                            réservation</span> </button>
+                    <div *ngIf="reserve.res_del_tenant" class="alertDelete">Le locataire souhaite annuler la
+                        réservation</div>
+                    <div *ngIf="reserve.res_del_owner" class="alertDelete">Vous avez demandé d'annuler la reservation
+                    </div>
+                </div>
             </div>
 
 
