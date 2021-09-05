@@ -36,11 +36,9 @@
                 <div *ngIf="mailVisible">Adresse mail: {{ advert[0].adv_usr_mail }}</div>
             </div>
 
-            <div>
-                <button *ngIf="!phoneVisible" (click)="setPhoneVisible()" mat-raised-button> Voir le numéro de
-                    téléphone
-                </button>
-                <div *ngIf="phoneVisible"> Numéro de téléphone : {{ advert[0].adv_usr_phone}}</div>
+            <div><button *ngIf="!phoneVisible" (click)="setPhoneVisible()" mat-raised-button> Voir le numéro de
+                    téléphone</button>
+                <div *ngIf="phoneVisible"> Numéro de téléphone : +33{{ advert[0].adv_usr_phone}}</div>
             </div>
 
 

@@ -1,33 +1,32 @@
 import { Component, OnInit } from '@angular/core';
-import { Reserve } from '../models/Reserve/Reserve';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CancelReserve } from '../models/Reserve/CancelReserve';
 import { ReserveReceive } from '../models/Reserve/ReserveReceive';
 import { ReserveService } from '../_services/Reserve/reserve.service';
-import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
-import { CancelReserve } from '../models/Reserve/CancelReserve';
 
 @Component({
-    selector: 'app-user-reserves',
-    templateUrl: './user-reserves.component.html',
-    styleUrls: ['./user-reserves.component.scss'],
+    selector: 'app-reserve-by-advert',
+    templateUrl: './reserve-by-advert.component.html',
+    styleUrls: ['./reserve-by-advert.component.scss'],
 })
-export class UserReservesComponent implements OnInit {
+export class ReserveByAdvertComponent implements OnInit {
     listReserves: ReserveReceive[];
     noReserves: boolean = false;
-    id: string = localStorage.getItem('usr_id');
-    mail: string = localStorage.getItem('usr_mail');
+    usrId: string = localStorage.getItem('usr_id');
+    advId: string;
+    advName: string;
     dateStart: string;
     dateEnd: string;
-
     constructor(
         private rs: ReserveService,
-        public dialog: MatDialog,
+        private route: ActivatedRoute,
         private rt: Router
     ) {}
-
     ngOnInit(): void {
-        this.rs.getUserReserve(this.id, this.mail).then((reserves) => {
+        this.advId = this.route.snapshot.paramMap.get('adv');
+        this.rs.getReservebyAdvert(this.advId, this.usrId).then((reserves) => {
             this.listReserves = reserves.userReserve;
+            this.advName = this.listReserves[0].res_adv_name;
             if (reserves.userReserve.length === 0) {
                 this.noReserves = true;
             } else {
@@ -55,9 +54,9 @@ export class UserReservesComponent implements OnInit {
     }
 
     deleteReserve(index) {
-        let message =
-            'Voulez-vous vraiment annuler la réservation du locataire ?';
+        let message = 'Voulez-vous vraiment annuler votre réservation ?';
         let resultat = window.confirm(message);
+        console.log(this.listReserves[0].res_adv_id);
         if (resultat) {
             let dateEnd: Date;
             let dateStart: Date;
