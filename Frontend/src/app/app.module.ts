@@ -65,6 +65,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { UserProfilComponent } from './user-profil/user-profil.component';
 import { UserAdvertsComponent } from './user-adverts/user-adverts.component';
 import { UserReservesComponent } from './user-reserves/user-reserves.component';
+import { ReserveByAdvertComponent } from './reserve-by-advert/reserve-by-advert.component';
 @NgModule({
     declarations: [
         AppComponent,
@@ -79,8 +80,9 @@ import { UserReservesComponent } from './user-reserves/user-reserves.component';
         PaiementComponent,
 
         UserProfilComponent,
-          UserAdvertsComponent,
-          UserReservesComponent,
+        UserAdvertsComponent,
+        UserReservesComponent,
+        ReserveByAdvertComponent,
     ],
     imports: [
         FontAwesomeModule,
