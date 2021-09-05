@@ -9,6 +9,8 @@ import { Advert } from '../models/Adverts/Advert';
 import { AdvertsService } from '../_services/Adverts/adverts.service';
 import { IPayPalConfig } from 'ngx-paypal';
 import { Reserve } from '../models/Reserve/Reserve';
+import { CancelReserve } from '../models/Reserve/CancelReserve';
+import { ValidReserve } from '../models/Reserve/validReserve';
 
 @Component({
     selector: 'app-paiement',
@@ -45,6 +47,7 @@ export class PaiementComponent implements OnInit {
         window.addEventListener('beforeunload', function (e) {
             let confirmationMessage = 'o/';
             e.returnValue = confirmationMessage;
+            console.log(e);
             return confirmationMessage;
         });
         let reserveCreated: Reserve = this.reserve.reserve;
@@ -52,7 +55,8 @@ export class PaiementComponent implements OnInit {
             this.advert = data.selectedAdvert;
         });
         let totalOrder = this.total;
-
+        let rsp: ReserveService = new ReserveService();
+        let router: Router = this.rt;
         window.paypal
             .Buttons({
                 style: {
@@ -74,13 +78,29 @@ export class PaiementComponent implements OnInit {
                 },
 
                 onApprove: function (data, actions) {
-                    alert('paiement effectué' + data.subscriptionID);
+                    let reserveToApprove: ValidReserve = {
+                        res_adv_id: reserveCreated.res_adv_id,
+                        res_payment: true,
+                        res_usr_id: Number(localStorage.getItem('usr_id')),
+                        res_date_start: reserveCreated.res_date_start,
+                        res_date_end: reserveCreated.res_date_end,
+                    };
+
+                    rsp.validReserve(reserveToApprove).then(() => {
+                        router.navigate(['/profil']);
+                    });
                 },
                 onCancel: function (data) {
-                    alert('paiement annulé' + data.subscriptionID);
+                    let reserveToCancel: CancelReserve = {
+                        res_adv_id: reserveCreated.res_adv_id,
+                        res_id: 0,
+                        res_date_start: reserveCreated.res_date_start,
+                        res_date_end: reserveCreated.res_date_end,
+                        res_usr_id: Number(localStorage.getItem('usr_id')),
+                    };
+                    rsp.cancelReserve(reserveToCancel);
                 },
                 onClick: function () {
-                    let rsp: ReserveService = new ReserveService();
                     rsp.createReserve(reserveCreated);
                 },
             })

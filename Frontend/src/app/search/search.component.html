@@ -17,8 +17,10 @@
             <div class="annoucement-presentation" routerLink="/detail/{{advert.adv_id}}">
                 <p class="annoucement-title">{{advert.adv_name}} <span *ngIf="advert.adv_up" class="top-annoucement"> à la une</span></p>
                 <p class="annoucement-presentation-under">{{advert.adv_adress}}, {{advert.adv_city}} </p>
-                <p class="annoucement-presentation-under">Prix : {{advert.adv_price}} €/ jour</p>
-<!--                <button mat-raised-button >Voir l'annonce</button>-->
+                <p class="annoucement-presentation-under">Prix de la journée : {{advert.adv_price}} €</p>
+                <button mat-raised-button routerLink="/detail/{{advert.adv_id}}">Voir l'annonce</button>
+
+
             </div>
 
 
