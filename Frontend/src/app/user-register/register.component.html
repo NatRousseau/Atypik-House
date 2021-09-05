@@ -1,7 +1,7 @@
 <div class="example-container register-container">
 
     <form [formGroup]="registerForm" class="register-form" (ngSubmit)="onSubmit(registerForm.value)">
-        <img src=" /assets/images/Group_1.png" class="form-logo">
+        <img src=" /assets/images/Group_1.svg" class="form-logo">
         <div class="form-text">Inscription</div>
         <div class="form-field">
             <mat-form-field appearance="fill" class="field">
@@ -11,7 +11,7 @@
 
             </mat-form-field>
 
-            <div class="error-input" *ngIf="registerForm.get('mail').errors && 
+            <div class="error-input" *ngIf="registerForm.get('mail').errors &&
             !registerForm.get('mail').hasError('required')">format d'adresse mail incorrect</div>
             <mat-error class="error-input"
                 *ngIf="registerForm.get('mail').errors && registerForm.get('mail').hasError('required') && isTouchedMail > 0">
@@ -29,9 +29,9 @@
                 </button>
             </mat-form-field>
 
-            <div class="error-input" *ngIf="registerForm.get('password').errors && 
+            <div class="error-input" *ngIf="registerForm.get('password').errors &&
             !registerForm.get('password').hasError('required')">format du mot de passe incorrect</div>
-            <div class="error-input" *ngIf="registerForm.get('password').errors && 
+            <div class="error-input" *ngIf="registerForm.get('password').errors &&
                 registerForm.get('password').hasError('required')  && registerForm.get('password').touched">Vous devez
                 saisir un mot
                 de passe</div>
@@ -42,7 +42,7 @@
 
             </mat-form-field>
 
-            <div class="error-input" *ngIf="registerForm.get('phone').errors && 
+            <div class="error-input" *ngIf="registerForm.get('phone').errors &&
             !registerForm.get('phone').hasError('required')">format de numéro de téléphone incorrect</div>
             <mat-error class="error-input"
                 *ngIf="registerForm.get('phone').errors && registerForm.get('phone').hasError('required') && registerForm.get('phone').touched">
@@ -77,10 +77,10 @@
             </mat-error>
 
 
-            <div>* Le mot de passe doit contenir: <br> -4 caractéres au minimum <br> -Une majuscule <br> -Un chiffre
+            <div class="info">* Le mot de passe doit contenir: <br> -4 caractéres au minimum <br> -Une majuscule <br> -Un chiffre
             </div>
 
-            <div style="margin-left: 50px;"><button mat-raised-button style="background-color: #339e33; color: white;"
+            <div class="btn"><button mat-raised-button style="background-color: #339e33; color: white;"
                     type="submit" [disabled]="registerForm.invalid">S'inscrire</button>
             </div>
         </div>

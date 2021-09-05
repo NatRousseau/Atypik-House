@@ -14,7 +14,7 @@
     <form [formGroup]="datesReserve" (ngSubmit)="onSubmit(datesReserve.value)" class="example-form-field">
         <div>
             <div class="price">Indiquez le nombre de locataire: </div>
-            <mat-form-field appearance="fill" style="width: 256px;"
+            <mat-form-field appearance="fill" style="width: 100%;"
                 (change)='onChangeTenantsFields(datesReserve.value)'>
                 <mat-label>Saisissez le nombre de locataire</mat-label>
                 <input matInput placeholder="Ex: 4" formControlName="nbTenants" maxlength="3" required>
@@ -30,7 +30,7 @@
                 nombre de locataire supérieur à la capacité
             </mat-error>
             <div class="price">Indiquez une periode pour votre réservation: </div>
-            <mat-form-field appearance="fill">
+            <mat-form-field appearance="fill" style="width: 100%;">
                 <mat-label>Selectioné la durée de votre location</mat-label>
                 <mat-date-range-input [dateFilter]="myFilter" [min]="minDate" [max]="maxDate"
                     [rangePicker]="campaignOnePicker">
