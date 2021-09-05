@@ -1,9 +1,10 @@
 const criteriaServices = require ('../services/criteria_services.ts');
-const advertServices = require ('../services/advert_services.ts');
 
 const adminUtils = require('../utils/admin.utils');
+const criteriaUtils = require('../utils/criteria.utils');
 const async = require('async');
 const Criteria = require('../models/criteria');
+const Advert = require('../models/advert');
 
 
 module.exports = {
@@ -19,6 +20,12 @@ module.exports = {
             return res.status(400).json({ 'error': 'Paramètres manquants.' });
         }
 
+        if (criteria.cri_name.length > 255) {
+            return res.status(400).json({ 'error': 'Nom de critère trop long.' });
+        }
+        if (criteria.cri_name.length <1 ) {
+            return res.status(400).json({ 'error': 'Nom de critère trop court.' });
+        }
         async.waterfall([
             function (next) {
                 adminUtils.adminBypass(token)
@@ -39,16 +46,13 @@ module.exports = {
                 if(isAdmin[0]!= null && isAdmin[1]=="Admin"){ //TO DO : si le client demande plusieurs roles , adapter comparatif à liste de roles
                     criteriaServices.createCriteria(criteria)
                         .then(result => {
-                            console.log(result);
-                            if (result.rowcount === 1) {
+                            if (result != null ) {
                                 return res.status(200).json({'succes':'Critère ajouté.'});
-                            } else { 
-                                return res.status(400).json({ 'error': 'Un critère du même nom existe déjà.' });
                             }
                         })
                         .catch(error => {
                             console.error(error);
-                            return res.status(500).json({ 'error': 'Création de l\'annonce impossible.' });
+                            return res.status(500).json({ 'error': 'Création du critère impossible.' });
                         });
                 }
                 else{
@@ -66,7 +70,7 @@ module.exports = {
 
     deleteCriteria: function (req, res) {
         var criteria = new Criteria(req.body);
-
+        var token = req['headers'].authorization.slice(7);
 
         if (criteria.cri_name == null 
             || criteria.cri_id ==null
@@ -95,17 +99,15 @@ module.exports = {
                 if(isAdmin[0]!= null && isAdmin[1]=="Admin"){ //TO DO : si le client demande plusieurs roles , adapter comparatif à liste de roles
                     criteriaServices.deleteCriteria(criteria)
                         .then(result => {
-                            console.log(result)
                             if (result.length>0) { 
-                                console.log("if");
-                                return res.status(400).json({ 'error': 'TRUC.' });
+                                return res.status(200).json({'succes':'Critère supprimé.'});
                             } else { 
-                                console.log("else");
+                                return res.status(400).json({ 'error': 'Aucun critère n\'a pus être supprimé.' });
                             }
                         })
                         .catch(error => {
                             console.error(error);
-                            return res.status(500).json({ 'error': 'Création de l\'annonce impossible.' });
+                            return res.status(500).json({ 'error': 'Suppression du critère impossible.' });
                         });
                     }
                 else{
@@ -120,13 +122,12 @@ module.exports = {
 
         async.waterfall([
             function () {
-                criteriaServices.getCriteria(criteria)
+                criteriaServices.getCriteria()
                     .then(result => {
                         if (result.length>0) { 
-                            //retourne cri_id & name
-                            return res.status(400).json({ 'error': 'Une annonce du même nom existe déjà.' });
+                            return res.status(200).json({'succes':'Critères récupérés',result});
                         } else { 
-                           
+                            return res.status(400).json({ 'error': 'Aucun critères n\'ont pus êtres récupérés.' });
                         }
                     })
                     .catch(error => {
@@ -140,55 +141,55 @@ module.exports = {
 
     getAdvertByCriteria: function (req, res) {
         datas = req.body;
-        const pagenumber = datas[0]
-        var criteria = new Criteria(datas[1]);
-        advertByCriteria=[];
+        const pagenumber = datas.page
+        var criId = datas.cri_id
 
-       if (pagenumber.page == null
+        advIdlist = [];
+        advList = [];
+
+       if (pagenumber == null
             ) {
             return res.status(400).json({ 'error': 'erreur durant la procédure de chargement.' });
         }
         else
         {
-            min = pagenumber.page-10;
-            max = pagenumber.page;
+            min = pagenumber-10;
+            max = pagenumber;
 
         }
 
         async.waterfall([
                 function (next) {
-                    criteriaServices.getAdvertByCritera(criteria)
+                    criteriaUtils.criteriaStep(criId)
                         .then(result => {
-                            if (result.length <0) {
-
-                                return res.status(200).json({ 'error': 'JSP MAIS VOILA.' });
+                             if (result.length != null) {  
+                                    advIdlist = result;
+                                    next(null);
+                            } else {
+                                return res.status(200).json({ 'error': 'Aucune annonce ne correspond à ces critères de recherche..' });
                             }
-                            else{
-                                console.log("CHIBRE");
-                                next(null)
+                            })
+                            .catch(error => {
+                                console.error(error);
+                                return res.status(500).json({ 'error': 'Impossible de vérifier les identifiants.' });
+                            });
+                },
+                function () {
+                    criteriaUtils.criteriAdvertStep(min,max,advIdlist)
+                        .then(result => {
+                            if (result.length != null) {
+                                for(i=0 ; i<result.length ; i++){     
+                                    advList[i] = new Advert(result[i]);
+                            }
+                                return res.status(200).json({'succes':'Annonces récupérés',advList});
+                            } else {
+                                return res.status(200).json({ 'error': 'Impossible de charger les annonces.' });
                             }
                         })
                         .catch(error => {
                             console.error(error);
-                            return res.status(500).json({ 'error': 'Impossible de vérifier les identifiants.' });
+                            return res.status(500).json({ 'error': 'Impossible d\'accéder aux annonces.' });
                         });
-                },
-                function () {
-                advertServices.getAdvertWithCriteriaByTimestamp(min,max,adv_id)
-                    .then(result => {
-                        if (result.length != null) {
-                            for(i=0 ; i<result.length ; i++){     
-                                advertByCriteria[i] = new Advert(result[i]);
-                        }
-                            return res.status(200).json({'succes':'Annonces récupérés',advertByCriteria});
-                        } else {
-                            return res.status(200).json({ 'error': 'Impossible de charger les annonces.' });
-                        }
-                    })
-                    .catch(error => {
-                        console.error(error);
-                        return res.status(500).json({ 'error': 'Impossible d\'accéder aux annonces.' });
-                    });
             }]
         );
     },

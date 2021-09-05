@@ -12,8 +12,8 @@ module.exports = function (app) {
         .delete(criteriaController.deleteCriteria);
 
     app.route('/getCriteria')
-        .get(criteriaController.getCriteria);
+        .post(criteriaController.getCriteria);
 
     app.route('/getAdvertByCriteria')
-        .get(criteriaController.getAdvertByCriteria);
+        .post(criteriaController.getAdvertByCriteria);
 }

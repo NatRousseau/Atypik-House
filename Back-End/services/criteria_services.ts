@@ -16,18 +16,20 @@ const getCriteria = function(){
     .from('public.criterias')
 };
 
-const getCriteriAdvert = function(){
-    return knex.select('cri_id','cri_name')
+const getAdvertByCritera = function(criId){
+    return knex.select('ria_adv_id')
     .from('public.criteriadvert')
+    .where('ria_cri_id',criId)
 };
 // =========================    DELETE  ========================= //
 const deleteCriteria = function(criteria){
     return knex.del('cri_id')
     .from('public.criterias')
-    .where('res_id',criteria.cri_id)
+    .where('cri_id',criteria.cri_id)
 };
 
 // ============================ EXPORTS ================================//
 exports.createCriteria = createCriteria;
 exports.deleteCriteria = deleteCriteria;
 exports.getCriteria = getCriteria;
+exports.getAdvertByCritera = getAdvertByCritera;
