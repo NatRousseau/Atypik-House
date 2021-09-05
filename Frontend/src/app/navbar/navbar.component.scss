@@ -3,9 +3,25 @@
     color: white;
     size: 25px;
 }
-.logoFacebook {
-    width: 25px;
-    height: 25px;
+
+.facebook-btn {
+    width: 20px;
+    margin-left: 10px;
+    //margin-right: 2vw;
+}
+
+.facebook-img {
+    width: 100%;
+}
+
+.instagram-btn {
+    width: 20px;
+    margin-left: 2vw;
+    margin-right: 10px;
+}
+
+.instagram-img {
+    width: 100%;
 }
 
 mat-sidenav-container, mat-sidenav-content, mat-sidenav {

@@ -1,10 +1,10 @@
 a {
     text-decoration: none;
-    color: white !important;
+    color: #7d7d7d !important;
 }
 
 a:hover, a:active {
-    color: lightgray;
+    color: #2d2d2d;
 }
 
 .nav-caption {
@@ -12,9 +12,25 @@ a:hover, a:active {
     padding-left: 6px;
 }
 
-.cdk-overlay-connected-position-bounding-box {
+.social-media {
     display: flex;
-    flex-direction: column;
-    background-color: #c4c4c4;
-    margin-left: 4vw;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-grow: 1;
+}
+
+.facebook-btn {
+    width: 60px !important;
+}
+
+.facebook-img {
+    width: 100%;
+}
+
+.instagram-btn {
+    width: 60px !important;
+}
+
+.instagram-img {
+    width: 100%;
 }

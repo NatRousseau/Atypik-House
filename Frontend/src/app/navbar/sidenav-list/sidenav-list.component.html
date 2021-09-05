@@ -25,8 +25,18 @@
     <mat-list-item [matMenuTriggerFor]="menu" *ngIf="this.statusUser.isAuth" class="sidebar-item">
         <a matline>{{ firstName }} {{lastName}}</a>
     </mat-list-item>
-    <mat-menu #menu="matMenu" class="sidebar-item-menu" style="margin-left: 4vw">
-        <button mat-menu-item (click)="onSidenavClose()" routerLink="/profil">Mon Compte</button>
-        <button mat-menu-item (click)="onSidenavClose()" (click)="disconnect()">Déconnexion</button>
+    <mat-menu #menu="matMenu" class="sidebar-item-menu">
+        <button mat-menu-item (click)="onSidenavClose()" style="color: #2d2d2d" routerLink="/profil">Mon Compte</button>
+        <button mat-menu-item (click)="onSidenavClose()" (click)="disconnect()" style="color: #2d2d2d">Déconnexion
+        </button>
     </mat-menu>
+
+    <div class=" social-media">
+        <a mat-list-item href=" https://www.instagram.com/atypikhouse.art/" target="_blank" class="instagram-btn desktop-menu">
+            <img src=" /assets/images/instagram_grey.svg" class="instagram-img" alt="logo-instagram">
+        </a>
+        <a mat-list-item href="https://www.facebook.com/AtypikHouse-205167134864752/" target="_blank" class="facebook-btn desktop-menu">
+            <img src=" /assets/images/facebook_grey.svg" class="facebook-img" alt="logo-facebook">
+        </a>
+    </div>
 </mat-nav-list>
