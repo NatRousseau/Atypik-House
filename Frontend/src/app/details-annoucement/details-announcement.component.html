@@ -9,7 +9,7 @@
     </div>
 
     <div>
-        <button *ngIf="this.statusUser.isAuth" routerLink="/Reserve/{{id}}" mat-raised-button
+        <button *ngIf="this.statusUser.isAuth && notOwner" routerLink="/Reserve/{{id}}" mat-raised-button
                 class="bouton-announcement">Réserver
         </button>
     </div>
