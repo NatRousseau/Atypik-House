@@ -21,7 +21,7 @@ server.get("/healthz", function(req, res) {
 
 var cron = require('node-cron');
 
-cron.schedule('* * */4 * * *', () => {
+cron.schedule('* */10 * * * *', () => {
   var Hours =  new Date().getHours(); 
   var Mins  =  new Date().getMinutes();
   var currentDate= new Date();
@@ -41,7 +41,9 @@ cron.schedule('* * */4 * * *', () => {
     return [year, month, day].join('-');
   }
   const currentTimer = currentDate +"-"+ Hours +":"+ Mins;
+  cancelglobal(currentTimer);
 
+  async function cancelglobal (currentTimer){
   reserveServices.cancelGlobalUnpaidReserve(currentTimer)
   .then(result => {
     if (result.length != 0) { 
@@ -53,6 +55,11 @@ cron.schedule('* * */4 * * *', () => {
       console.log({ 'succes': 'Pas de suppresion nécessaire' });
     }
     })
+    .catch(error => {
+      console.error(error);
+      return res.status(500).json({ 'error': 'Impossible de vérifier les identifiants.' });
+    });
+  }
   console.log('running a task every 4 hours to clear unresolved reserves');
 });
 
