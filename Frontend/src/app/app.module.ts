@@ -61,7 +61,11 @@ import { PaiementComponent } from './paiement/paiement.component';
 import { ReserveService } from './_services/Reserve/reserve.service';
 import { ReserveCreated } from './_services/Reserve/reserveCreated';
 import { NgxPayPalModule } from 'ngx-paypal';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
+import { UserProfilComponent } from './user-profil/user-profil.component';
+import { UserAdvertsComponent } from './user-adverts/user-adverts.component';
+import { UserReservesComponent } from './user-reserves/user-reserves.component';
 @NgModule({
     declarations: [
         AppComponent,
@@ -75,8 +79,13 @@ import { NgxPayPalModule } from 'ngx-paypal';
         NewAdvertComponent,
         ReserveComponent,
         PaiementComponent,
+
+        UserProfilComponent,
+          UserAdvertsComponent,
+          UserReservesComponent,
     ],
     imports: [
+        FontAwesomeModule,
         NgxPayPalModule,
         MatDatepickerModule,
         MatNativeDateModule,

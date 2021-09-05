@@ -31,7 +31,6 @@ export class connectionComponent implements OnInit {
 
     ngOnInit(): void {
         this.initForm();
-        // console.log(this.h.user);
     }
 
     initForm() {
@@ -50,7 +49,6 @@ export class connectionComponent implements OnInit {
             usr_password: registerForm.password,
         };
         this.auth.connectUser(user).then((userLog) => {
-   
             if (userLog.error === undefined) {
                 localStorage.setItem('usr_mail', userLog.usr_mail);
                 localStorage.setItem('usr_phone', userLog.usr_phone);
@@ -63,7 +61,6 @@ export class connectionComponent implements OnInit {
                 this.statusUser.isAuth = true;
                 this.rt.navigate(['/']);
             } else if (userLog.error.length > 0) {
-          
                 this.errorWhenLogin = true;
             }
         });

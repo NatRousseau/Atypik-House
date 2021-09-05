@@ -54,7 +54,6 @@ export class registerComponent implements OnInit {
 
     handleOnChangeMail() {
         this.isTouchedMail++;
-        console.log(this.isTouchedMail);
     }
     handleOnChangePassword() {
         this.isTouchedPassword++;

@@ -1,10 +1,11 @@
-body {
-    font-family: "gothic_sans_ms" !important;
+@font-face {
+    font-family: "gothic_sans_ms";
+    src: url("/assets/Police_Ecriture/GOTHIC.TTF");
 }
 
-.footPage {
-    padding-top: 100px;
-    margin-top: min 1000px;
+@font-face {
+    font-family: "gothic_bold";
+    src: url("/assets/Police_Ecriture/GOTHICB.TTF");
 }
 
 .mat-drawer-container {
@@ -18,9 +19,24 @@ body {
     background-size: cover;
 }
 
+.footPage {
+    font-size: 17px;
+    position: relative;
+    margin-top: 150px;
+    width: 100%;
+    height: 25px;
+    bottom: 0;
+    background-color: white;
+    text-align: center;
+}
+
 .sidebar {
     width: 50vw;
     background-color: #C4C4C4;
     padding-top: 4vh;
     padding-left: 2vw;
+}
+
+.linkFooter {
+    color: #339e33;
 }

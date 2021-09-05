@@ -8,30 +8,37 @@
     <span class="menu-title" style="cursor: pointer;" routerLink="/"> AtypikHouse</span>
 
     <span class="example-spacer"></span>
+
+    <a href=" https://www.instagram.com/atypikhouse.art/"><img src=" /assets/images/instagram.png"
+                                                               style="margin-right: 10px;" alt="logo-facebook"></a>
+    <a href="https://www.facebook.com/AtypikHouse-205167134864752/"><img src=" /assets/images/logoFacebook.png"
+                                                                         class="logoFacebook" alt="logo-facebook"></a>
     <a mat-button routerLink="/" class="example-icon favorite-icon desktop-menu"
-        aria-label="Example icon-button with heart icon">
+       aria-label="Example icon-button with heart icon">
         Accueil
     </a>
     <a mat-button routerLink="/search" class="example-icon favorite-icon desktop-menu"
-        aria-label="Example icon-button with heart icon">
+       aria-label="Example icon-button with heart icon">
         Logements
     </a>
 
 
-    <a *ngIf="!this.statusUser.isAuth" mat-button routerLink="/connection" class="example-icon favorite-icon desktop-menu"
-        aria-label="Example icon-button with heart icon">
+    <a *ngIf="!this.statusUser.isAuth" mat-button routerLink="/connection"
+       class="example-icon favorite-icon desktop-menu"
+       aria-label="Example icon-button with heart icon">
         se connecter
     </a>
-    <a *ngIf="!this.statusUser.isAuth" mat-raised-button routerLink="/register" class="example-icon favorite-icon desktop-menu"
-        aria-label="Example icon-button with heart icon">
+    <a *ngIf="!this.statusUser.isAuth" mat-raised-button routerLink="/register"
+       class="example-icon favorite-icon desktop-menu"
+       aria-label="Example icon-button with heart icon">
         S'inscrire
     </a>
 
-<!--    <a *ngIf="this.statusUser.isAuth" mat-button routerLink="/profil" class="example-icon favorite-icon desktop-menu account-menu"-->
-<!--        aria-label="Example icon-button with heart icon">-->
-<!--        {{ firstName }} {{lastName}}-->
-<!--        <img class="account-menu-img" src=" /assets/images/User.png" alt="">-->
-<!--    </a>-->
+    <!--    <a *ngIf="this.statusUser.isAuth" mat-button routerLink="/profil" class="example-icon favorite-icon desktop-menu account-menu"-->
+    <!--        aria-label="Example icon-button with heart icon">-->
+    <!--        {{ firstName }} {{lastName}}-->
+    <!--        <img class="account-menu-img" src=" /assets/images/User.png" alt="">-->
+    <!--    </a>-->
 
     <mat-list-item [matMenuTriggerFor]="menu" *ngIf="this.statusUser.isAuth" class="sidebar-item">
         <a class="example-icon favorite-icon desktop-menu account-menu" matline>{{ firstName }} {{lastName}}</a>
@@ -41,8 +48,8 @@
         <button mat-menu-item routerLink="/profil">Mon Compte</button>
         <button mat-menu-item (click)="disconnect()">Déconnexion</button>
     </mat-menu>
-<!--    <a *ngIf="this.statusUser.isAuth" mat-raised-button class="example-icon favorite-icon desktop-menu"-->
-<!--        (click)="disconnect()">Déconnexion</a>-->
+    <!--    <a *ngIf="this.statusUser.isAuth" mat-raised-button class="example-icon favorite-icon desktop-menu"-->
+    <!--        (click)="disconnect()">Déconnexion</a>-->
 
 </mat-toolbar>
 

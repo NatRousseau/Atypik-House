@@ -49,6 +49,26 @@ export class AdvertsService {
         const data = await response.json();
         return data;
     }
+    async getUserAdvert(id: string) {
+        const requestOptions = {
+            method: 'POST',
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('access_token'),
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+            },
+            body: JSON.stringify({
+                adv_usr_id: id,
+            }),
+        };
+
+        const response = await fetch(
+            environment.API_URL + '/getUserAdvert',
+            requestOptions
+        );
+        const data = await response.json();
+        return data;
+    }
 
     async postAdvert(advert: AdvertSet) {
         const requestOptions = {
@@ -71,6 +91,7 @@ export class AdvertsService {
                 adv_usr_id: advert.adv_usr_id,
                 adv_usr_mail: advert.adv_usr_mail,
                 adv_usr_phone: advert.adv_usr_phone,
+                adv_describe: advert.adv_describe,
             }),
         };
         console.log(advert);

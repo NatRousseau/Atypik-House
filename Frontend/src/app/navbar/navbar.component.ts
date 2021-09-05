@@ -9,7 +9,6 @@ import {UserService} from '../_services/User/user.service';
     styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
-    user = localStorage.getItem('User');
 
     firstName: string = localStorage.getItem('usr_firstName');
     lastName: string = localStorage.getItem('usr_lastName');
@@ -19,9 +18,7 @@ export class NavbarComponent implements OnInit {
 
     @Output() public sidenavToggle = new EventEmitter();
 
-    ngOnInit(): void {
-        console.log('Navbar !!', this.auth.isAuth);
-    }
+    ngOnInit(): void {}
 
     public onToggleSidenav = () => {
         this.sidenavToggle.emit();

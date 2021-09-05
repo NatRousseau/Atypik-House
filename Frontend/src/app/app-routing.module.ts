@@ -9,6 +9,7 @@ import { ReserveComponent } from './reserve/reserve.component';
 
 import { SearchComponent } from './search/search.component';
 import { connectionComponent } from './user-connection/connection.component';
+import { UserProfilComponent } from './user-profil/user-profil.component';
 import { registerComponent } from './user-register/register.component';
 
 const routes: Routes = [
@@ -22,6 +23,7 @@ const routes: Routes = [
     { path: 'NewAdvert', component: NewAdvertComponent },
     { path: 'Reserve/:id', component: ReserveComponent },
     { path: 'paiement/:id', component: PaiementComponent },
+    { path: 'profil', component: UserProfilComponent },
 ];
 
 @NgModule({

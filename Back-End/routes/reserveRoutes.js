@@ -17,6 +17,12 @@ module.exports = function (app) {
     app.route('/deleteReserve')
         .delete(auth,reserveController.deleteReserve);
 
+    app.route('/cancelReserve')
+        .delete(reserveController.cancelReserve);
+    
+    app.route('/validReserve')
+        .put(reserveController.validReserve);
+
     app.route('/getDatebyAdvRes')
         .post(reserveController.getDatebyAdvRes);
 

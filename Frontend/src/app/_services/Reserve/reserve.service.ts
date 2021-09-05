@@ -40,6 +40,7 @@ export class ReserveService {
             body: JSON.stringify({
                 res_usr_id: reserve.res_usr_id,
                 res_adv_id: reserve.res_adv_id,
+                res_adv_name: reserve.res_adv_name,
                 res_date_start: reserve.res_date_start,
                 res_date_end: reserve.res_date_end,
                 res_adv_price: reserve.res_adv_price,
@@ -76,6 +77,28 @@ export class ReserveService {
             requestOptions
         );
 
+        const data = await response.json();
+        return data;
+    }
+
+    async getUserReserve(id: string, mail: string) {
+        const requestOptions = {
+            method: 'POST',
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('access_token'),
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+            },
+            body: JSON.stringify({
+                res_usr_id: id,
+                res_usr_mail: mail,
+            }),
+        };
+
+        const response = await fetch(
+            environment.API_URL + '/getUserReserve',
+            requestOptions
+        );
         const data = await response.json();
         return data;
     }

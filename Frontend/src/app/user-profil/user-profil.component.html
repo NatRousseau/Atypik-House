@@ -1,0 +1,31 @@
+<div class="example-container">
+    <div class="account">
+        <img src="/assets/images/accountIcon.png" class="annoucement-image" alt="">
+        <div class="account-presentation">
+            <p> Prenom : {{ firstName }} </p>
+            <p> Nom : {{lastName}}</p>
+            <p> Email : {{ mail}} </p>
+        </div>
+    </div>
+
+    <div class="account-toolbar">
+        <div *ngIf='!galerieClicked' class="section-toolbar" (click)="changeGalerieToolbar()">Ma galerie</div>
+        <div *ngIf='galerieClicked' class="section-toolbar-clicked"> Ma galerie </div>
+        <div *ngIf='!reservesClicked' class="section-toolbar" (click)="changeReserveToolbar()">Mes reservations</div>
+        <div *ngIf='reservesClicked' class="section-toolbar-clicked"> Mes reservations </div>
+        <div *ngIf='!locationsClicked' class="section-toolbar" (click)="changeLocationsToolbar()">Mes locations</div>
+        <div *ngIf='locationsClicked' class="section-toolbar-clicked"> Mes locations </div>
+
+        <div></div>
+
+    </div>
+    <div *ngIf='galerieClicked' class="galery">
+        <div> <img src="/assets/images/image 3.png" class="image" alt="" /></div>
+        <div> <img src="/assets/images/image 4.png" class="image" alt="" /></div>
+        <div> <img src="/assets/images/image 2.png" class="image" alt="" /></div>
+        <div> <img src="/assets/images/image15.jpg" class="image" alt="" /></div>
+
+    </div>
+    <app-user-reserves *ngIf='reservesClicked'></app-user-reserves>
+    <app-user-adverts *ngIf='locationsClicked'></app-user-adverts>
+</div>
