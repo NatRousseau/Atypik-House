@@ -11,7 +11,7 @@ module.exports = {
 
     createCriteria: function (req, res) {
         var criteria = new Criteria(req.body);
-
+        var token = req['headers'].authorization.slice(7);
 
         if (criteria.cri_name == null 
             ) {
@@ -23,7 +23,7 @@ module.exports = {
                 adminUtils.adminBypass(token)
                     .then(result => {
                         if (result.length <0) {
-                            return res.status(200).json({ 'error': 'Une erreur est survenue dans le processus de suppression.' });
+                            return res.status(200).json({ 'error': 'Une erreur est survenue dans le processus de vérification admin.' });
                         }
                         else{
                             next(null)
@@ -124,7 +124,7 @@ module.exports = {
                 criteriaServices.getCriteria(criteria)
                     .then(result => {
                         if (result.length>0) { 
-
+                            //retourne cri_id & name
                             return res.status(400).json({ 'error': 'Une annonce du même nom existe déjà.' });
                         } else { 
                            
@@ -161,7 +161,7 @@ module.exports = {
                     criteriaServices.getAdvertByCritera(criteria)
                         .then(result => {
                             if (result.length <0) {
-                                
+
                                 return res.status(200).json({ 'error': 'JSP MAIS VOILA.' });
                             }
                             else{

@@ -13,4 +13,7 @@ module.exports = function (app) {
 
     app.route('/getCriteria')
         .get(criteriaController.getCriteria);
+
+    app.route('/getAdvertByCriteria')
+        .get(criteriaController.getAdvertByCriteria);
 }
