@@ -53,9 +53,6 @@ cron.schedule('* * */4 * * *', () => {
       console.log({ 'succes': 'Pas de suppresion nécessaire' });
     }
     })
-    .catch(error => {
-        console.log({ 'error': 'Une réservation anormale a stopper la suppression.' });
-    });
   console.log('running a task every 4 hours to clear unresolved reserves');
 });
 
