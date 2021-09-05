@@ -102,4 +102,24 @@ export class ReserveService {
         const data = await response.json();
         return data;
     }
+    async getReservebyAdvert(advId: string, usrId: string) {
+        const requestOptions = {
+            method: 'POST',
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('access_token'),
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+            },
+            body: JSON.stringify({
+                adv_id: advId,
+                usr_id: usrId,
+            }),
+        };
+        const response = await fetch(
+            environment.API_URL + '/getReservebyAdvert',
+            requestOptions
+        );
+        const data = await response.json();
+        return data;
+    }
 }

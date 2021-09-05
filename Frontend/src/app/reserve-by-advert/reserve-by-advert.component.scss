@@ -1,0 +1,80 @@
+@font-face {
+    font-family: "gothic_sans_ms";
+    src: url("/assets/Police_Ecriture/GOTHIC.TTF");
+}
+@font-face {
+    font-family: "gothic_bold";
+    src: url("/assets/Police_Ecriture/GOTHICB.TTF");
+}
+.example-container {
+    background-color: white;
+    min-height: 100vh;
+    height: fit-content;
+    padding-top: 30px;
+}
+
+.title {
+    text-align: center;
+    font-family: "gothic_sans_ms";
+    font-style: normal;
+    font-weight: bold;
+    font-size: 35px;
+    line-height: 43px;
+
+    color: #000000;
+}
+
+.annoucement {
+    margin-top: 50px;
+    display: flex;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+.annoucement-presentation {
+    line-height: 43px;
+    margin-left: 20px;
+
+    font-family: "gothic_sans_ms";
+    font-style: normal;
+    font-weight: normal;
+    font-size: 35px;
+}
+
+.annoucement-presentation-under {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 25px;
+    line-height: 31px;
+    /* identical to box height */
+
+    /* Gris clair */
+
+    color: #7d7d7d;
+}
+.annoucement-image {
+    width: 200px;
+    height: 200px;
+}
+
+.annoucement-hr {
+    margin-top: 50px;
+    width: 80vw;
+    height: 0px;
+    left: 100px;
+
+    /* Gris clair */
+    background-color: #7d7d7d;
+    border: 2px solid #7d7d7d;
+}
+.noResult {
+    margin-top: 150px;
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    width: 200px;
+    font-size: 20px;
+    font-family: "gothic_sans_ms";
+}
+.mat-raised-button {
+    margin-left: 20px;
+}
