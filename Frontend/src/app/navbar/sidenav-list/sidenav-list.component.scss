@@ -1,0 +1,36 @@
+a {
+    text-decoration: none;
+    color: #7d7d7d !important;
+}
+
+a:hover, a:active {
+    color: #2d2d2d;
+}
+
+.nav-caption {
+    display: inline-block;
+    padding-left: 6px;
+}
+
+.social-media {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-grow: 1;
+}
+
+.facebook-btn {
+    width: 60px !important;
+}
+
+.facebook-img {
+    width: 100%;
+}
+
+.instagram-btn {
+    width: 60px !important;
+}
+
+.instagram-img {
+    width: 100%;
+}

@@ -2,6 +2,7 @@
     font-family: "gothic_sans_ms";
     src: url("/assets/Police_Ecriture/GOTHIC.TTF");
 }
+
 @font-face {
     font-family: "gothic_bold";
     src: url("/assets/Police_Ecriture/GOTHICB.TTF");
@@ -13,15 +14,15 @@
     vertical-align: middle;
     margin: auto;
     margin-top: 10%;
-    width: 450px;
+    width: 70%;
     height: auto;
     background-color: white;
     border-radius: 20px;
-
     padding: 20px;
 }
+
 .example-container {
-    margin-left: 8px;
+    //margin-left: 8px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -52,11 +53,55 @@ body {
     justify-content: center;
     margin-left: auto;
     margin-right: auto;
-    width: 200px;
+    width: 80%;
 }
 
 .error-input {
     color: red;
     margin-top: 10px;
     margin-bottom: 10px;
+}
+
+.btn {
+    margin-left: 30%;
+}
+
+.info {
+    font-size: 12px;
+    margin-bottom: 5vh;
+}
+
+@media (min-width: 576px) {
+    .form-field {
+        width: 70%;
+    }
+
+    .btn {
+        margin-left: 35%;
+    }
+}
+
+@media (min-width: 768px) {
+    .form-field {
+        width: 60%;
+    }
+}
+
+@media (min-width: 992px) {
+    .register-form {
+        width: 50%;
+    }
+}
+
+@media (min-width: 1200px) {
+    .register-form {
+        width: 40%;
+    }
+}
+
+@media (min-width: 1600px) {
+    .register-form {
+        width: 20%;
+        margin: 10% auto 5% auto;
+    }
 }
