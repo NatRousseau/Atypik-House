@@ -57,7 +57,7 @@ cron.schedule('* */10 * * * *', () => {
     })
     .catch(error => {
       console.error(error);
-      return res.status(500).json({ 'error': 'Impossible de vérifier les identifiants.' });
+      console.log({ 'error': 'Erreur dans l\'execution de la methode' });
     });
   }
   console.log('running a task every 4 hours to clear unresolved reserves');
