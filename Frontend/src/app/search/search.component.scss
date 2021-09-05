@@ -32,7 +32,6 @@
 
 .search-field-group {
     margin-top: 6vh;
-    margin-bottom: 4vh;
     width: 100%;
     justify-content: center;
     display: flex;
@@ -130,6 +129,7 @@
     margin-left: auto;
     margin-right: auto;
     color: white;
+    margin-bottom: 4vh;
 }
 
 @media (min-width: 576px) {
@@ -176,7 +176,7 @@
     }
 
     .search-field-group {
-        margin-bottom: 8vh;
+        margin-bottom: 2vh;
     }
 }
 
