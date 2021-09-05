@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CancelReserve } from 'src/app/models/Reserve/CancelReserve';
 import { Reserve } from 'src/app/models/Reserve/Reserve';
+import { ValidReserve } from 'src/app/models/Reserve/validReserve';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -122,6 +123,7 @@ export class ReserveService {
             requestOptions
         );
         const data = await response.json();
+        return data;
     }
     async deleteReserve(cancelReserve: CancelReserve) {
         const requestOptions = {
@@ -142,5 +144,30 @@ export class ReserveService {
             requestOptions
         );
         const data = await response.json();
+        return data;
+    }
+
+    async validReserve(validReserve: ValidReserve) {
+        const requestOptions = {
+            method: 'PUT',
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('access_token'),
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+            },
+            body: JSON.stringify({
+                res_usr_id: validReserve.res_usr_id,
+                res_adv_id: validReserve.res_adv_id,
+                res_date_start: validReserve.res_date_start,
+                res_date_end: validReserve.res_date_end,
+                res_payment: validReserve.res_payment,
+            }),
+        };
+        const response = await fetch(
+            environment.API_URL + '/validReserve',
+            requestOptions
+        );
+        const data = await response.json();
+        return data;
     }
 }
