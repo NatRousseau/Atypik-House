@@ -6,7 +6,7 @@ module.exports = function (app) {
 //======================== Activity ==========================//
 
     app.route('/createCriteria')
-        .post(criteriaController.createCriteria);
+        .post(auth,criteriaController.createCriteria);
 
     app.route('/deleteCriteria')
         .delete(criteriaController.deleteCriteria);

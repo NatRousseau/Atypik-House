@@ -1,8 +1,9 @@
 const criteriaServices = require ('../services/criteria_services.ts');
+const advertServices = require ('../services/advert_services.ts');
 
+const adminUtils = require('../utils/admin.utils');
 const async = require('async');
 const Criteria = require('../models/criteria');
-const { log } = require('console');
 
 
 module.exports = {
@@ -36,21 +37,19 @@ module.exports = {
             },
             function () {
                 if(isAdmin[0]!= null && isAdmin[1]=="Admin"){ //TO DO : si le client demande plusieurs roles , adapter comparatif à liste de roles
-                criteriaServices.createCriteria(criteria)
-                    .then(result => {
-                        if (result.length>0) { // Nom d'annonce déjà existant
-                            return res.status(400).json({ 'error': 'Une annonce du même nom existe déjà.' });
-                        } else { // adv_name free
-                            advert.adv_id = null;
-                            advert.adv_up = false;
-                            advert.adv_cri_limit = 2;
-                            next(null)
-                        }
-                    })
-                    .catch(error => {
-                        console.error(error);
-                        return res.status(500).json({ 'error': 'Création de l\'annonce impossible.' });
-                    });
+                    criteriaServices.createCriteria(criteria)
+                        .then(result => {
+                            console.log(result);
+                            if (result.rowcount === 1) {
+                                return res.status(200).json({'succes':'Critère ajouté.'});
+                            } else { 
+                                return res.status(400).json({ 'error': 'Un critère du même nom existe déjà.' });
+                            }
+                        })
+                        .catch(error => {
+                            console.error(error);
+                            return res.status(500).json({ 'error': 'Création de l\'annonce impossible.' });
+                        });
                 }
                 else{
                     return res.status(200).json({ 'error': 'Vous devez être un administrateur.' });
