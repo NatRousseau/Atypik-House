@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Advert } from 'src/app/models/Adverts/Advert';
 import { AdvertSet } from 'src/app/models/Adverts/AdvertSet';
+import { AdvertUpdate } from 'src/app/models/Adverts/AdvertUpdate';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -103,7 +104,8 @@ export class AdvertsService {
         return data;
     }
 
-    async updateAdvert(advert: AdvertSet) {
+    async updateAdvert(advert: AdvertUpdate) {
+        console.log('test', advert);
         const requestOptions = {
             method: 'PUT',
             headers: {
@@ -113,17 +115,17 @@ export class AdvertsService {
             },
 
             body: JSON.stringify({
+                adv_id: advert.adv_id,
                 adv_name: advert.adv_name,
                 adv_type: advert.adv_type,
                 adv_tenants: advert.adv_tenants,
                 adv_status: advert.adv_status,
+                adv_up: advert.adv_up,
+                adv_usr_id: advert.adv_usr_id,
                 adv_adress: advert.adv_adress,
                 adv_city: advert.adv_city,
                 adv_postal: advert.adv_postal,
                 adv_price: advert.adv_price,
-                adv_usr_id: advert.adv_usr_id,
-                adv_usr_mail: advert.adv_usr_mail,
-                adv_usr_phone: advert.adv_usr_phone,
                 adv_describe: advert.adv_describe,
             }),
         };

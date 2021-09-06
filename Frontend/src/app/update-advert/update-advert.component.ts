@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Advert } from '../models/Adverts/Advert';
-import { AdvertSet } from '../models/Adverts/AdvertSet';
+import { AdvertUpdate } from '../models/Adverts/AdvertUpdate';
 import { AdvertsService } from '../_services/Adverts/adverts.service';
 import { SnackBarService } from '../_services/SnackBar/snack-bar.service';
 
@@ -55,7 +55,9 @@ export class UpdateAdvertComponent implements OnInit {
     }
 
     onSubmit(updateAdvertUserFormData) {
-        const advert: AdvertSet = {
+        const advert: AdvertUpdate = {
+            adv_id: this.advert[0].adv_id,
+            adv_up: this.advert[0].adv_up,
             adv_name: updateAdvertUserFormData.titre,
             adv_type: updateAdvertUserFormData.type,
             adv_tenants: updateAdvertUserFormData.max,
@@ -65,13 +67,11 @@ export class UpdateAdvertComponent implements OnInit {
             adv_postal: updateAdvertUserFormData.adv_postal,
             adv_price: updateAdvertUserFormData.adv_price,
             adv_usr_id: Number(localStorage.getItem('usr_id')),
-            adv_usr_mail: localStorage.getItem('usr_mail'),
-            adv_usr_phone: localStorage.getItem('usr_phone'),
             adv_describe: updateAdvertUserFormData.describe,
         };
         this.snackbar.openSnackBar('Sauvegarde en cours ...', 'ok', 1500);
 
-        this.advService.postAdvert(advert).then((result) => {
+        this.advService.updateAdvert(advert).then((result) => {
             if (result.error !== undefined && result.error.length > 0) {
                 this.snackbar.openSnackBar(result.error, 'ok', 1500);
             } else {
