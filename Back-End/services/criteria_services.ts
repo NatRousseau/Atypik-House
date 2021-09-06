@@ -8,6 +8,13 @@ const createCriteria = function(criteria){
     }]).into('public.criterias')
 };
 
+const linkcriteriAdvert = function(advert,criId){
+    return knex.insert([{
+        ria_adv_id: advert,
+        ria_cri_id: criId
+    }]).into('public.criteriadvert')
+};
+
 // =========================    UPDATE  ========================= //
 
 // =========================    GET    ========================= //
@@ -28,8 +35,16 @@ const deleteCriteria = function(criteria){
     .where('cri_id',criteria.cri_id)
 };
 
+const clearlinkcriteriAdvert = function(advert){
+    return knex.del('ria_adv_id')
+    .from('public.criteriadvert')
+    .where('ria_adv_id',advert)
+};
+
 // ============================ EXPORTS ================================//
 exports.createCriteria = createCriteria;
+exports.linkcriteriAdvert =linkcriteriAdvert;
 exports.deleteCriteria = deleteCriteria;
+exports.clearlinkcriteriAdvert = clearlinkcriteriAdvert;
 exports.getCriteria = getCriteria;
 exports.getAdvertByCritera = getAdvertByCritera;

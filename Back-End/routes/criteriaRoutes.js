@@ -16,4 +16,10 @@ module.exports = function (app) {
 
     app.route('/getAdvertByCriteria')
         .post(criteriaController.getAdvertByCriteria);
+
+    app.route('/getAdvertByCriteria')
+        .post(criteriaController.getAdvertByCriteria);
+
+    app.route('/linkCriteriAdvert')
+        .post(criteriaController.linkCriteriAdvert);
 }

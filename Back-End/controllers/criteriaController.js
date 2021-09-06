@@ -5,6 +5,7 @@ const criteriaUtils = require('../utils/criteria.utils');
 const async = require('async');
 const Criteria = require('../models/criteria');
 const Advert = require('../models/advert');
+const { nextTick } = require('process');
 
 
 module.exports = {
@@ -62,9 +63,83 @@ module.exports = {
         );
     },
 
+    
+
+    linkCriteriAdvert: function(req, res) {
+        datas = req.body;
+        var advert = datas.ria_adv_id;
+        var limit = datas.adv_cri_limit;
+        var criId = datas.ria_cri_id;
+
+        if (criId == null
+            || advert == null 
+            ) {
+            return res.status(400).json({ 'error': 'Paramètres manquants.' });
+        }
+
+        if (criId.length > limit){
+            return res.status(400).json({ 'error': 'Le montant de critères sélectionnés dépasse la limte de l\'annonce' })
+        }
+
+        async.waterfall([
+            function (next) {
+                criteriaServices.clearlinkcriteriAdvert(advert)
+                    .then(result => {
+                        if ( result != null) {
+                            next(null);
+                        }
+                        else{
+                            next(null);
+                        }
+                    })
+                    .catch(error => {
+                        console.error(error);
+                        return res.status(500).json({ 'error': 'Création de l\'annonce impossible.' });
+                    });
+            },
+            function () {
+                criteriaUtils.linkcriteriAdvertStep(advert,criId)
+                    .then(result => {
+                        if (result == criId.length) { 
+                            return res.status(200).json({'succes':'Lien des critères à l\'annonce sauvegardés'});
+                        } else { 
+                            return res.status(400).json({ 'error': 'Aucun critères n\'ont pus êtres récupérés.' });
+                        }
+                    })
+                    .catch(error => {
+                        console.error(error);
+                        return res.status(500).json({ 'error': 'Création de l\'annonce impossible.' });
+                    });
+            }]
+        );
+    },
 
     // =========================    UPDATE  ========================= //
 
+    updateCriteriAdvert:function (req, res) {
+        datas = req.body;
+        var advert = datas.ria_adv_id;
+        var criId = datas.ria_cri_id;
+        var token = req['headers'].authorization.slice(7);
+
+        
+        async.waterfall([
+            function () {
+                criteriaServices.getCriteria()
+                    .then(result => {
+                        if (result.length>0) { 
+                            return res.status(200).json({'succes':'Critères récupérés',result});
+                        } else { 
+                            return res.status(400).json({ 'error': 'Aucun critères n\'ont pus êtres récupérés.' });
+                        }
+                    })
+                    .catch(error => {
+                        console.error(error);
+                        return res.status(500).json({ 'error': 'Création de l\'annonce impossible.' });
+                    });
+            }]
+        );
+    },
 
     // =========================    DELETE  ========================= //
 

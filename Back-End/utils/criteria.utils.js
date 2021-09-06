@@ -85,7 +85,27 @@ module.exports = {
         }
         await (count == res.length);
         return res;
-    }
+    },
+
+    linkcriteriAdvertStep: async function(advert,criId){
+        var count = 0;
+        for(let i=0; i<criId.length;i++){
+            await criteriaServices.linkcriteriAdvert(advert,criId[i])
+                    .then(result => {
+                        if (result.length < 0) {
+                            return res.status(200).json({ 'error': 'Impossible de lier l\' annonce avec les critères sélectionnés.' });
+                        } else { 
+                            count++; 
+                        }
+                        })
+                        .catch(error => {
+                            console.error(error);
+                            return res.status(500).json({ 'error': 'Impossible de vérifier les identifiants.' });
+                        });
+            }
+            await (count == criId.length);
+            return count;
+        }
     
     
 }
