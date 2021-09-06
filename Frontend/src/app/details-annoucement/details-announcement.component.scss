@@ -164,7 +164,7 @@
     .commentary-list {
         flex-direction: row;
         flex-wrap: wrap;
-        justify-content: space-evenly;
+        justify-content: flex-start;
     }
 
     .commentary-presentation {
@@ -213,7 +213,7 @@
     }
 
     .commentary-presentation {
-        width: 25%;
+        width: 27%;
     }
 
 
