@@ -38,11 +38,6 @@ module.exports = {
             return res.status(400).json({ 'error': 'Adresse mail trop longue.' });
         }
 
-        //TO DO: return undefined , trouvé alternative pour integer 
-        // if (user.usr_phone.length > 12) {  
-        //     return res.status(400).json({ 'error': 'Numéro de téléphone invalide, trop long.' });    
-        // }
-
         if (user.usr_firstName.length > 255) {
             return res.status(400).json({ 'Erreur': 'Le prénom d\'utilisateur est trop long.' });
         }
@@ -214,6 +209,7 @@ module.exports = {
                 return res.status(200).json({
                     'usr_id': user.usr_id,
                     'usr_mail': user.usr_mail,
+                    'usr_rol_id':user.usr_rol_id,
                     'usr_phone': user.usr_phone,
                     'usr_firstName': user.usr_firstName,
                     'usr_lastName': user.usr_lastName,

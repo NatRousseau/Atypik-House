@@ -96,7 +96,7 @@ module.exports = {
             adminUtils.adminBypass(token)
                 .then(result => {
                     if (result.length <0) {
-                        return res.status(200).json({ 'error': 'Une erreur est survenue dans le processus de suppression.' });
+                        return res.status(200).json({ 'error': 'Une erreur est survenue dans le processus de vérification admin.' });
                     }
                     else{
                         next(null)
