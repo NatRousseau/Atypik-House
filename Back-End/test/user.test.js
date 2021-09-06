@@ -1,58 +1,66 @@
 //npm run test test/user.test.js
 
-const expect = require('chai').expect;
-const userController = require('../controllers/userController')
+// var newUser =require('../dummy/userDummy');
+// var User = require('../dummy/userDummy');
+const server = require ('../server');
+const chai  = require ( 'chai');
+const chaiHttp   = require ( 'chai-http');
+const assert = require('assert');
+const expect = require('chai').expect
+const request = require('supertest');
+const userController   = require ('../controllers/userController');
+const clearTestUser = require ('../services/user_services/clearTestUser')
+
+chai.use(chaiHttp);
+chai.should();
+
+
 
 describe('userController tests', () => {
 
-    describe('register Test', () => {
+    clearTestUser();
 
-        datasReceived= {
-            "usr_mail": "maildetest@gmail.com",
-            "usr_phone": "3353486789",
-            "usr_password": "Test1",
-            "usr_firstName": "John",
-            "usr_lastName":"Doe"
-        };
-
-        it('should return a Succes', () => {
-            const result = userController.register(datasReceived);
-            expect(result).to.equal({"succes": "Reussite de l'enregistrement."});
-        });
-        // it('should equal 4', () => {
-        //     const result = math.add(2, 2);
-        //     expect(result).to.equal(4);
-        // });
+    describe("POST /register", () => {
+        // Test to register a new user
+        it("should register an user", (done) => {
+            let newUser={
+                usr_mail: "unittest@gmail.com",
+                usr_phone: "0453456789",
+                usr_password: "Test1",
+                usr_firstName: "Michel",
+                usr_lastName: ""
+            }
+            chai.request(server)
+                 .post('/register')
+                 .send(newUser)
+                 .end((err, res) => {
+                     res.should.have.status(200);
+                     res.body.should.be.a('object');
+                     res.body.should.have.property('succes');
+                     done();
+                  });
+         });
     });
 
 
-    describe('login Test', () => {
-
-        datasReceived= {"usr_mail":"maildetest@gmail.com",
-        "usr_password":"Test1"};
-
-        it('should return n°id 2', () => {
-            const result = userController.login(datasReceived);
-            expect(result).to.equal({"succes": "Reussite de l'enregistrement."});
-        });
-        // it('should equal 4', () => {
-        //     const result = math.add(2, 2);
-        //     expect(result).to.equal(4);
-        // });
+    describe("POST /login", () => {
+        // Test to register a new user
+        it("should login an user", (done) => {
+            let User={
+                usr_mail: "unittest@gmail.com",
+                usr_password: "Test1"
+            }
+            chai.request(server)
+                 .post('/login')
+                 .send(User)
+                 .end((err, res) => {
+                     res.should.have.status(200);
+                     res.body.should.be.a('object');
+                     res.body.should.have.property('succes');
+                     done();
+                  });
+         });
     });
-    
-    // describe('user.createUser() Test', () => {
 
 
-    //     // it('should equal 3', () => {
-    //     //     const result = math.multiply(3, 1);
-    //     //     expect(result).to.equal(3);
-    //     // });
-
-    //     // it('should equal 10', () => {
-    //     //     const result = math.multiply(5, 2);
-    //     //     expect(result).to.equal(10);
-    //     // });
-
-    // });
 });

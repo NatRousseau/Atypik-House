@@ -97,3 +97,5 @@ require('./routes/reserveRoutes')(server);
 require('./routes/criteriaRoutes')(server);
 require('./routes/activityRoutes')(server);
 require('./routes/commentaryRoutes')(server);
+
+module.exports = server;
