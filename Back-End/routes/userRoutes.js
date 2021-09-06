@@ -18,17 +18,4 @@ module.exports = function (app) {
     app.route('/logout')
         .post(userController.deleteToken);
 
-    // app.route('/user')
-    //     .get(auth, userController.getUserProfile)
-    //     .delete(auth, userController.deleteUser);
-
-    // app.route('/user/email')
-    //     .put(auth, userController.updateUserMail);
-
-    // app.route('/user/password/reset')
-    //     .put(auth, userController.resetPassword);
-
-    // app.route('/user/password')
-    //     .put(userController.updateUserPassword);
-
 }

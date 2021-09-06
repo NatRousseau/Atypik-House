@@ -96,7 +96,7 @@ const clearTestUser = function(){
     return knex.del('usr_id')
     .from('public.users')
     .where('usr_mail',"unittest@gmail.com")
-}
+};
 // ============================ EXPORTS ================================//
 exports.createUser = createUser;
 
@@ -116,3 +116,4 @@ exports.getUserByPhone = getUserByPhone;
 
 exports.deleteUser = deleteUser;
 exports.clearTestUser = clearTestUser;
+

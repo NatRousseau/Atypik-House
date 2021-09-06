@@ -1,15 +1,10 @@
 //npm run test test/user.test.js
 
-// var newUser =require('../dummy/userDummy');
-// var User = require('../dummy/userDummy');
 const server = require ('../server');
 const chai  = require ( 'chai');
 const chaiHttp   = require ( 'chai-http');
 const assert = require('assert');
-const expect = require('chai').expect
-const request = require('supertest');
-const userController   = require ('../controllers/userController');
-const clearTestUser = require ('../services/user_services/clearTestUser')
+const user_services = require ('../services/user_services.ts');
 
 chai.use(chaiHttp);
 chai.should();
@@ -18,7 +13,15 @@ chai.should();
 
 describe('userController tests', () => {
 
-    clearTestUser();
+    describe("Clear if there's tests datas",  ()=> {
+        it("should clear test user", (done) => {
+            user_services.clearTestUser()
+            .then(function(result){
+                assert.ok(result);
+                done();
+            })
+        });
+    });
 
     describe("POST /register", () => {
         // Test to register a new user
@@ -31,14 +34,14 @@ describe('userController tests', () => {
                 usr_lastName: ""
             }
             chai.request(server)
-                 .post('/register')
-                 .send(newUser)
-                 .end((err, res) => {
-                     res.should.have.status(200);
-                     res.body.should.be.a('object');
-                     res.body.should.have.property('succes');
-                     done();
-                  });
+                .post('/register')
+                .send(newUser)
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property('succes');
+                    done();
+                });
          });
     });
 
@@ -51,15 +54,63 @@ describe('userController tests', () => {
                 usr_password: "Test1"
             }
             chai.request(server)
-                 .post('/login')
-                 .send(User)
-                 .end((err, res) => {
-                     res.should.have.status(200);
-                     res.body.should.be.a('object');
-                     res.body.should.have.property('succes');
-                     done();
-                  });
+                .post('/login')
+                .send(User)
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property('access_token');
+                    res.body.should.have.property('refresh_token');
+                    done();
+                });
          });
+    });
+
+
+    describe("POST /refresh", () => {
+        // Test to refresh token
+        it("should return a fresh access_token", (done) => {
+            let refresh={
+                "usr_refresh_token": ""
+            }
+            chai.request(server)
+                .post('/refresh')
+                .send(refresh)
+                .end((err, res) => {
+                    res.should.have.status(498);
+                    //res.body.should.be.a('object');
+                    //res.body.should.have.property('access_token');
+                    done();
+                });
+         });
+    });
+
+    // describe("POST /logout", () => {
+    //     // Test to logout an user
+    //     it("should logout an user", (done) => {
+    //         let refresh={
+    //             "usr_refresh_token": ""
+    //         }
+    //         chai.request(server)
+    //             .post('/logout')
+    //             .send(refresh)
+    //             .end((err, res) => {
+    //                 res.should.have.status(400);
+    //                 //res.body.should.be.a('object');
+    //                 //res.body.should.have.property('access_token');
+    //                 done();
+    //             });
+    //      });
+    // });
+
+    describe("Clear if there's tests datas",  ()=> {
+        it("should clear test user", (done) => {
+            user_services.clearTestUser()
+            .then(function(result){
+                assert.ok(result);
+                done();
+            })
+        });
     });
 
 
