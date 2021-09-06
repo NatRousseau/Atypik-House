@@ -331,7 +331,6 @@ module.exports = {
             function () {
                 reserveServices.cancelReserve(reserve)
                     .then(result => {
-                        console.log(result);
                         if (result[0]>1 ) {
                                 return res.status(200).json({'succes':'Réservations annulée.'});
                             }
