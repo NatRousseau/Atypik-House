@@ -30,6 +30,7 @@
     "chokidar": "^3.5.2",
     "creditcardpayments": "^1.0.3",
     "glob-parent": "^6.0.1",
+    "ngx-google-analytics": "^11.2.1",
     "ngx-paypal": "^8.0.0",
     "npm": "^7.19.1",
     "rxjs": "~6.6.0",
