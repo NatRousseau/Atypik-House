@@ -68,7 +68,7 @@ const getUserByPhone =  function (phone) {
 }; 
 
 const getUserByUpdateToken =  function (updateToken) {
-    return knex.select('usr_id','usr_mail').from('public.users').where('usr_refresh_token', updateToken)
+    return knex.select('usr_id','usr_mail','usr_rol_id').from('public.users').where('usr_refresh_token', updateToken)
 };  
 
 const getUserIsRegister = function(id,first,last){
