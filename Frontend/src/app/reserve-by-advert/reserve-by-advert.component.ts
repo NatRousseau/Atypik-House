@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CancelReserve } from '../models/Reserve/CancelReserve';
 import { ReserveReceive } from '../models/Reserve/ReserveReceive';
+import { AdvertsService } from '../_services/Adverts/adverts.service';
 import { ReserveService } from '../_services/Reserve/reserve.service';
 
 @Component({
@@ -20,10 +21,18 @@ export class ReserveByAdvertComponent implements OnInit {
     constructor(
         private rs: ReserveService,
         private route: ActivatedRoute,
-        private rt: Router
+        private rt: Router,
+        private adv: AdvertsService
     ) {}
     ngOnInit(): void {
         this.advId = this.route.snapshot.paramMap.get('adv');
+        this.adv.getAdverById(Number(this.advId)).then((data) => {
+            if (
+                Number(data.selectedAdvert[0].adv_usr_id) !== Number(this.usrId)
+            ) {
+                this.rt.navigate(['/home']);
+            }
+        });
         this.rs.getReservebyAdvert(this.advId, this.usrId).then((reserves) => {
             this.listReserves = reserves.userReserve;
             this.advName = this.listReserves[0].res_adv_name;
@@ -56,7 +65,7 @@ export class ReserveByAdvertComponent implements OnInit {
     deleteReserve(index) {
         let message = 'Voulez-vous vraiment annuler votre réservation ?';
         let resultat = window.confirm(message);
-        console.log(this.listReserves[0].res_adv_id);
+
         if (resultat) {
             let dateEnd: Date;
             let dateStart: Date;

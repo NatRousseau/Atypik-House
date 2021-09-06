@@ -24,13 +24,12 @@ describe('UserService', () => {
         let registerPromise = user;
         return registerPromise
             .then((result) => {
-                console.log(result);
                 expect(true).toBeTruthy();
                 done();
             })
             .catch((result) => {
                 expect(false).toBeTruthy();
-                console.log(result);
+
                 done();
             });
     });
