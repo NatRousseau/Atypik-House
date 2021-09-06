@@ -16,16 +16,21 @@
                         <mat-label>{{criteria.cri_name}}</mat-label>
                         <mat-slide-toggle (change)="onChange($event, criteria.cri_id)"></mat-slide-toggle>
                     </div>
-                    <button mat-raised-button style="background-color: #339e33; color: white; margin-top: 20px;" (click)="onSubmit()">
+                    <button mat-raised-button style="background-color: #339e33; color: white; margin-top: 20px;"
+                            (click)="onSubmit()">
                         Valider
                     </button>
                 </div>
             </div>
+            <button *ngIf="this.statusUser.isAuth" mat-raised-button routerLink="/NewAdvert" class="addAdvert-btn">
+                Déposer une
+                annonce
+            </button>
         </div>
     </div>
-    <button *ngIf="this.statusUser.isAuth" mat-raised-button routerLink="/NewAdvert" class="addAdvertbtn">Déposer une
-        annonce
-    </button>
+<!--    <button *ngIf="this.statusUser.isAuth" mat-raised-button routerLink="/NewAdvert" class="addAdvertbtn">Déposer une-->
+<!--        annonce-->
+<!--    </button>-->
 
 
     <div *ngFor="let advert of listAdverts; let i = index;">

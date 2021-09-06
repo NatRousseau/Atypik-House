@@ -35,7 +35,7 @@
     justify-content: flex-start;
     display: flex;
     flex-wrap: wrap;
-    margin: 6vh auto 4vh auto;
+    margin: 6vh auto 6vh auto;
 }
 
 .search-field {
@@ -52,7 +52,6 @@
     height: 6vh;
     margin-left: 4vw;
     font-weight: normal;
-    margin-top: 1vh;
     padding: 0 7px;
     color: #7D7D7D;
 }
@@ -168,14 +167,15 @@
     padding: 5px 10px;
 }
 
-.addAdvertbtn {
+.addAdvert-btn {
     background-color: #339e33;
-    display: flex;
-    width: auto;
-    margin-left: auto;
-    margin-right: auto;
+    border-radius: 10px;
+    width: 48vw;
+    height: 6vh;
+    margin-left: 4vw;
+    font-weight: normal;
+    padding: 0 7px;
     color: white;
-    margin-bottom: 4vh;
 }
 
 @media (min-width: 576px) {
@@ -225,17 +225,16 @@
         width: 80%;
     }
 
-
-    .search-field-group {
-        margin-bottom: 2vh;
-    }
-
     .search-field {
         width: 70%;
     }
 
     .search-btn {
         width: 15vw;
+    }
+
+    .addAdvert-btn {
+        width: 44vw;
     }
 }
 
@@ -258,6 +257,14 @@
     .search-field {
         width: 60%;
     }
+
+    .search-btn {
+        width: 21vw;
+    }
+
+    .addAdvert-btn {
+        width: 43vw;
+    }
 }
 
 @media (min-width: 1600px) {
@@ -267,5 +274,13 @@
 
     .annoucement-hr {
         width: 77%;
+    }
+
+    .search-btn {
+        width: 20vw;
+    }
+
+    .addAdvert-btn {
+        width: 39vw;
     }
 }
