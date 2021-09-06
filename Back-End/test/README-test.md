@@ -1,4 +1,5 @@
 Notes:
+npm run test
 
 -La majorité des tests au 06/09/2021 nécessitent une BDD de tests pour fonctionner et ainsi Moch des données ou utiliser des dummy.
 
