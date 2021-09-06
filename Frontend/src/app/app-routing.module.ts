@@ -9,6 +9,7 @@ import { ReserveByAdvertComponent } from './reserve-by-advert/reserve-by-advert.
 import { ReserveComponent } from './reserve/reserve.component';
 
 import { SearchComponent } from './search/search.component';
+import { UpdateAdvertComponent } from './update-advert/update-advert.component';
 import { connectionComponent } from './user-connection/connection.component';
 import { UserProfilComponent } from './user-profil/user-profil.component';
 import { registerComponent } from './user-register/register.component';
@@ -26,6 +27,7 @@ const routes: Routes = [
     { path: 'paiement/:id', component: PaiementComponent },
     { path: 'profil', component: UserProfilComponent },
     { path: 'reserveByAdvert/:adv', component: ReserveByAdvertComponent },
+    { path: 'updateAdvert/:id', component: UpdateAdvertComponent },
 ];
 
 @NgModule({

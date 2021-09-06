@@ -47,7 +47,7 @@ export class PaiementComponent implements OnInit {
         window.addEventListener('beforeunload', function (e) {
             let confirmationMessage = 'o/';
             e.returnValue = confirmationMessage;
-            console.log(e);
+
             return confirmationMessage;
         });
         let reserveCreated: Reserve = this.reserve.reserve;

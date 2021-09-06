@@ -7,6 +7,7 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LogUSer } from '../models/Users/LogUser';
+import { NavbarComponent } from '../navbar/navbar.component';
 import { StatusUser } from '../_services/User/statusUser';
 
 import { UserService } from '../_services/User/user.service';
@@ -26,7 +27,8 @@ export class connectionComponent implements OnInit {
         private fB: FormBuilder,
         public auth: UserService,
         private rt: Router,
-        private statusUser: StatusUser
+        private statusUser: StatusUser,
+        public nv: NavbarComponent
     ) {}
 
     ngOnInit(): void {
@@ -58,7 +60,11 @@ export class connectionComponent implements OnInit {
                 localStorage.setItem('access_token', userLog.access_token);
                 localStorage.setItem('refresh_token', userLog.refresh_token);
                 this.isAuth = true;
+                this.nv.firstName = userLog.usr_firstName;
+                this.nv.lastName = userLog.usr_lastName;
                 this.statusUser.isAuth = true;
+                this.statusUser.firstName = userLog.usr_firstName;
+                this.statusUser.lastName = userLog.usr_lastName;
                 this.rt.navigate(['/']);
             } else if (userLog.error.length > 0) {
                 this.errorWhenLogin = true;

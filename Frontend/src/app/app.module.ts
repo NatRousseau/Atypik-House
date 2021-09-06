@@ -67,6 +67,7 @@ import { UserProfilComponent } from './user-profil/user-profil.component';
 import { UserAdvertsComponent } from './user-adverts/user-adverts.component';
 import { UserReservesComponent } from './user-reserves/user-reserves.component';
 import { ReserveByAdvertComponent } from './reserve-by-advert/reserve-by-advert.component';
+import { UpdateAdvertComponent } from './update-advert/update-advert.component';
 @NgModule({
     declarations: [
         AppComponent,
@@ -85,6 +86,7 @@ import { ReserveByAdvertComponent } from './reserve-by-advert/reserve-by-advert.
         UserAdvertsComponent,
         UserReservesComponent,
         ReserveByAdvertComponent,
+        UpdateAdvertComponent,
     ],
     imports: [
         FontAwesomeModule,
@@ -127,6 +129,7 @@ import { ReserveByAdvertComponent } from './reserve-by-advert/reserve-by-advert.
     providers: [
         StatusUser,
         ReserveCreated,
+        NavbarComponent,
         { provide: MAT_DATE_LOCALE, useValue: 'fr-FR' },
     ],
     bootstrap: [AppComponent],
