@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Advert } from 'src/app/models/Adverts/Advert';
+import { AdvertDelete } from 'src/app/models/Adverts/AdvertDelete';
 import { AdvertSet } from 'src/app/models/Adverts/AdvertSet';
 import { AdvertUpdate } from 'src/app/models/Adverts/AdvertUpdate';
 import { environment } from 'src/environments/environment';
@@ -105,7 +106,6 @@ export class AdvertsService {
     }
 
     async updateAdvert(advert: AdvertUpdate) {
-        console.log('test', advert);
         const requestOptions = {
             method: 'PUT',
             headers: {
@@ -131,6 +131,28 @@ export class AdvertsService {
         };
         const response = await fetch(
             environment.API_URL + '/updateAdvert',
+            requestOptions
+        );
+        const data = await response.json();
+        return data;
+    }
+
+    async deleteAdvert(advert: AdvertDelete) {
+        const requestOptions = {
+            method: 'DELETE',
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('access_token'),
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+            },
+
+            body: JSON.stringify({
+                adv_id: advert.adv_id,
+                adv_usr_id: advert.adv_usr_id,
+            }),
+        };
+        const response = await fetch(
+            environment.API_URL + '/deleteAdvert',
             requestOptions
         );
         const data = await response.json();

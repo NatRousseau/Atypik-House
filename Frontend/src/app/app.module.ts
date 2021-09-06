@@ -71,6 +71,7 @@ import {UpdateAdvertComponent} from './update-advert/update-advert.component';
 
 //==============================    GOOGLE ANALYTICS   =========================================//
 import {NgxGoogleAnalyticsModule, NgxGoogleAnalyticsRouterModule} from 'ngx-google-analytics';
+import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 
 @NgModule({
     declarations: [
@@ -91,6 +92,7 @@ import {NgxGoogleAnalyticsModule, NgxGoogleAnalyticsRouterModule} from 'ngx-goog
         UserReservesComponent,
         ReserveByAdvertComponent,
         UpdateAdvertComponent,
+        AdminPanelComponent,
     ],
     imports: [
         NgxGoogleAnalyticsModule.forRoot('G-E4Z4HHQCSC'),
