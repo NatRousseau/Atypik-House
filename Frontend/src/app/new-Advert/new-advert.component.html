@@ -8,7 +8,7 @@
                 <input matInput placeholder="EX: Tipi au bord de la rivière" formControlName="titre" required>
 
             </mat-form-field>
-            <div class="error-input" *ngIf="NewAdvertForm.get('titre').errors && 
+            <div class="error-input" *ngIf="NewAdvertForm.get('titre').errors &&
             NewAdvertForm.get('titre').hasError('required') && NewAdvertForm.get('titre').touched">Aucun titre saisi
             </div>
 
@@ -17,19 +17,19 @@
                 <input matInput placeholder="EX: Tipi" formControlName="type" required>
 
             </mat-form-field>
-            <div class="error-input" *ngIf="NewAdvertForm.get('type').errors && 
+            <div class="error-input" *ngIf="NewAdvertForm.get('type').errors &&
             NewAdvertForm.get('type').hasError('required') && NewAdvertForm.get('type').touched">Aucun type saisi
             </div>
             <mat-form-field appearance="outline">
-                <mat-label>Nombre maximum de locataire</mat-label>
+                <mat-label>Nombre maximum de locataire(s)</mat-label>
                 <input matInput maxlength="3" placeholder="Ex: 5" formControlName="max" required>
 
             </mat-form-field>
 
-            <div class="error-input" *ngIf="NewAdvertForm.get('max').errors && 
+            <div class="error-input" *ngIf="NewAdvertForm.get('max').errors &&
             NewAdvertForm.get('max').hasError('required')  && NewAdvertForm.get('max').touched">Aucun nombre saisi
             </div>
-            <div class="error-input" *ngIf="NewAdvertForm.get('max').errors && 
+            <div class="error-input" *ngIf="NewAdvertForm.get('max').errors &&
             !NewAdvertForm.get('max').hasError('required')  && NewAdvertForm.get('max').touched"> Veuillez saisir
                 uniquement des chiffres
             </div>
@@ -39,7 +39,7 @@
                 <input matInput placeholder="EX: 10 rue de la republique" formControlName="adress" required>
 
             </mat-form-field>
-            <div class="error-input" *ngIf="NewAdvertForm.get('adress').errors && 
+            <div class="error-input" *ngIf="NewAdvertForm.get('adress').errors &&
             NewAdvertForm.get('adress').hasError('required') && NewAdvertForm.get('adress').touched">Aucune adresse
                 saisi
             </div>
@@ -48,7 +48,7 @@
                 <input matInput placeholder="EX: Lyon" formControlName="city" required>
 
             </mat-form-field>
-            <div class="error-input" *ngIf="NewAdvertForm.get('city').errors && 
+            <div class="error-input" *ngIf="NewAdvertForm.get('city').errors &&
             NewAdvertForm.get('city').hasError('required') && NewAdvertForm.get('city').touched">Aucune ville saisi
             </div>
 
@@ -57,11 +57,11 @@
                 <input matInput maxlength="5" placeholder="EX: 69000" formControlName="adv_postal" required>
 
             </mat-form-field>
-            <div class="error-input" *ngIf="NewAdvertForm.get('adv_postal').errors && 
+            <div class="error-input" *ngIf="NewAdvertForm.get('adv_postal').errors &&
             NewAdvertForm.get('adv_postal').hasError('required') && NewAdvertForm.get('adv_postal').touched">Aucun code
                 postal saisi
             </div>
-            <div class="error-input" *ngIf="NewAdvertForm.get('adv_postal').errors && 
+            <div class="error-input" *ngIf="NewAdvertForm.get('adv_postal').errors &&
             !NewAdvertForm.get('adv_postal').hasError('required')  && NewAdvertForm.get('adv_postal').touched">
                 Veuillez saisir
                 uniquement des chiffres
@@ -72,11 +72,11 @@
                 <input matInput placeholder="EX: 35" formControlName="adv_price" required>
 
             </mat-form-field>
-            <div class="error-input" *ngIf="NewAdvertForm.get('adv_price').errors && 
+            <div class="error-input" *ngIf="NewAdvertForm.get('adv_price').errors &&
             NewAdvertForm.get('adv_price').hasError('required') && NewAdvertForm.get('adv_price').touched">Aucun prix
                 saisi
             </div>
-            <div class="error-input" *ngIf="NewAdvertForm.get('adv_price').errors && 
+            <div class="error-input" *ngIf="NewAdvertForm.get('adv_price').errors &&
             !NewAdvertForm.get('adv_price').hasError('required')  && NewAdvertForm.get('adv_price').touched">
                 Veuillez saisir
                 uniquement des chiffres
@@ -85,13 +85,13 @@
                 <mat-label>Description</mat-label>
                 <textarea style="resize: none;" matInput formControlName="describe"></textarea>
             </mat-form-field>
-            <div class="error-input" *ngIf="NewAdvertForm.get('describe').errors && 
+            <div class="error-input" *ngIf="NewAdvertForm.get('describe').errors &&
             NewAdvertForm.get('describe').hasError('required')  && NewAdvertForm.get('describe').touched">
                 Veuillez saisir
                 une description
             </div>
-            <mat-label>Disponibilité de l'annonce</mat-label>
-            <mat-slide-toggle formControlName="dispo">non disponible/disponible</mat-slide-toggle>
+            <mat-label>Visibilité de l'annonce</mat-label>
+            <mat-slide-toggle formControlName="dispo">non visible/visible</mat-slide-toggle>
 
 
             <div style="margin-left: 50px;">
