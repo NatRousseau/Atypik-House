@@ -14,7 +14,7 @@
         </button>
     </div>
 
-    <div style="display: flex">
+    <div style="display: flex; flex-direction: column">
         <div style="margin: 10px">
             <div class="description">
                 <h2>{{ advert[0].adv_name }}</h2>
@@ -36,12 +36,27 @@
                 <div *ngIf="mailVisible">Adresse mail: {{ advert[0].adv_usr_mail }}</div>
             </div>
 
-            <div><button *ngIf="!phoneVisible" (click)="setPhoneVisible()" mat-raised-button> Voir le numéro de
-                    téléphone</button>
+            <div>
+                <button *ngIf="!phoneVisible" (click)="setPhoneVisible()" mat-raised-button> Voir le numéro de
+                    téléphone
+                </button>
                 <div *ngIf="phoneVisible"> Numéro de téléphone : +33{{ advert[0].adv_usr_phone}}</div>
             </div>
-
-
+        </div>
+        <h2>Activitées à proximité:</h2>
+        <div style="overflow: auto">
+            <div class="activity-list">
+            <div *ngFor="let activity of listActivity; let i = index;" >
+                <div class="activity" routerLink="/detail/{{advert.adv_id}}">
+                    <img src="/assets/images/girl-918706_1920.jpg" class="activity-image" alt="">
+                    <div class="activity-presentation">
+                        <p class="activity-title">{{activity.act_name}}</p>
+                        <p class="activity-presentation-under">{{activity.act_adress}}, {{activity.act_city}} </p>
+                        <p class="activity-presentation-under">{{activity.act_describe}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
         </div>
     </div>
 

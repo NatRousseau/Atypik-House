@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Advert } from '../models/Adverts/Advert';
+import { Activity } from "../models/Activity/Activity";
 import { AdvertsService } from '../_services/Adverts/adverts.service';
 import { StatusUser } from '../_services/User/statusUser';
+import {ActivityService} from "../_services/Activity/activity.service";
 
 @Component({
     selector: 'app-details-announcement',
@@ -12,6 +14,7 @@ import { StatusUser } from '../_services/User/statusUser';
 export class DetailsAnnouncementComponent implements OnInit {
     id: string;
     advert: Advert;
+    listActivity: Activity[];
     mailVisible: boolean = false;
     phoneVisible: boolean = false;
     notOwner: boolean = true;
@@ -19,6 +22,7 @@ export class DetailsAnnouncementComponent implements OnInit {
         private route: ActivatedRoute,
         private rt: Router,
         private adv: AdvertsService,
+        private act: ActivityService,
         public statusUser: StatusUser
     ) {}
 
@@ -33,6 +37,9 @@ export class DetailsAnnouncementComponent implements OnInit {
             if (advUsrId === usrId) {
                 this.notOwner = false;
             }
+        });
+        this.act.getActivityById(Number(this.id)).then((data) => {
+            this.listActivity = data.selectedActivity;
         });
     }
 
