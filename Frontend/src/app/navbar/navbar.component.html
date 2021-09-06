@@ -4,17 +4,23 @@
             <mat-icon>menu</mat-icon>
         </button>
     </div>
-
-    <span class="menu-title" style="cursor: pointer;" routerLink="/"> AtypikHouse</span>
+    <div class="menu-icon">
+        <span class="menu-title" style="cursor: pointer;" routerLink="/"> AtypikHouse</span>
+        <div class="social-networks">
+            <a href=" https://www.instagram.com/atypikhouse.art/" target="_blank" class="instagram-btn desktop-menu">
+                <img src=" /assets/images/instagram.svg" class="instagram-img" style="margin-right: 10px;"
+                     alt="logo-instagram">
+            </a>
+            <a href="https://www.facebook.com/AtypikHouse-205167134864752/" target="_blank"
+               class="facebook-btn desktop-menu">
+                <img src=" /assets/images/facebook.svg" class="facebook-img" alt="logo-facebook">
+            </a>
+        </div>
+    </div>
 
     <span class="example-spacer"></span>
 
-    <a href=" https://www.instagram.com/atypikhouse.art/" target="_blank" class="instagram-btn desktop-menu">
-        <img src=" /assets/images/instagram.svg" class="instagram-img" style="margin-right: 10px;" alt="logo-instagram">
-    </a>
-    <a href="https://www.facebook.com/AtypikHouse-205167134864752/" target="_blank" class="facebook-btn desktop-menu">
-        <img src=" /assets/images/facebook.svg" class="facebook-img" alt="logo-facebook">
-    </a>
+
     <a mat-button routerLink="/" class="example-icon favorite-icon desktop-menu"
        aria-label="Example icon-button with heart icon">
         Accueil
@@ -43,7 +49,6 @@
     <!--    </a>-->
 
     <mat-list-item [matMenuTriggerFor]="menu" *ngIf="this.statusUser.isAuth" class="sidebar-item">
-        <a class="example-icon favorite-icon desktop-menu account-menu" matline>{{ firstName }} {{lastName}}</a>
         <img class="account-menu-img desktop-menu" src=" /assets/images/User.png" alt="">
     </mat-list-item>
     <mat-menu #menu="matMenu" class="sidebar-item-menu desktop-menu" style="margin-left: 4vw">

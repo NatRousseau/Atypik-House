@@ -16,7 +16,6 @@
 
 .instagram-btn {
     width: 20px;
-    margin-left: 2vw;
     margin-right: 10px;
 }
 
@@ -57,6 +56,17 @@ mat-sidenav {
         display: none;
     }
 
+    .menu-icon {
+        display: flex;
+        flex-direction: column;
+        margin-top: 4vh;
+    }
+
+    .social-networks {
+        display: flex;
+        flex-direction: row;
+    }
+
     .menu-title {
         margin-left: 0%;
     }
@@ -75,15 +85,8 @@ mat-sidenav {
         size: 25px;
     }
 
-    .account-menu {
-        color: #339e33;
-        cursor: pointer;
-        font-size: 14px;
-    }
-
     .account-menu-img {
-        width: 12%;
-        //margin-top: -5px;
+        width: 60%;
         margin-left: 5px;
     }
 }
