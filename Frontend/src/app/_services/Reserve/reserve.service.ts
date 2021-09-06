@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
+import { CancelReserve } from 'src/app/models/Reserve/CancelReserve';
 import { Reserve } from 'src/app/models/Reserve/Reserve';
+import { ValidReserve } from 'src/app/models/Reserve/validReserve';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -59,24 +61,112 @@ export class ReserveService {
         return data;
     }
 
-    async deleteReserve(resId: number) {
+    async getUserReserve(id: string, mail: string) {
         const requestOptions = {
             method: 'POST',
             headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('access_token'),
                 'Content-Type': 'application/json',
-                Accept: 'application/json',
                 'Access-Control-Allow-Origin': '*',
             },
             body: JSON.stringify({
-                res_id: resId,
+                res_usr_id: id,
+                res_usr_mail: mail,
             }),
         };
 
         const response = await fetch(
+            environment.API_URL + '/getUserReserve',
+            requestOptions
+        );
+        const data = await response.json();
+        return data;
+    }
+    async getReservebyAdvert(advId: string, usrId: string) {
+        const requestOptions = {
+            method: 'POST',
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('access_token'),
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+            },
+            body: JSON.stringify({
+                adv_id: advId,
+                usr_id: usrId,
+            }),
+        };
+        const response = await fetch(
+            environment.API_URL + '/getReservebyAdvert',
+            requestOptions
+        );
+        const data = await response.json();
+        return data;
+    }
+
+    async cancelReserve(cancelReserve: CancelReserve) {
+        const requestOptions = {
+            method: 'DELETE',
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('access_token'),
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+            },
+            body: JSON.stringify({
+                res_usr_id: cancelReserve.res_usr_id,
+                res_adv_id: cancelReserve.res_adv_id,
+                res_date_start: cancelReserve.res_date_start,
+                res_date_end: cancelReserve.res_date_end,
+            }),
+        };
+        const response = await fetch(
+            environment.API_URL + '/cancelReserve',
+            requestOptions
+        );
+        const data = await response.json();
+        return data;
+    }
+    async deleteReserve(cancelReserve: CancelReserve) {
+        const requestOptions = {
+            method: 'DELETE',
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('access_token'),
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+            },
+            body: JSON.stringify({
+                res_id: cancelReserve.res_id,
+                res_adv_id: cancelReserve.res_adv_id,
+                res_usr_id: cancelReserve.res_usr_id,
+            }),
+        };
+        const response = await fetch(
             environment.API_URL + '/deleteReserve',
             requestOptions
         );
+        const data = await response.json();
+        return data;
+    }
 
+    async validReserve(validReserve: ValidReserve) {
+        const requestOptions = {
+            method: 'PUT',
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('access_token'),
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+            },
+            body: JSON.stringify({
+                res_usr_id: validReserve.res_usr_id,
+                res_adv_id: validReserve.res_adv_id,
+                res_date_start: validReserve.res_date_start,
+                res_date_end: validReserve.res_date_end,
+                res_payment: validReserve.res_payment,
+            }),
+        };
+        const response = await fetch(
+            environment.API_URL + '/validReserve',
+            requestOptions
+        );
         const data = await response.json();
         return data;
     }

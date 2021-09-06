@@ -1,0 +1,16 @@
+export interface ReserveReceive {
+    res_id: number;
+    res_usr_id: number;
+    res_adv_id: number;
+    res_adv_name: string;
+    res_date_start: Date;
+    res_date_end: Date;
+    res_date_start_formated: string;
+    res_date_end_formated: string;
+    res_adv_price: number;
+    res_adv_tenants: number;
+    res_usr_mail: string;
+    res_usr_phone: string;
+    res_del_tenant: boolean;
+    res_del_owner: boolean;
+}

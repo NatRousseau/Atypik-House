@@ -38,6 +38,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavbarComponent } from './navbar/navbar.component';
+import { SidenavListComponent } from './navbar/sidenav-list/sidenav-list.component';
 
 import { RouterModule, Routes } from '@angular/router';
 
@@ -61,10 +62,16 @@ import { ReserveService } from './_services/Reserve/reserve.service';
 import { ReserveCreated } from './_services/Reserve/reserveCreated';
 import { NgxPayPalModule } from 'ngx-paypal';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
+import { UserProfilComponent } from './user-profil/user-profil.component';
+import { UserAdvertsComponent } from './user-adverts/user-adverts.component';
+import { UserReservesComponent } from './user-reserves/user-reserves.component';
+import { ReserveByAdvertComponent } from './reserve-by-advert/reserve-by-advert.component';
 @NgModule({
     declarations: [
         AppComponent,
         NavbarComponent,
+        SidenavListComponent,
         connectionComponent,
         registerComponent,
         HomeComponent,
@@ -73,6 +80,11 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
         NewAdvertComponent,
         ReserveComponent,
         PaiementComponent,
+
+        UserProfilComponent,
+        UserAdvertsComponent,
+        UserReservesComponent,
+        ReserveByAdvertComponent,
     ],
     imports: [
         FontAwesomeModule,

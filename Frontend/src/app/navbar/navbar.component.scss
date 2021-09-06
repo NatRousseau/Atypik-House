@@ -1,13 +1,108 @@
-.example-spacer {
-    flex: 1 1 auto;
-}
-
 .toolbar {
     background-color: rgba(255, 255, 255, 0);
     color: white;
     size: 25px;
 }
-.logoFacebook {
-    width: 25px;
-    height: 25px;
+
+.facebook-btn {
+    width: 20px;
+    margin-left: 10px;
+    //margin-right: 2vw;
+}
+
+.facebook-img {
+    width: 100%;
+}
+
+.instagram-btn {
+    width: 20px;
+    margin-right: 10px;
+}
+
+.instagram-img {
+    width: 100%;
+}
+
+mat-sidenav-container, mat-sidenav-content, mat-sidenav {
+    height: 100%;
+}
+
+mat-sidenav {
+    width: 100%;
+}
+
+.menu-title {
+    margin-left: 23%;
+}
+
+.desktop-menu {
+    display: none;
+}
+
+@media (min-width: 400px) {
+    .menu-title {
+        margin-left: 29%;
+    }
+}
+
+@media (min-width: 500px) {
+    .menu-title {
+        margin-left: 31%;
+    }
+}
+
+@media (min-width: 576px) {
+    .sidebar-button {
+        display: none;
+    }
+
+    .menu-icon {
+        display: flex;
+        flex-direction: column;
+        margin-top: 4vh;
+    }
+
+    .social-networks {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .menu-title {
+        margin-left: 0%;
+    }
+
+    .desktop-menu {
+        display: inline-block;
+    }
+
+    .example-spacer {
+        flex: 1 1 auto;
+    }
+
+    .toolbar {
+        background-color: rgba(255, 255, 255, 0);
+        color: white;
+        size: 25px;
+    }
+
+    .account-menu-img {
+        width: 60%;
+        margin-left: 5px;
+    }
+}
+
+@media (min-width: 768px) {
+
+}
+
+@media (min-width: 992px) {
+
+}
+
+@media (min-width: 1200px) {
+
+}
+
+@media (min-width: 1600px) {
+
 }

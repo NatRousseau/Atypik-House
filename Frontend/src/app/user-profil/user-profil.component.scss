@@ -1,0 +1,139 @@
+@font-face {
+    font-family: "gothic_sans_ms";
+    src: url("/assets/Police_Ecriture/GOTHIC.TTF");
+}
+
+@font-face {
+    font-family: "gothic_bold";
+    src: url("/assets/Police_Ecriture/GOTHICB.TTF");
+}
+
+.example-container {
+    background-color: white;
+    height: fit-content;
+    width: 80%;
+    margin: auto;
+    border-radius: 15px;
+    margin-top: 2vh;
+    padding: 20px;
+}
+
+.annoucement-image {
+    width: 70px;
+}
+
+.account {
+    display: flex;
+    margin: 2vh 0;
+}
+
+.account-presentation {
+    line-height: 20px;
+    margin-left: 20px;
+    font-family: "gothic_sans_ms";
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+}
+
+.account-toolbar {
+    display: flex;
+    text-align: center;
+    width: 100%;
+    border-top: solid;
+    border-bottom: solid;
+    font-size: 12px;
+    font-family: "gothic_bolds";
+}
+
+.section-toolbar-clicked {
+    padding: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    color: white;
+    font-family: "gothic_sans_ms";
+    background-color: #2d2d2d;
+}
+
+.section-toolbar {
+    padding: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    font-family: "gothic_sans_ms";
+}
+
+.galery {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    width: 100%;
+    align-content: center;
+}
+
+.image {
+    width: 70%;
+    margin: 2vh auto;
+}
+
+@media (min-width: 576px) {
+    .example-container {
+        margin-top: 4vh;
+    }
+
+    .image {
+        width: 50%;
+    }
+
+}
+
+@media (min-width: 768px) {
+    .account {
+        margin-left: 4vw;
+    }
+
+    .account-toolbar {
+        font-size: 14px;
+    }
+
+    .galery {
+        flex-direction: row;
+    }
+
+    .image {
+        width: 40%;
+    }
+}
+
+@media (min-width: 992px) {
+
+    .example-container {
+        width: 80%;
+    }
+
+    .account-toolbar {
+        font-size: 16px;
+    }
+
+    .image {
+        width: 30%;
+    }
+
+}
+
+@media (min-width: 1200px) {
+
+    .account-toolbar {
+        font-size: 18px;
+    }
+
+    .image {
+        width: 22%;
+    }
+
+}
