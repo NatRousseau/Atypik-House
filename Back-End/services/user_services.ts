@@ -76,7 +76,7 @@ const getUserIsRegister = function(id,first,last){
 };
 
 const getUserIsLogin = function (mail){
-    return knex.select('usr_id','usr_password','usr_mail','usr_phone','usr_firstName','usr_lastName').from('public.users').where('usr_mail', mail)
+    return knex.select('usr_id','usr_password','usr_mail','usr_phone','usr_rol_id','usr_firstName','usr_lastName').from('public.users').where('usr_mail', mail)
 };
 
 // =========================    GET ADMIN ========================= //
