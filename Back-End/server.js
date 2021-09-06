@@ -21,7 +21,7 @@ server.get("/healthz", function(req, res) {
 
 // var cron = require('node-cron');
 
-// cron.schedule('* */10 * * * *', () => {
+// cron.schedule('* * */4 * * *', () => {
 //   var Hours =  new Date().getHours(); 
 //   var Mins  =  new Date().getMinutes();
 //   var currentDate= new Date();
@@ -41,9 +41,7 @@ server.get("/healthz", function(req, res) {
 //     return [year, month, day].join('-');
 //   }
 //   const currentTimer = currentDate +"-"+ Hours +":"+ Mins;
-//   cancelglobal(currentTimer);
 
-//   async function cancelglobal (currentTimer){
 //   reserveServices.cancelGlobalUnpaidReserve(currentTimer)
 //   .then(result => {
 //     if (result.length != 0) { 
@@ -56,10 +54,8 @@ server.get("/healthz", function(req, res) {
 //     }
 //     })
 //     .catch(error => {
-//       console.error(error);
-//       console.log({ 'error': 'Erreur dans l\'execution de la methode' });
+//         console.log({ 'error': 'Une réservation anormale a stopper la suppression.' });
 //     });
-//   }
 //   console.log('running a task every 4 hours to clear unresolved reserves');
 // });
 
@@ -98,5 +94,6 @@ server.listen(port, function() {
 require('./routes/userRoutes')(server);
 require('./routes/advertRoutes')(server);
 require('./routes/reserveRoutes')(server);
+require('./routes/criteriaRoutes')(server);
 require('./routes/activityRoutes')(server);
 require('./routes/commentaryRoutes')(server);
