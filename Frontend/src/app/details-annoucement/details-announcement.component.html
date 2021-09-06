@@ -30,7 +30,7 @@
                 Prix : {{ advert[0].adv_price }} €/ jour
             </h3>
             <h3>Capacité d'accueil: {{ advert[0].adv_tenants }} personne(s)</h3>
-            <h2>Informations du propriétaire:</h2>
+            <h2>Informations du propriétaire :</h2>
             <div>
                 <button *ngIf="!mailVisible" (click)="setMailVisible()" mat-raised-button> Voir l'adresse mail</button>
                 <div *ngIf="mailVisible">Adresse mail: {{ advert[0].adv_usr_mail }}</div>
@@ -43,20 +43,37 @@
                 <div *ngIf="phoneVisible"> Numéro de téléphone : +33{{ advert[0].adv_usr_phone}}</div>
             </div>
         </div>
-        <h2>Activitées à proximité:</h2>
+        <h2>Activités à proximité :</h2>
         <div style="overflow: auto">
             <div class="activity-list">
-            <div *ngFor="let activity of listActivity; let i = index;" >
-                <div class="activity" routerLink="/detail/{{advert.adv_id}}">
-                    <img src="/assets/images/girl-918706_1920.jpg" class="activity-image" alt="">
-                    <div class="activity-presentation">
-                        <p class="activity-title">{{activity.act_name}}</p>
-                        <p class="activity-presentation-under">{{activity.act_adress}}, {{activity.act_city}} </p>
-                        <p class="activity-presentation-under">{{activity.act_describe}}</p>
+                <div *ngFor="let activity of listActivity; let i = index;">
+                    <div class="activity">
+                        <img src="/assets/images/girl-918706_1920.jpg" class="activity-image" alt="">
+                        <div class="activity-presentation">
+                            <p class="activity-title">{{activity.act_name}}</p>
+                            <p class="activity-presentation-under">{{activity.act_adress}}, {{activity.act_city}} </p>
+                            <p class="activity-presentation-under">{{activity.act_describe}}</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+        <div>
+            <h2>Commentaires de l'annonce :</h2>
+            <form class="commentary-form" *ngIf="this.statusUser.isAuth" [formGroup]="NewCommentary" (ngSubmit)="onSubmit(NewCommentary.value)">
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Laisser un commentaitre</mat-label>
+                    <input type="tel" matInput formControlName="content">
+                    <mat-icon matSuffix>mode_edit</mat-icon>
+                </mat-form-field>
+                <button type="submit" class="submit-btn" mat-raised-button> Ajouter le commentaire </button>
+            </form>
+        </div>
+        <div class="commentary-list">
+            <div *ngFor="let commentary of listCommentary; let i = index;" class="commentary-presentation">
+                <p class="commentary-title">{{commentary.com_usr_firstName}} {{commentary.com_usr_lastName}}</p>
+                <p class="commentary-presentation-under">{{commentary.com_text}}</p>
+            </div>
         </div>
     </div>
 
