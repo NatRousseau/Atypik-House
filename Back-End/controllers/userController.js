@@ -138,6 +138,7 @@ module.exports = {
             }],
             function (result) {
                 var body = {
+                    'rol_id':result.usr_rol_id,
                     'access_token': result.usr_access_token,
                     'refresh_token': updateToken
                 };

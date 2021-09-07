@@ -68,7 +68,7 @@ const getUserByPhone =  function (phone) {
 }; 
 
 const getUserByUpdateToken =  function (updateToken) {
-    return knex.select('usr_id','usr_mail').from('public.users').where('usr_refresh_token', updateToken)
+    return knex.select('usr_id','usr_mail','usr_rol_id').from('public.users').where('usr_refresh_token', updateToken)
 };  
 
 const getUserIsRegister = function(id,first,last){
@@ -91,6 +91,12 @@ const deleteUser = function (user){
     .from('public.users')
     .where('usr_id',user.usr_id)
 };
+
+const clearTestUser = function(){
+    return knex.del('usr_id')
+    .from('public.users')
+    .where('usr_mail',"unittest@gmail.com")
+};
 // ============================ EXPORTS ================================//
 exports.createUser = createUser;
 
@@ -109,3 +115,5 @@ exports.getUserByMail = getUserByMail;
 exports.getUserByPhone = getUserByPhone;
 
 exports.deleteUser = deleteUser;
+exports.clearTestUser = clearTestUser;
+

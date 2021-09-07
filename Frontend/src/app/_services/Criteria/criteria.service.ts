@@ -47,6 +47,27 @@ export class CriteriaService {
         const data = await response.json();
         return data;
     }
+    async linkCriteriAdvert(linkCriteri) {
+        const requestOptions = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+            },
+            body: JSON.stringify({
+                ria_adv_id: linkCriteri.adv_id,
+                ria_cri_id: linkCriteri.cri_ids,
+                adv_cri_limit: linkCriteri.adv_cri_limit,
+            }),
+        };
+
+        const response = await fetch(
+            environment.API_URL + '/linkCriteriAdvert',
+            requestOptions
+        );
+        const data = await response.json();
+        return data;
+    }
 
     async createCriteria(criteria: CriteriaSet) {
         const requestOptions = {
