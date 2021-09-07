@@ -65,11 +65,9 @@ export class connectionComponent implements OnInit {
                 this.statusUser.isAuth = true;
                 this.statusUser.firstName = userLog.usr_firstName;
                 this.statusUser.lastName = userLog.usr_lastName;
-                console.log(userLog.usr_rol_id);
+
                 if (Number(userLog.usr_rol_id) === 1) {
-                    console.log("c'est un admin !!");
                     this.statusUser.isAdmin = true;
-                    console.log(this.statusUser.isAdmin);
                 }
 
                 this.rt.navigate(['/']);

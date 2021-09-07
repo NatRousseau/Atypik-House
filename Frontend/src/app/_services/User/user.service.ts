@@ -91,6 +91,7 @@ export class UserService {
         await fetch(environment.API_URL + '/logout', requestOptions);
         localStorage.clear();
         this.statusUser.isAuth = false;
+        this.statusUser.isAdmin = false;
         this.rt.navigate(['/']);
     }
 
