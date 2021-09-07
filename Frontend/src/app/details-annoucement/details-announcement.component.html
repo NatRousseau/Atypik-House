@@ -62,7 +62,7 @@
             <h2>Commentaires de l'annonce :</h2>
             <form class="commentary-form" *ngIf="this.statusUser.isAuth" [formGroup]="NewCommentary" (ngSubmit)="onSubmit(NewCommentary.value)">
                 <mat-form-field class="example-full-width" appearance="fill">
-                    <mat-label>Laisser un commentaite</mat-label>
+                    <mat-label>Laisser un commentaire</mat-label>
                     <input type="tel" matInput formControlName="content">
                     <mat-icon matSuffix>mode_edit</mat-icon>
                 </mat-form-field>
