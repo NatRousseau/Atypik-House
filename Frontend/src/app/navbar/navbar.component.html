@@ -9,10 +9,10 @@
         <div class="social-networks">
             <a href=" https://www.instagram.com/atypikhouse.art/" target="_blank" class="instagram-btn desktop-menu">
                 <img src=" /assets/images/instagram.svg" class="instagram-img" style="margin-right: 10px;"
-                     alt="logo-instagram">
+                    alt="logo-instagram">
             </a>
             <a href="https://www.facebook.com/AtypikHouse-205167134864752/" target="_blank"
-               class="facebook-btn desktop-menu">
+                class="facebook-btn desktop-menu">
                 <img src=" /assets/images/facebook.svg" class="facebook-img" alt="logo-facebook">
             </a>
         </div>
@@ -20,25 +20,26 @@
 
     <span class="example-spacer"></span>
 
-
+    <a mat-button *ngIf="this.statusUser.isAuth && this.statusUser.isAdmin" routerLink="/adminPanel"
+        class="example-icon favorite-icon desktop-menu" aria-label="Example icon-button with heart icon">
+        Gestion admin
+    </a>
     <a mat-button routerLink="/" class="example-icon favorite-icon desktop-menu"
-       aria-label="Example icon-button with heart icon">
+        aria-label="Example icon-button with heart icon">
         Accueil
     </a>
     <a mat-button routerLink="/search" class="example-icon favorite-icon desktop-menu"
-       aria-label="Example icon-button with heart icon">
+        aria-label="Example icon-button with heart icon">
         Logements
     </a>
 
 
     <a *ngIf="!this.statusUser.isAuth" mat-button routerLink="/connection"
-       class="example-icon favorite-icon desktop-menu"
-       aria-label="Example icon-button with heart icon">
+        class="example-icon favorite-icon desktop-menu" aria-label="Example icon-button with heart icon">
         se connecter
     </a>
     <a *ngIf="!this.statusUser.isAuth" mat-raised-button routerLink="/register"
-       class="example-icon favorite-icon desktop-menu"
-       aria-label="Example icon-button with heart icon">
+        class="example-icon favorite-icon desktop-menu" aria-label="Example icon-button with heart icon">
         S'inscrire
     </a>
 
@@ -59,5 +60,3 @@
     <!--        (click)="disconnect()">Déconnexion</a>-->
 
 </mat-toolbar>
-
-

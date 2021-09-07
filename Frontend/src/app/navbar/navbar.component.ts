@@ -17,8 +17,8 @@ export class NavbarComponent implements OnInit {
     @Output() public sidenavToggle = new EventEmitter();
 
     ngOnInit(): void {
-        this.firstName = localStorage.get('usr_firstName');
-        this.lastName = localStorage.get('usr_lastName');
+        this.firstName = localStorage.getItem('usr_firstName');
+        this.lastName = localStorage.getItem('usr_lastName');
     }
 
     public onToggleSidenav = () => {
