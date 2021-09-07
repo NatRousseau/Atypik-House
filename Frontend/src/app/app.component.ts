@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { StatusUser } from './_services/User/statusUser';
 import { UserService } from './_services/User/user.service';
-import{Router, NavigationEnd} from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 
 declare let gtag: Function;
 
@@ -13,17 +13,19 @@ declare let gtag: Function;
 export class AppComponent implements OnInit {
     title = 'atypikhouse';
 
-    constructor(private auth: UserService, private statusUser: StatusUser, public router: Router) {
-        this.router.events.subscribe(event => {
-         if(event instanceof NavigationEnd){
-             gtag('config', 'G-E4Z4HHQCSC',
-                   {
-                     'page_path': event.urlAfterRedirects
-                   }
-                  );
-          }
-       }
-    )}
+    constructor(
+        private auth: UserService,
+        private statusUser: StatusUser,
+        public router: Router
+    ) {
+        this.router.events.subscribe((event) => {
+            if (event instanceof NavigationEnd) {
+                gtag('config', 'G-E4Z4HHQCSC', {
+                    page_path: event.urlAfterRedirects,
+                });
+            }
+        });
+    }
 
     ngOnInit(): void {
         this.statusUser.isAuth = false;
@@ -41,6 +43,9 @@ export class AppComponent implements OnInit {
                         response.refresh_token
                     );
                     this.statusUser.isAuth = true;
+                    if (response.rol_id === 1) {
+                        this.statusUser.isAdmin = true;
+                    }
                 }
             });
         }

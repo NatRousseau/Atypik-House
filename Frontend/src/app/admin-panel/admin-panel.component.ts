@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Criteria } from '../models/Criteria/Criteria';
 import { CriteriaSet } from '../models/Criteria/CriteriaSet';
 import { CriteriaService } from '../_services/Criteria/criteria.service';
 import { SnackBarService } from '../_services/SnackBar/snack-bar.service';
+import { StatusUser } from '../_services/User/statusUser';
 
 @Component({
     selector: 'app-admin-panel',
@@ -18,12 +20,18 @@ export class AdminPanelComponent implements OnInit {
     constructor(
         public FB: FormBuilder,
         private snackbar: SnackBarService,
-        private cs: CriteriaService
+        private cs: CriteriaService,
+        public us: StatusUser,
+        public rt: Router
     ) {}
 
     criteriaNames: string[] = [];
 
     ngOnInit(): void {
+        if (this.us.isAdmin) {
+        } else {
+            this.rt.navigate(['/home']);
+        }
         this.cs.getCriteria().then((data) => {
             this.criteriasList = data.result;
 
