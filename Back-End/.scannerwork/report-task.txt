@@ -1,0 +1,6 @@
+projectKey=AtypikHouse_back
+serverUrl=https://sonarqube.nathan-rousseau.fr
+serverVersion=8.9.2.46101
+dashboardUrl=https://sonarqube.nathan-rousseau.fr/dashboard?id=AtypikHouse_back
+ceTaskId=AXxgQ8Vunn5lz5wxm5iF
+ceTaskUrl=https://sonarqube.nathan-rousseau.fr/api/ce/task?id=AXxgQ8Vunn5lz5wxm5iF
