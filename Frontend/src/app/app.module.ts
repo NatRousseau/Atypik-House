@@ -102,7 +102,7 @@ import { AdminPanelComponent } from './admin-panel/admin-panel.component';
         MatDatepickerModule,
         MatNativeDateModule,
         ReactiveFormsModule,
-        BrowserModule,
+        BrowserModule.withServerTransition({ appId: 'serverApp' }),
         AppRoutingModule,
         BrowserAnimationsModule,
         MatButtonModule,

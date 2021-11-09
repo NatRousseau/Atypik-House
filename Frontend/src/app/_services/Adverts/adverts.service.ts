@@ -1,16 +1,17 @@
-import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { Advert } from 'src/app/models/Adverts/Advert';
-import { AdvertDelete } from 'src/app/models/Adverts/AdvertDelete';
-import { AdvertSet } from 'src/app/models/Adverts/AdvertSet';
-import { AdvertUpdate } from 'src/app/models/Adverts/AdvertUpdate';
-import { environment } from 'src/environments/environment';
+import {Injectable} from '@angular/core';
+import {Router} from '@angular/router';
+import {Advert} from 'src/app/models/Adverts/Advert';
+import {AdvertDelete} from 'src/app/models/Adverts/AdvertDelete';
+import {AdvertSet} from 'src/app/models/Adverts/AdvertSet';
+import {AdvertUpdate} from 'src/app/models/Adverts/AdvertUpdate';
+import {environment} from 'src/environments/environment';
 
 @Injectable({
     providedIn: 'root',
 })
 export class AdvertsService {
-    constructor(public rt: Router) {}
+    constructor(public rt: Router) {
+    }
 
     async getAdvertsByTimestamp() {
         const requestOptions = {
@@ -18,6 +19,9 @@ export class AdvertsService {
             headers: {
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods':
+                    'GET, POST, PUT, DELETE, OPTIONS',
+
             },
             body: JSON.stringify({
                 page: 10,
@@ -51,6 +55,7 @@ export class AdvertsService {
         const data = await response.json();
         return data;
     }
+
     async getUserAdvert(id: string) {
         const requestOptions = {
             method: 'POST',

@@ -36,7 +36,7 @@ services:
     build:
       context: Frontend
     ports:
-      - 49176:80
+      - 49176:4000
     volumes:
       - ./Frontend:/project
       - ./Frontend/package.json:/project/package.json
