@@ -10,6 +10,25 @@ const port =  process.env.PORT || 4500 ;
 server.use(morgan("common"));
 // --------------- HealthcheckDocker ---------------
 
+const Sentry = require("@sentry/node");
+// or use es6 import statements
+// import * as Sentry from '@sentry/node';
+
+const Tracing = require("@sentry/tracing");
+// or use es6 import statements
+// import * as Tracing from '@sentry/tracing';
+
+Sentry.init({
+  dsn: "http://eba994b968404e9eb11db412344c0904@whyz-trap.fr:9000/7",
+
+  // Set tracesSampleRate to 1.0 to capture 100%
+  // of transactions for performance monitoring.
+  // We recommend adjusting this value in production
+  tracesSampleRate: 1.0,
+});
+
+// --------------- HealthcheckDocker ---------------
+
 server.get("/healthz", function(req, res) {
   // do app logic here to determine if app is truly healthy
   // you should return 200 if healthy, and anything else will fail
@@ -22,7 +41,7 @@ server.get("/healthz", function(req, res) {
 // var cron = require('node-cron');
 
 // cron.schedule('* * */4 * * *', () => {
-//   var Hours =  new Date().getHours(); 
+//   var Hours =  new Date().getHours();
 //   var Mins  =  new Date().getMinutes();
 //   var currentDate= new Date();
 //   currentDate = formatDate(currentDate);
@@ -33,9 +52,9 @@ server.get("/healthz", function(req, res) {
 //         day = '' + date.getDate(),
 //         year = date.getFullYear();
 
-//     if (month.length < 2) 
+//     if (month.length < 2)
 //         month = '0' + month;
-//     if (day.length < 2) 
+//     if (day.length < 2)
 //         day = '0' + day;
 
 //     return [year, month, day].join('-');
@@ -44,9 +63,9 @@ server.get("/healthz", function(req, res) {
 
 //   reserveServices.cancelGlobalUnpaidReserve(currentTimer)
 //   .then(result => {
-//     if (result.length != 0) { 
+//     if (result.length != 0) {
 //       console.log({'succes': 'Suppresion de :',result});
-//       //L'affichage des "result" est temporaire, cela sert à titre de benchmark à détecter 
+//       //L'affichage des "result" est temporaire, cela sert à titre de benchmark à détecter
 //       //s\'il y aune faille récurrente qui permettrait des réservations non payés.
 //       //Cela permete aussi déviter de surcharger la BDD de datas inutiles.
 //     } else {

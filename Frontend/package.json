@@ -31,6 +31,8 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
     "@nguniversal/express-engine": "^12.1.0",
+    "@sentry/angular": "^6.15.0",
+    "@sentry/tracing": "^6.15.0",
     "angular-material": "^1.2.2",
     "bootstrap": "^5.0.2",
     "chokidar": "^3.5.2",

@@ -1,7 +1,11 @@
 //=============================== ANGULAR ========================================//
 
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import {APP_INITIALIZER, ErrorHandler, NgModule} from '@angular/core';
+
+//============================== SENTRY ==============================//
+import {Router} from "@angular/router";
+import * as Sentry from "@sentry/angular";
 
 //============================== ANGULAR - MATERIAL ==============================//
 
@@ -69,7 +73,7 @@ import {UserReservesComponent} from './user-reserves/user-reserves.component';
 import {ReserveByAdvertComponent} from './reserve-by-advert/reserve-by-advert.component';
 import {UpdateAdvertComponent} from './update-advert/update-advert.component';
 
-import { AdminPanelComponent } from './admin-panel/admin-panel.component';
+import {AdminPanelComponent} from './admin-panel/admin-panel.component';
 
 @NgModule({
     declarations: [
@@ -98,7 +102,7 @@ import { AdminPanelComponent } from './admin-panel/admin-panel.component';
         MatDatepickerModule,
         MatNativeDateModule,
         ReactiveFormsModule,
-        BrowserModule.withServerTransition({ appId: 'serverApp' }),
+        BrowserModule.withServerTransition({appId: 'serverApp'}),
         AppRoutingModule,
         BrowserAnimationsModule,
         MatButtonModule,
@@ -135,6 +139,23 @@ import { AdminPanelComponent } from './admin-panel/admin-panel.component';
         ReserveCreated,
         NavbarComponent,
         {provide: MAT_DATE_LOCALE, useValue: 'fr-FR'},
+        {
+            provide: ErrorHandler,
+            useValue: Sentry.createErrorHandler({
+                showDialog: true,
+            }),
+        },
+        {
+            provide: Sentry.TraceService,
+            deps: [Router],
+        },
+        {
+            provide: APP_INITIALIZER,
+            useFactory: () => () => {
+            },
+            deps: [Sentry.TraceService],
+            multi: true,
+        },
     ],
     bootstrap: [AppComponent],
 })
