@@ -69,8 +69,6 @@ import {UserReservesComponent} from './user-reserves/user-reserves.component';
 import {ReserveByAdvertComponent} from './reserve-by-advert/reserve-by-advert.component';
 import {UpdateAdvertComponent} from './update-advert/update-advert.component';
 
-//==============================    GOOGLE ANALYTICS   =========================================//
-import {NgxGoogleAnalyticsModule, NgxGoogleAnalyticsRouterModule} from 'ngx-google-analytics';
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 
 @NgModule({
@@ -95,8 +93,6 @@ import { AdminPanelComponent } from './admin-panel/admin-panel.component';
         AdminPanelComponent,
     ],
     imports: [
-        NgxGoogleAnalyticsModule.forRoot('G-E4Z4HHQCSC'),
-        NgxGoogleAnalyticsRouterModule,
         FontAwesomeModule,
         NgxPayPalModule,
         MatDatepickerModule,
